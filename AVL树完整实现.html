@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。 AVL树从入门到入土（B站视频 “看完还不懂可以选择弃疗” ） 下面步入正题：  AVL树基本概念  中文名称：平衡二叉树 结构特点：树中的任意节点的左右子树的高度之差不超过1的二叉搜索树 实现核心操作：查询、插入、删除、旋转 时间复杂度：查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVL树完整实现">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;AVL%E6%A0%91%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0.html">
+<meta property="og:site_name" content="信号太难了">
+<meta property="og:description" content="注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。 AVL树从入门到入土（B站视频 “看完还不懂可以选择弃疗” ） 下面步入正题：  AVL树基本概念  中文名称：平衡二叉树 结构特点：树中的任意节点的左右子树的高度之差不超过1的二叉搜索树 实现核心操作：查询、插入、删除、旋转 时间复杂度：查询">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;posts&#x2F;AVL&#x2F;AVL1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;posts&#x2F;AVL&#x2F;AVL2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;posts&#x2F;AVL&#x2F;AVL3.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;posts&#x2F;AVL&#x2F;AVL4.png">
+<meta property="og:updated_time" content="2019-11-01T16:48:02.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;posts&#x2F;AVL&#x2F;AVL1.png">
+  <link rel="canonical" href="http://yoursite.com/AVL%E6%A0%91%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>AVL树完整实现 | 信号太难了</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">信号太难了</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一切热爱都值得被坚持下去</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/AVL%E6%A0%91%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="高物终结者">
+      <meta itemprop="description" content="仙女是最最最最可爱的女孩纸❤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="信号太难了">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AVL树完整实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-27 20:00:43" itemprop="dateCreated datePublished" datetime="2019-10-27T20:00:43+08:00">2019-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-02 00:48:02" itemprop="dateModified" datetime="2019-11-02T00:48:02+08:00">2019-11-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。<br />
+<a href="https://b23.tv/av51157423/p1" target="_blank" rel="noopener">AVL树从入门到入土（B站视频 “看完还不懂可以选择弃疗” ）</a></p>
+<p>下面步入正题：</p>
+<h2 id="avl树基本概念"><a class="markdownIt-Anchor" href="#avl树基本概念"></a> AVL树基本概念</h2>
+<ul>
+<li>中文名称：平衡二叉树</li>
+<li>结构特点：树中的任意节点的左右子树的高度之差不超过1的<strong>二叉搜索树</strong></li>
+<li>实现核心操作：查询、插入、删除、旋转</li>
+<li>时间复杂度：查询、插入、删除的时间复杂度均为O(logn)</li>
+</ul>
+<h2 id="avl模块化实现"><a class="markdownIt-Anchor" href="#avl模块化实现"></a> AVL模块化实现</h2>
+<h3 id="结构体声明"><a class="markdownIt-Anchor" href="#结构体声明"></a> 结构体声明</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AVLNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="keyword">int</span> balance;</span><br><span class="line">    AVLNode* left;</span><br><span class="line">    AVLNode* right;</span><br><span class="line">    AVLNode* parent;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AVLTree</span>&#123;</span></span><br><span class="line">    AVLNode* root;</span><br><span class="line">&#125;tree;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>平衡因子BF（Balanced Factor）:该结点的左子树与右子树的高度之差的值。在每个节点中都要附有这样一个标签。</li>
+<li>平衡的识别条件：根据AVL的定义，树中的任意节点的左右子树的高度之差不超过 1。所以，AVL树中的任意结点的平衡因子只可能是：<br />
+① -1（右子树高于左子树）<br />
+② 0 （左右子树高度相等）<br />
+③ 1 （左子树高于右子树）<br />
+如果因为插入新的节点或删除某一个节点使某个其他节点的BF值变为-2或2，则视为当前状态为不平衡的状态，那么就要通过旋转操作来使其恢复平衡。<br />
+那么接下来获取高度的方法和二叉搜索树是一样的。</li>
+</ul>
+<h3 id="二叉排序树基本操作"><a class="markdownIt-Anchor" href="#二叉排序树基本操作"></a> 二叉排序树基本操作</h3>
+<h4 id="递归查询即将要插入删除的节点位置"><a class="markdownIt-Anchor" href="#递归查询即将要插入删除的节点位置"></a> 递归查询即将要插入/删除的节点位置</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">select</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value==value)&#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value&gt;value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)</span><br><span class="line">            <span class="keyword">return</span> select(value,root-&gt;left);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value&lt;value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)</span><br><span class="line">            <span class="keyword">return</span> select(value,root-&gt;right);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>select函数要点：</p>
+<ul>
+<li>这段代码select函数将插入和删除功能中要进行的递归查询操作封装在了一起</li>
+<li>考虑空树情况，返回值为0</li>
+<li>如果value参数值与查询节点的value值相等，返回该节点。这部操作是为删除操作服务的。</li>
+<li>如果value参数值比查询节点值大/小，递归得到该节点的右/左节点的select函数返回值，如果被查询子节点为NULL，则返回该节点，在insert函数中生成新的子节点。</li>
+</ul>
+<h4 id="插入新节点"><a class="markdownIt-Anchor" href="#插入新节点"></a> 插入新节点</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    AVLNode* node=select(value,root); <span class="comment">// 找到即将被插入的目标节点</span></span><br><span class="line">    <span class="keyword">if</span>(node==<span class="number">0</span>)&#123;  <span class="comment">// 如果树为空</span></span><br><span class="line">        tree.root=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">        tree.root-&gt;value=value;</span><br><span class="line">        tree.root-&gt;left=tree.root-&gt;right=<span class="number">0</span>;</span><br><span class="line">        tree.root-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        tree.root-&gt;balance=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(node-&gt;value!=value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;value&gt;value)&#123;</span><br><span class="line">            node-&gt;left=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">            node-&gt;left-&gt;value=value;</span><br><span class="line">            node-&gt;left-&gt;left=node-&gt;left-&gt;right=<span class="number">0</span>;</span><br><span class="line">            node-&gt;left-&gt;parent=node;</span><br><span class="line">            node-&gt;left-&gt;balance=<span class="number">0</span>;</span><br><span class="line">            rebalance(node);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(node-&gt;value&lt;value)&#123;</span><br><span class="line">            node-&gt;right=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">            node-&gt;right-&gt;value=value;</span><br><span class="line">            node-&gt;right-&gt;left=node-&gt;right-&gt;right=<span class="number">0</span>;</span><br><span class="line">            node-&gt;right-&gt;parent=node;</span><br><span class="line">            node-&gt;right-&gt;balance=<span class="number">0</span>;</span><br><span class="line">            rebalance(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Insert函数要点：</p>
+<ul>
+<li>考虑空树情况</li>
+<li>通过递归比较树中的节点并插入（这里通过select函数找到被插入节点后再insert函数体内再次进行左右树判断之所以略显繁琐，是为了方便删除节点时复用select函数体内逻辑。）</li>
+<li>[AVL树] <strong>检测并恢复平衡</strong>：rebalance函数。</li>
+</ul>
+<h4 id="删除某一节点"><a class="markdownIt-Anchor" href="#删除某一节点"></a> 删除某一节点</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    AVLNode* node=select(value,root);</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;value==value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left&amp;&amp;node-&gt;right)&#123;</span><br><span class="line">            delete_Twochild(node);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            delete_NotTwochild(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>delete函数要点：</p>
+<ul>
+<li>通过select函数递归查找被删除节点，节省效率。</li>
+<li>考虑被删除节点子树个数的情况：
+<ol>
+<li>有两个子树</li>
+<li>有一个或没有子树</li>
+</ol>
+</li>
+</ul>
+<h5 id="被删除节点有一个子树或没有子树的情况"><a class="markdownIt-Anchor" href="#被删除节点有一个子树或没有子树的情况"></a> 被删除节点有一个子树或没有子树的情况</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete_NotTwochild</span><span class="params">(AVLNode* node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;parent==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">            tree.root=node-&gt;left;</span><br><span class="line">            node-&gt;left-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            tree.root=node-&gt;right;</span><br><span class="line">            node-&gt;right-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;parent-&gt;left==node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                node-&gt;parent-&gt;left=node-&gt;left;</span><br><span class="line">                node-&gt;left-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                node-&gt;parent-&gt;left=node-&gt;right;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right)</span><br><span class="line">                    node-&gt;right-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                node-&gt;parent-&gt;right=node-&gt;left;</span><br><span class="line">                node-&gt;left-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                node-&gt;parent-&gt;right=node-&gt;right;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right)</span><br><span class="line">                    node-&gt;right-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        rebalance(node-&gt;parent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>delete_NotTwochild函数要点：</p>
+<ul>
+<li>如果删除节点子节点数量为0或1,执行该函数。</li>
+<li>要考虑到被删除节点是根节点的情况，因为要避免root-&gt;parent为空指针的情况。</li>
+<li>通过node-&gt;parent-&gt;left == node的方式判断该节点是父节点的左孩子还是右孩子。</li>
+<li>先判断出该节点是其父亲节点的左子树还是右子树，方便在删除操作后将目标删除节点的父亲节点的孩子指针指向目标删除节点的孩子节点。</li>
+<li>然后判断目标删除节点的孩子在左子树还是右子树还是不存在。</li>
+<li>不管哪种情况，将目标删除节点的父亲节点的孩子指针指向目标删除节点的孩子节点。</li>
+<li>下一步要将目标删除节点的孩子节点的父亲指针指向删除节点的父亲节点，考虑到目标删除节点没有孩子的情况会导致node-&gt;left-&gt;parent出现空指针情况。所以要在这部之前先判断删除节点是否有孩子。</li>
+<li>[AVL树]完成二叉排序树的基本删除操作后，<strong>检查并恢复平衡</strong>，rebalance函数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void delete_Twochild(AVLNode* node)&#123;</span><br><span class="line">    AVLNode* after=getMin(node-&gt;right);</span><br><span class="line">    node-&gt;value=after-&gt;value;</span><br><span class="line">    delete_NotTwochild(after);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>delete_Twochild函数要点：</p>
+<ul>
+<li>如果删除节点有两个子节点，执行该函数。</li>
+<li>这种情况只需要在删除节点的右子树中通过getMin函数寻找到value值最小的节点，将删除节点的值与其互换，再将找到的最小value值的节点通过delete_NotTwochild函数删除。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct AVLNode* getMin(AVLNode* node)&#123;</span><br><span class="line">    if(node-&gt;left)</span><br><span class="line">        getMin(node-&gt;left);</span><br><span class="line">    else</span><br><span class="line">        return node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getMin函数要点：</p>
+<ul>
+<li>此函数目的在于寻找某一节点作为根节点的树中value值最小的节点。</li>
+<li>根据二叉排序树，递归查找最左侧节点即可。</li>
+</ul>
+<p>至此，二叉排序树基本操作介绍完成。</p>
+<h3 id="avl树旋转操作"><a class="markdownIt-Anchor" href="#avl树旋转操作"></a> AVL树旋转操作</h3>
+<h4 id="获取高度"><a class="markdownIt-Anchor" href="#获取高度"></a> 获取高度</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">height</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> rightheight = height(a-&gt;right);</span><br><span class="line">    <span class="keyword">int</span> leftheight = height(a-&gt;left);</span><br><span class="line">    <span class="keyword">return</span> rightheight &gt; leftheight ? (rightheight+<span class="number">1</span>) : (leftheight+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>height函数要点：</p>
+<ul>
+<li>考虑空树情况。</li>
+<li>分别递归查询左右子树高度，层层递归向上返回高度累加值。</li>
+</ul>
+<h4 id="检查并回复平衡"><a class="markdownIt-Anchor" href="#检查并回复平衡"></a> 检查并回复平衡</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rebalance</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;balance== <span class="number">-2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;left-&gt;balance &lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            a=turnRight(a);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a=turnLeftThenRight(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a-&gt;balance==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;right-&gt;balance&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            a=turnLeft(a);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a=turnRightThenLeft(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent)&#123;</span><br><span class="line">        rebalance(a-&gt;parent);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        tree.root=a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先通过setBalance函数刷新被检查节点的balance值。</li>
+<li>开始检查节点balance值：分为四种不平衡情况，对应以下四种旋转方案。</li>
+<li>递归向父亲节点递归检查，直到查到根节点。</li>
+</ul>
+<h4 id="刷新节点balance值"><a class="markdownIt-Anchor" href="#刷新节点balance值"></a> 刷新节点balance值</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setBalance</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a)</span><br><span class="line">        a-&gt;balance=height(a-&gt;right)-height(a-&gt;left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="单次旋转向左右旋转"><a class="markdownIt-Anchor" href="#单次旋转向左右旋转"></a> 单次旋转（向左/右旋转）</h4>
+<p><img src="/images/posts/AVL/AVL1.png" alt="Turn Left" /></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnLeft</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    AVLNode* b=a-&gt;right;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b-&gt;parent=a-&gt;parent;</span><br><span class="line">    a-&gt;parent=b;</span><br><span class="line">    a-&gt;right=b-&gt;left;</span><br><span class="line">    b-&gt;left=a;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;right!=<span class="number">0</span>)</span><br><span class="line">        a-&gt;right-&gt;parent=a;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    setBalance(b);</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/posts/AVL/AVL2.png" alt="Turn Right" /></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnRight</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    AVLNode* b=a-&gt;left;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b-&gt;parent=a-&gt;parent;</span><br><span class="line">    a-&gt;left=b-&gt;right;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;left!=<span class="number">0</span>)</span><br><span class="line">        a-&gt;left-&gt;parent=a;</span><br><span class="line">    a-&gt;parent=b;</span><br><span class="line">    b-&gt;right=a;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    setBalance(b);</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/posts/AVL/AVL3.jpg" alt="Turn Right 举例" /></p>
+<p>单次旋转函数要点：</p>
+<ul>
+<li>单次旋转函数触发条件：<br />
+Turn Right： node-&gt;balance = -2 &amp;&amp; node-&gt;left-&gt;balance &lt;= 0<br />
+Turn Left：node-&gt;balance = 2 &amp;&amp; node-&gt;right-&gt;balance &gt;= 0</li>
+<li>具体处理步骤：（Turn Right 举例）<br />
+① 把a节点以及他的右子树移除，a的左子节点b代替a的位置</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>②把b节点的右子树移动成为a节点的左子树</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a-&gt;left=b-&gt;right;</span><br><span class="line"> <span class="keyword">if</span>(a-&gt;left!=<span class="number">0</span>)</span><br><span class="line">     a-&gt;left-&gt;parent=a;</span><br></pre></td></tr></table></figure>
+<p>③让a节点成为b节点的右孩子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a-&gt;parent=b;</span><br><span class="line">b-&gt;right=a;</span><br></pre></td></tr></table></figure>
+<p>④刷新a,b节点的balance值。<br />
+⑤return b节点，让rebalance函数重新从b节点向上检查新树的平衡性。</p>
+<h4 id="两次旋转"><a class="markdownIt-Anchor" href="#两次旋转"></a> 两次旋转</h4>
+<p><img src="/images/posts/AVL/AVL4.png" alt="Double Rotation" /></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnLeftThenRight</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    a-&gt;left = turnLeft(a-&gt;left);</span><br><span class="line">    <span class="keyword">return</span> turnRight(a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">struct AVLNode* <span class="title">turnRightThenLeft</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    a-&gt;right = turnRight(a-&gt;right);</span><br><span class="line">    <span class="keyword">return</span> turnLeft(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两次旋转函数要点：</p>
+<ul>
+<li>两次旋转函数触发条件：<br />
+Turn Right Then Left： node-&gt;balance = 2 &amp;&amp; node-&gt;left-&gt;balance = -1<br />
+Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balance = 1</li>
+<li>核心实现思路：对不平衡节点的不平衡方向的子节点先做旋转操作，再对不平衡节点做第二次旋转。</li>
+</ul>
+<p>至此，旋转操作介绍完毕。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" rel="next" title="中缀表达式转后缀表达式">
+                  <i class="fa fa-chevron-left"></i> 中缀表达式转后缀表达式
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html" rel="prev" title="传输层(上)">
+                  传输层(上) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#avl树基本概念"><span class="nav-number">1.</span> <span class="nav-text"> AVL树基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#avl模块化实现"><span class="nav-number">2.</span> <span class="nav-text"> AVL模块化实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体声明"><span class="nav-number">2.1.</span> <span class="nav-text"> 结构体声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树基本操作"><span class="nav-number">2.2.</span> <span class="nav-text"> 二叉排序树基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归查询即将要插入删除的节点位置"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 递归查询即将要插入/删除的节点位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入新节点"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 插入新节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除某一节点"><span class="nav-number">2.2.3.</span> <span class="nav-text"> 删除某一节点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#被删除节点有一个子树或没有子树的情况"><span class="nav-number">2.2.3.1.</span> <span class="nav-text"> 被删除节点有一个子树或没有子树的情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#avl树旋转操作"><span class="nav-number">2.3.</span> <span class="nav-text"> AVL树旋转操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取高度"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 获取高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查并回复平衡"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 检查并回复平衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷新节点balance值"><span class="nav-number">2.3.3.</span> <span class="nav-text"> 刷新节点balance值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单次旋转向左右旋转"><span class="nav-number">2.3.4.</span> <span class="nav-text"> 单次旋转（向左/右旋转）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两次旋转"><span class="nav-number">2.3.5.</span> <span class="nav-text"> 两次旋转</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="高物终结者"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">高物终结者</p>
+  <div class="site-description" itemprop="description">仙女是最最最最可爱的女孩纸❤</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高物终结者</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">14k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
