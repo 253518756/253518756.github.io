@@ -24,9 +24,9 @@
     version: '7.4.1',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
     fancybox: false,
     mediumzoom: false,
     lazyload: false,
@@ -159,6 +159,10 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/253518756" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -177,7 +181,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/CSS%E5%88%9B%E6%84%8F%E9%A1%B9%E7%9B%AE.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/Jenken_icon.jpg">
       <meta itemprop="name" content="高物终结者">
       <meta itemprop="description" content="仙女是最最最最可爱的女孩纸❤">
     </span>
@@ -228,11 +232,14 @@
 
       
           <h2 id="网页效果目前支持chromeie等浏览器移动端支持safari不支持安卓大部分浏览器"><a class="markdownIt-Anchor" href="#网页效果目前支持chromeie等浏览器移动端支持safari不支持安卓大部分浏览器"></a> 网页效果目前支持Chrome，IE等浏览器，移动端支持Safari,不支持安卓大部分浏览器</h2>
-<ul>
-<li><a href="/projects/Layered-Image-Hover-Effects">Layered Image Hover Effects</a></li>
-<li><a href="/projects/Price-Card-UI-Design">Price Card UI Design</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/CSS%E5%88%9B%E6%84%8F%E9%A1%B9%E7%9B%AE.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -254,7 +261,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/Jenken_icon.jpg">
       <meta itemprop="name" content="高物终结者">
       <meta itemprop="description" content="仙女是最最最最可爱的女孩纸❤">
     </span>
@@ -304,111 +311,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="传输层概述"><a class="markdownIt-Anchor" href="#传输层概述"></a> 传输层概述</h2>
-<ul>
+          <h2 id="传输层概述"><a class="markdownIt-Anchor" href="#传输层概述"></a> 传输层概述</h2><ul>
 <li>应用层协议的消息传输需要可靠性，而仅靠网络层IP不可靠，数据可能会出错、丢失或乱序等异常情况。</li>
 <li>传输层实现端到端的可靠通信</li>
 <li>传输层负责将向目标IP地址发送的消息通过传输层协议中的端口号传入特定进程。</li>
 <li>传输层提供了面向连接的机制：可靠传输、流量控制、拥塞控制。</li>
 <li>传输层不提供时延保障和带宽保障。</li>
 </ul>
-<h3 id="进程之间的通信"><a class="markdownIt-Anchor" href="#进程之间的通信"></a> 进程之间的通信</h3>
-<ul>
-<li>传输层属于面向通信部分的最高层，但也是用户功能中的最底层。</li>
-<li>严格地讲，两台主机进行通信就是两个应用进程在交换数据。所以从传输层的角度看，通信真正的端点并不是IP地址所定位的主机，而是主机中的进程。</li>
-<li>网络层和传输层有着明显区别。网络层为主机之间提供逻辑通信，而运输层为应用之间提供通信。</li>
-</ul>
-<h4 id="传输层重要功能复用和分用"><a class="markdownIt-Anchor" href="#传输层重要功能复用和分用"></a> 传输层重要功能：复用和分用</h4>
-<ol>
-<li>
-<p>复用是指在发送方不同的应用进程中都可以使用同一个传输层协议。<br />
-源端传输层会在应用层数据前加上源端口号和目标端口号。<br />
-进程表示：16位端口号</p>
-</li>
-<li>
-<p>分用是指在接收方的传输层剥去报文首部后能够把这些数据正确地交付目标应用进程。</p>
-</li>
-</ol>
-<h4 id="端口号的规定"><a class="markdownIt-Anchor" href="#端口号的规定"></a> 端口号的规定</h4>
-<ol>
-<li>熟知端口（常用端口，Well-known port）
-<ul>
-<li>服务器进程使用</li>
-<li>开放并且端口号固定</li>
-<li>Web服务器（HTTP）端口一般为80，<br />
-Telnet服务器端口号一般为23，<br />
-FTP端口号一般为21，<br />
-DNS端口号一般为53。</li>
-<li>值一般小于1024</li>
-</ul>
-</li>
-<li>短暂端口
-<ul>
-<li>用户进程使用</li>
-<li>由操作系统分配，值不固定</li>
-<li>值大于5000</li>
-</ul>
-</li>
-</ol>
-<h2 id="无连接传输协议udp"><a class="markdownIt-Anchor" href="#无连接传输协议udp"></a> 无连接传输协议：UDP</h2>
-<h3 id="udp的概念"><a class="markdownIt-Anchor" href="#udp的概念"></a> UDP的概念</h3>
-<p>又名用户数据报协议，一种简单高效的传输层协议。</p>
-<h3 id="udp的特点"><a class="markdownIt-Anchor" href="#udp的特点"></a> UDP的特点</h3>
-<ol>
-<li>
-<p>UDP是无连接的。<br />
-即发送数据前不需要建立连接，减少了开销和发送数据的时延。</p>
-</li>
-<li>
-<p>UDP使用最大努力交付。<br />
-牺牲可靠性。</p>
-</li>
-<li>
-<p>UDP是面向报文的。</p>
-<ul>
-<li>UDP对应用程序交下来的报文，在添加首部后就向下交付给IP层。</li>
-<li>UDP对交下来的报文既不合并，也不拆分，而是保留这些报文的边界。（原样发送）</li>
-<li>若报文太长UDP把报文传给IP层后，IP层可能要进行分片，这会降低IP层的效率。</li>
-<li>反之，若报文长度太短，UDP把报文交给IP层会导致首部相对长度太大，也降低了IP层的效率。<br />
-<img src="/images/posts/UDP/udp1.png" alt="UDP是面向报文的" /></li>
-</ul>
-</li>
-<li>
-<p>UDP没有拥塞控制<br />
-因此网络出现的拥塞不会使源主机的发送速率降低，对某些实时应用很重要，他们要求源主机以恒定的速率发送数据，并且允许丢失一些数据，但却不允许有较大的时延。UDP刚好能满足这个需求。</p>
-</li>
-<li>
-<p>UDP支持一对一、一对多、多对一、多对多的交互通信。</p>
-</li>
-<li>
-<p>UDP的首部开销小<br />
-UDP的首部只有8个字节，比TCP的20个字节的首部要短很多。</p>
-</li>
-</ol>
-<h3 id="udp的应用"><a class="markdownIt-Anchor" href="#udp的应用"></a> UDP的应用</h3>
-<ol>
-<li>虽然实时应用需要没有拥塞控制的UDP，但当很多源主机都同时向网络发送高频率的实时视频流时，网络就有可能发生阻塞，结果就是大家都无法正常接收。因此没有拥塞控制的UDP有可能引起网络产生的严重拥塞问题。</li>
-<li>有一些使用UDP的实时应用，需要对UDP的不可靠的传输进行适当的改进，以减少数据的丢失。可以在不影响应用层的实时性的前提下，增加一些提高可靠性的措施，如采用向前纠错或重传已丢失的报文。</li>
-</ol>
-<ul>
-<li>前向纠错：前向纠错是一种差错控制方式，它是指信号在被送入传输信道之前预先按一定的算法进行编码处理，加入带有信号本身特征的冗码，在接收端按照相应算法对接收到的信号进行解码，从而找出在传输过程中产生的错误码并将其纠正的技术。</li>
-</ul>
-<h3 id="udp的首部格式"><a class="markdownIt-Anchor" href="#udp的首部格式"></a> UDP的首部格式</h3>
-<p>用户数据报有两个字段，数据字段和首部字段，首部字段只有八个字节。由四个字段组成，每个字段都是两个字节，各字段意义：</p>
-<ol>
-<li>源端口号：在需要对方回信时选用，不需要可全用0。</li>
-<li>目的端口号：在终点时交付报文必须需要。</li>
-<li>长度：UDP数据报的长度，其最小值是8。</li>
-<li>检验和：检验UDP在传输过程是否有错，有错就丢弃。</li>
-</ol>
-<p><img src="/images/posts/UDP/udp2.png" alt="UDP用户数据报的首部部和伪首部" /></p>
-<h3 id="udp的伪首部"><a class="markdownIt-Anchor" href="#udp的伪首部"></a> UDP的伪首部</h3>
-<p>UDP用户数据报的检验方法有一些特殊。在计算校验和时需要在数据报前加上12个字节的伪首部。在计算校验和时临时添加在UDP数据报前面，伪首部既不向下传送也不向上提交，仅仅是为了计算校验和。</p>
-<h3 id="udp校验和"><a class="markdownIt-Anchor" href="#udp校验和"></a> UDP校验和</h3>
-<p>检查数据传输中是否发生错误，默认情况下只检验数据报头，不检验数据。<br />
-<img src="/images/posts/UDP/udp3.png" alt="校验和标准" /></p>
-<p><img src="/images/posts/UDP/udp4.png" alt="UDP校验和计算示例" /></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -430,7 +347,7 @@ UDP的首部只有8个字节，比TCP的20个字节的首部要短很多。</p>
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/AVL%E6%A0%91%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/Jenken_icon.jpg">
       <meta itemprop="name" content="高物终结者">
       <meta itemprop="description" content="仙女是最最最最可爱的女孩纸❤">
     </span>
@@ -486,134 +403,16 @@ UDP的首部只有8个字节，比TCP的20个字节的首部要短很多。</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。<br />
+          <p>注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。<br>
 <a href="https://b23.tv/av51157423/p1" target="_blank" rel="noopener">AVL树从入门到入土（B站视频 “看完还不懂可以选择弃疗” ）</a></p>
-<p>下面步入正题：</p>
-<h2 id="avl树基本概念"><a class="markdownIt-Anchor" href="#avl树基本概念"></a> AVL树基本概念</h2>
-<ul>
-<li>中文名称：平衡二叉树</li>
-<li>结构特点：树中的任意节点的左右子树的高度之差不超过1的<strong>二叉搜索树</strong></li>
-<li>实现核心操作：查询、插入、删除、旋转</li>
-<li>时间复杂度：查询、插入、删除的时间复杂度均为O(logn)</li>
-</ul>
-<h2 id="avl模块化实现"><a class="markdownIt-Anchor" href="#avl模块化实现"></a> AVL模块化实现</h2>
-<h3 id="结构体声明"><a class="markdownIt-Anchor" href="#结构体声明"></a> 结构体声明</h3>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AVLNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="keyword">int</span> balance;</span><br><span class="line">    AVLNode* left;</span><br><span class="line">    AVLNode* right;</span><br><span class="line">    AVLNode* parent;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AVLTree</span>&#123;</span></span><br><span class="line">    AVLNode* root;</span><br><span class="line">&#125;tree;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>平衡因子BF（Balanced Factor）:该结点的左子树与右子树的高度之差的值。在每个节点中都要附有这样一个标签。</li>
-<li>平衡的识别条件：根据AVL的定义，树中的任意节点的左右子树的高度之差不超过 1。所以，AVL树中的任意结点的平衡因子只可能是：<br />
-① -1（右子树高于左子树）<br />
-② 0 （左右子树高度相等）<br />
-③ 1 （左子树高于右子树）<br />
-如果因为插入新的节点或删除某一个节点使某个其他节点的BF值变为-2或2，则视为当前状态为不平衡的状态，那么就要通过旋转操作来使其恢复平衡。<br />
-那么接下来获取高度的方法和二叉搜索树是一样的。</li>
-</ul>
-<h3 id="二叉排序树基本操作"><a class="markdownIt-Anchor" href="#二叉排序树基本操作"></a> 二叉排序树基本操作</h3>
-<h4 id="递归查询即将要插入删除的节点位置"><a class="markdownIt-Anchor" href="#递归查询即将要插入删除的节点位置"></a> 递归查询即将要插入/删除的节点位置</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">select</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value==value)&#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value&gt;value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)</span><br><span class="line">            <span class="keyword">return</span> select(value,root-&gt;left);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;value&lt;value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)</span><br><span class="line">            <span class="keyword">return</span> select(value,root-&gt;right);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>select函数要点：</p>
-<ul>
-<li>这段代码select函数将插入和删除功能中要进行的递归查询操作封装在了一起</li>
-<li>考虑空树情况，返回值为0</li>
-<li>如果value参数值与查询节点的value值相等，返回该节点。这部操作是为删除操作服务的。</li>
-<li>如果value参数值比查询节点值大/小，递归得到该节点的右/左节点的select函数返回值，如果被查询子节点为NULL，则返回该节点，在insert函数中生成新的子节点。</li>
-</ul>
-<h4 id="插入新节点"><a class="markdownIt-Anchor" href="#插入新节点"></a> 插入新节点</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    AVLNode* node=select(value,root); <span class="comment">// 找到即将被插入的目标节点</span></span><br><span class="line">    <span class="keyword">if</span>(node==<span class="number">0</span>)&#123;  <span class="comment">// 如果树为空</span></span><br><span class="line">        tree.root=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">        tree.root-&gt;value=value;</span><br><span class="line">        tree.root-&gt;left=tree.root-&gt;right=<span class="number">0</span>;</span><br><span class="line">        tree.root-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        tree.root-&gt;balance=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(node-&gt;value!=value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;value&gt;value)&#123;</span><br><span class="line">            node-&gt;left=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">            node-&gt;left-&gt;value=value;</span><br><span class="line">            node-&gt;left-&gt;left=node-&gt;left-&gt;right=<span class="number">0</span>;</span><br><span class="line">            node-&gt;left-&gt;parent=node;</span><br><span class="line">            node-&gt;left-&gt;balance=<span class="number">0</span>;</span><br><span class="line">            rebalance(node);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(node-&gt;value&lt;value)&#123;</span><br><span class="line">            node-&gt;right=(AVLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(AVLNode));</span><br><span class="line">            node-&gt;right-&gt;value=value;</span><br><span class="line">            node-&gt;right-&gt;left=node-&gt;right-&gt;right=<span class="number">0</span>;</span><br><span class="line">            node-&gt;right-&gt;parent=node;</span><br><span class="line">            node-&gt;right-&gt;balance=<span class="number">0</span>;</span><br><span class="line">            rebalance(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Insert函数要点：</p>
-<ul>
-<li>考虑空树情况</li>
-<li>通过递归比较树中的节点并插入（这里通过select函数找到被插入节点后再insert函数体内再次进行左右树判断之所以略显繁琐，是为了方便删除节点时复用select函数体内逻辑。）</li>
-<li>[AVL树] <strong>检测并恢复平衡</strong>：rebalance函数。</li>
-</ul>
-<h4 id="删除某一节点"><a class="markdownIt-Anchor" href="#删除某一节点"></a> 删除某一节点</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> value,AVLNode* root)</span></span>&#123;</span><br><span class="line">    AVLNode* node=select(value,root);</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;value==value)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left&amp;&amp;node-&gt;right)&#123;</span><br><span class="line">            delete_Twochild(node);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            delete_NotTwochild(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>delete函数要点：</p>
-<ul>
-<li>通过select函数递归查找被删除节点，节省效率。</li>
-<li>考虑被删除节点子树个数的情况：
-<ol>
-<li>有两个子树</li>
-<li>有一个或没有子树</li>
-</ol>
-</li>
-</ul>
-<h5 id="被删除节点有一个子树或没有子树的情况"><a class="markdownIt-Anchor" href="#被删除节点有一个子树或没有子树的情况"></a> 被删除节点有一个子树或没有子树的情况</h5>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete_NotTwochild</span><span class="params">(AVLNode* node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;parent==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">            tree.root=node-&gt;left;</span><br><span class="line">            node-&gt;left-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            tree.root=node-&gt;right;</span><br><span class="line">            node-&gt;right-&gt;parent=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;parent-&gt;left==node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                node-&gt;parent-&gt;left=node-&gt;left;</span><br><span class="line">                node-&gt;left-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                node-&gt;parent-&gt;left=node-&gt;right;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right)</span><br><span class="line">                    node-&gt;right-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                node-&gt;parent-&gt;right=node-&gt;left;</span><br><span class="line">                node-&gt;left-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                node-&gt;parent-&gt;right=node-&gt;right;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right)</span><br><span class="line">                    node-&gt;right-&gt;parent=node-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        rebalance(node-&gt;parent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>delete_NotTwochild函数要点：</p>
-<ul>
-<li>如果删除节点子节点数量为0或1,执行该函数。</li>
-<li>要考虑到被删除节点是根节点的情况，因为要避免root-&gt;parent为空指针的情况。</li>
-<li>通过node-&gt;parent-&gt;left == node的方式判断该节点是父节点的左孩子还是右孩子。</li>
-<li>先判断出该节点是其父亲节点的左子树还是右子树，方便在删除操作后将目标删除节点的父亲节点的孩子指针指向目标删除节点的孩子节点。</li>
-<li>然后判断目标删除节点的孩子在左子树还是右子树还是不存在。</li>
-<li>不管哪种情况，将目标删除节点的父亲节点的孩子指针指向目标删除节点的孩子节点。</li>
-<li>下一步要将目标删除节点的孩子节点的父亲指针指向删除节点的父亲节点，考虑到目标删除节点没有孩子的情况会导致node-&gt;left-&gt;parent出现空指针情况。所以要在这部之前先判断删除节点是否有孩子。</li>
-<li>[AVL树]完成二叉排序树的基本删除操作后，<strong>检查并恢复平衡</strong>，rebalance函数。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void delete_Twochild(AVLNode* node)&#123;</span><br><span class="line">    AVLNode* after=getMin(node-&gt;right);</span><br><span class="line">    node-&gt;value=after-&gt;value;</span><br><span class="line">    delete_NotTwochild(after);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>delete_Twochild函数要点：</p>
-<ul>
-<li>如果删除节点有两个子节点，执行该函数。</li>
-<li>这种情况只需要在删除节点的右子树中通过getMin函数寻找到value值最小的节点，将删除节点的值与其互换，再将找到的最小value值的节点通过delete_NotTwochild函数删除。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct AVLNode* getMin(AVLNode* node)&#123;</span><br><span class="line">    if(node-&gt;left)</span><br><span class="line">        getMin(node-&gt;left);</span><br><span class="line">    else</span><br><span class="line">        return node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>getMin函数要点：</p>
-<ul>
-<li>此函数目的在于寻找某一节点作为根节点的树中value值最小的节点。</li>
-<li>根据二叉排序树，递归查找最左侧节点即可。</li>
-</ul>
-<p>至此，二叉排序树基本操作介绍完成。</p>
-<h3 id="avl树旋转操作"><a class="markdownIt-Anchor" href="#avl树旋转操作"></a> AVL树旋转操作</h3>
-<h4 id="获取高度"><a class="markdownIt-Anchor" href="#获取高度"></a> 获取高度</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">height</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> rightheight = height(a-&gt;right);</span><br><span class="line">    <span class="keyword">int</span> leftheight = height(a-&gt;left);</span><br><span class="line">    <span class="keyword">return</span> rightheight &gt; leftheight ? (rightheight+<span class="number">1</span>) : (leftheight+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>height函数要点：</p>
-<ul>
-<li>考虑空树情况。</li>
-<li>分别递归查询左右子树高度，层层递归向上返回高度累加值。</li>
-</ul>
-<h4 id="检查并回复平衡"><a class="markdownIt-Anchor" href="#检查并回复平衡"></a> 检查并回复平衡</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rebalance</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;balance== <span class="number">-2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;left-&gt;balance &lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            a=turnRight(a);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a=turnLeftThenRight(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a-&gt;balance==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;right-&gt;balance&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            a=turnLeft(a);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a=turnRightThenLeft(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent)&#123;</span><br><span class="line">        rebalance(a-&gt;parent);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        tree.root=a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>首先通过setBalance函数刷新被检查节点的balance值。</li>
-<li>开始检查节点balance值：分为四种不平衡情况，对应以下四种旋转方案。</li>
-<li>递归向父亲节点递归检查，直到查到根节点。</li>
-</ul>
-<h4 id="刷新节点balance值"><a class="markdownIt-Anchor" href="#刷新节点balance值"></a> 刷新节点balance值</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setBalance</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a)</span><br><span class="line">        a-&gt;balance=height(a-&gt;right)-height(a-&gt;left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="单次旋转向左右旋转"><a class="markdownIt-Anchor" href="#单次旋转向左右旋转"></a> 单次旋转（向左/右旋转）</h4>
-<p><img src="/images/posts/AVL/AVL1.png" alt="Turn Left" /></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnLeft</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    AVLNode* b=a-&gt;right;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b-&gt;parent=a-&gt;parent;</span><br><span class="line">    a-&gt;parent=b;</span><br><span class="line">    a-&gt;right=b-&gt;left;</span><br><span class="line">    b-&gt;left=a;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;right!=<span class="number">0</span>)</span><br><span class="line">        a-&gt;right-&gt;parent=a;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    setBalance(b);</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/posts/AVL/AVL2.png" alt="Turn Right" /></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnRight</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    AVLNode* b=a-&gt;left;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b-&gt;parent=a-&gt;parent;</span><br><span class="line">    a-&gt;left=b-&gt;right;</span><br><span class="line">    <span class="keyword">if</span>(a-&gt;left!=<span class="number">0</span>)</span><br><span class="line">        a-&gt;left-&gt;parent=a;</span><br><span class="line">    a-&gt;parent=b;</span><br><span class="line">    b-&gt;right=a;</span><br><span class="line">    setBalance(a);</span><br><span class="line">    setBalance(b);</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/posts/AVL/AVL3.jpg" alt="Turn Right 举例" /></p>
-<p>单次旋转函数要点：</p>
-<ul>
-<li>单次旋转函数触发条件：<br />
-Turn Right： node-&gt;balance = -2 &amp;&amp; node-&gt;left-&gt;balance &lt;= 0<br />
-Turn Left：node-&gt;balance = 2 &amp;&amp; node-&gt;right-&gt;balance &gt;= 0</li>
-<li>具体处理步骤：（Turn Right 举例）<br />
-① 把a节点以及他的右子树移除，a的左子节点b代替a的位置</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a-&gt;parent!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;parent-&gt;right==a)&#123;</span><br><span class="line">            a-&gt;parent-&gt;right=b;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            a-&gt;parent-&gt;left=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>②把b节点的右子树移动成为a节点的左子树</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a-&gt;left=b-&gt;right;</span><br><span class="line"> <span class="keyword">if</span>(a-&gt;left!=<span class="number">0</span>)</span><br><span class="line">     a-&gt;left-&gt;parent=a;</span><br></pre></td></tr></table></figure>
-<p>③让a节点成为b节点的右孩子</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a-&gt;parent=b;</span><br><span class="line">b-&gt;right=a;</span><br></pre></td></tr></table></figure>
-<p>④刷新a,b节点的balance值。<br />
-⑤return b节点，让rebalance函数重新从b节点向上检查新树的平衡性。</p>
-<h4 id="两次旋转"><a class="markdownIt-Anchor" href="#两次旋转"></a> 两次旋转</h4>
-<p><img src="/images/posts/AVL/AVL4.png" alt="Double Rotation" /></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct AVLNode* <span class="title">turnLeftThenRight</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    a-&gt;left = turnLeft(a-&gt;left);</span><br><span class="line">    <span class="keyword">return</span> turnRight(a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">struct AVLNode* <span class="title">turnRightThenLeft</span><span class="params">(AVLNode* a)</span></span>&#123;</span><br><span class="line">    a-&gt;right = turnRight(a-&gt;right);</span><br><span class="line">    <span class="keyword">return</span> turnLeft(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两次旋转函数要点：</p>
-<ul>
-<li>两次旋转函数触发条件：<br />
-Turn Right Then Left： node-&gt;balance = 2 &amp;&amp; node-&gt;left-&gt;balance = -1<br />
-Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balance = 1</li>
-<li>核心实现思路：对不平衡节点的不平衡方向的子节点先做旋转操作，再对不平衡节点做第二次旋转。</li>
-</ul>
-<p>至此，旋转操作介绍完毕。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/AVL%E6%A0%91%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -635,7 +434,7 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/Jenken_icon.jpg">
       <meta itemprop="name" content="高物终结者">
       <meta itemprop="description" content="仙女是最最最最可爱的女孩纸❤">
     </span>
@@ -685,79 +484,15 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
-<ul>
-<li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
-</li>
-<li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
-</ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
-<ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
-</ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
-<ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
-</ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
-<ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
-</ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
-</li>
-<li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
-<ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
-</ul>
-</li>
-</ul>
-<p>[图片上传失败…(image-dc8890-1571722020497)]</p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
-<ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
-</ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Operator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> moperator;</span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125;Operator;</span><br><span class="line">Operator op[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Operator opNodes[<span class="number">100000</span>];</span><br><span class="line">    <span class="keyword">int</span> top;</span><br><span class="line">&#125;LinkStack;</span><br><span class="line">LinkStack opstack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> Postfix[<span class="number">100000</span>];</span><br><span class="line"><span class="keyword">int</span> PostfixNum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitOperater</span><span class="params">()</span></span>&#123;</span><br><span class="line">    op[<span class="number">0</span>].moperator = <span class="string">'+'</span>;</span><br><span class="line">    op[<span class="number">0</span>].level = <span class="number">1</span>;</span><br><span class="line">    op[<span class="number">1</span>].moperator = <span class="string">'-'</span>;</span><br><span class="line">    op[<span class="number">1</span>].level = <span class="number">1</span>;</span><br><span class="line">    op[<span class="number">2</span>].moperator = <span class="string">'*'</span>;</span><br><span class="line">    op[<span class="number">2</span>].level = <span class="number">2</span>;</span><br><span class="line">    op[<span class="number">3</span>].moperator = <span class="string">'/'</span>;</span><br><span class="line">    op[<span class="number">3</span>].level = <span class="number">2</span>;</span><br><span class="line">    op[<span class="number">4</span>].moperator = <span class="string">'('</span>;</span><br><span class="line">    op[<span class="number">4</span>].level = <span class="number">0</span>;</span><br><span class="line">    op[<span class="number">5</span>].moperator = <span class="string">')'</span>;</span><br><span class="line">    op[<span class="number">5</span>].level = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isEmpty</span><span class="params">(LinkStack &amp;<span class="built_in">stack</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">stack</span>.top == <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(LinkStack &amp;<span class="built_in">stack</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>.top--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(LinkStack &amp;<span class="built_in">stack</span>, Operator pushed)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>.top++;</span><br><span class="line">    <span class="built_in">stack</span>.opNodes[<span class="built_in">stack</span>.top] = pushed;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Operator <span class="title">Top</span><span class="params">(LinkStack &amp;<span class="built_in">stack</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">stack</span>.opNodes[<span class="built_in">stack</span>.top];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">operatorCmp</span><span class="params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(now.moperator == <span class="string">'('</span>)&#123;</span><br><span class="line">        push(opstack,now);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(now.moperator == <span class="string">')'</span>)&#123;</span><br><span class="line">        now = Top(opstack);</span><br><span class="line">        pop(opstack);</span><br><span class="line">        check = Top(opstack);</span><br><span class="line">        <span class="keyword">while</span>(check.moperator != <span class="string">'('</span>)&#123;</span><br><span class="line">            Postfix[PostfixNum] = now.moperator;</span><br><span class="line">            PostfixNum++;</span><br><span class="line">            pop(opstack);</span><br><span class="line">            now = check;</span><br><span class="line">            check = Top(opstack);</span><br><span class="line">        &#125;</span><br><span class="line">        Postfix[PostfixNum] = now.moperator;</span><br><span class="line">        PostfixNum++;</span><br><span class="line">        pop(opstack);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(check.level &gt;= now.level)&#123;</span><br><span class="line">    	   <span class="keyword">while</span>(check.level &gt;= now.level)&#123;</span><br><span class="line">        Postfix[PostfixNum] = check.moperator;</span><br><span class="line">        PostfixNum++;</span><br><span class="line">        pop(opstack);</span><br><span class="line">        <span class="keyword">if</span>(isEmpty(opstack))<span class="keyword">break</span>;</span><br><span class="line">        check = Top(opstack);</span><br><span class="line">	   &#125;</span><br><span class="line">        push(opstack,now);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(check.level &lt; now.level)</span><br><span class="line">        push(opstack,now);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">FindSolution</span><span class="params">(<span class="keyword">char</span>* Postfix)</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> Digit[<span class="number">100000</span>];</span><br><span class="line">    <span class="keyword">int</span> DigitNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;PostfixNum;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(Postfix[i]&gt;=<span class="string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">            Digit[DigitNum] = Postfix[i]-<span class="string">'0'</span>;</span><br><span class="line">            DigitNum++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Postfix[i]==<span class="string">'+'</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> firstNum = DigitNum - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> secondNum = DigitNum - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">double</span> first = Digit[firstNum];</span><br><span class="line">            <span class="keyword">double</span> second = Digit[secondNum];</span><br><span class="line">            Digit[secondNum]=second+first;</span><br><span class="line">            DigitNum--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Postfix[i]==<span class="string">'-'</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> firstNum = DigitNum - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> secondNum = DigitNum - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">double</span> first = Digit[firstNum];</span><br><span class="line">            <span class="keyword">double</span> second = Digit[secondNum];</span><br><span class="line">            Digit[secondNum]=second-first;</span><br><span class="line">            DigitNum--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Postfix[i]==<span class="string">'*'</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> firstNum = DigitNum - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> secondNum = DigitNum - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">double</span> first = Digit[firstNum];</span><br><span class="line">            <span class="keyword">double</span> second = Digit[secondNum];</span><br><span class="line">            Digit[secondNum]=second*first;</span><br><span class="line">            DigitNum--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Postfix[i]==<span class="string">'/'</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> firstNum = DigitNum - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> secondNum = DigitNum - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">double</span> first = Digit[firstNum];</span><br><span class="line">            <span class="keyword">double</span> second = Digit[secondNum];</span><br><span class="line">            Digit[secondNum]=second/first;</span><br><span class="line">            DigitNum--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Digit[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    InitOperater();</span><br><span class="line">    opstack.top = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100000</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s[i]!=<span class="string">'\0'</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">            Postfix[PostfixNum] = s[i];</span><br><span class="line">            PostfixNum++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;= <span class="number">5</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i] == op[j].moperator)&#123;</span><br><span class="line">                	<span class="keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));</span><br><span class="line">                	<span class="keyword">else</span> push(opstack,op[j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!isEmpty(opstack))&#123;</span><br><span class="line">        Postfix[PostfixNum] = Top(opstack).moperator;</span><br><span class="line">        PostfixNum++;</span><br><span class="line">        pop(opstack);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> solution = FindSolution(Postfix);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.2lf\n"</span>,solution);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;PostfixNum;i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c "</span>,Postfix[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p><h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -810,7 +545,7 @@ check 是通过Top函数返回的栈顶的元素。<br />
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <img class="site-author-image" itemprop="image" alt="高物终结者"
-    src="/images/avatar.gif">
+    src="/images/Jenken_icon.jpg">
   <p class="site-author-name" itemprop="name">高物终结者</p>
   <div class="site-description" itemprop="description">仙女是最最最最可爱的女孩纸❤</div>
 </div>
@@ -825,8 +560,31 @@ check 是通过Top函数返回的栈顶的元素。<br />
       </div>
   </nav>
 </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/253518756" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;253518756" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/253518756@qq.com" title="E-Mail &amp;rarr; 253518756@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/253518756" title="https:&#x2F;&#x2F;github.com&#x2F;253518756" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
 
@@ -860,11 +618,6 @@ check 是通过Top函数返回的栈顶的元素。<br />
     </span>
     <span title="站点阅读时长">12 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
 
         
 
@@ -890,11 +643,20 @@ check 是通过Top函数返回的栈顶的元素。<br />
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
 <script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script><script src="/js/bookmark.js?v=7.4.1"></script>
 
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -912,6 +674,8 @@ check 是通过Top函数返回的栈顶的元素。<br />
 
 
 
+
+  
 
   
 
