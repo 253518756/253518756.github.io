@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 信号太难了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="Dijkstra Algorithm, 信号太难了">
+    <meta name="description" content="寻找最短路径相关算法 —— Dijkstra Algorithm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 信号太难了</title>
+    <title>Dijkstra Algorithm | 信号太难了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">Dijkstra Algorithm</h1>
                 </div>
             </div>
         </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2019-11-19
                 </div>
                 
 
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    6 分
                 </div>
                 
 
@@ -496,245 +496,225 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <p>参考书籍：数据结构（C语言版）清华大学出版社</p>
+<h2 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h2>
+<p>Dijkstra算法：Dijkstra提出了一个按路径长度递增的次序产生最短路径的算法。<br />
+Dijkstra算法解决的对象：单源点最短路径问题。</p>
+<h2 id="算法实现思路"><a class="markdownIt-Anchor" href="#算法实现思路"></a> 算法实现思路</h2>
 <ul>
-<li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
-</li>
-<li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
+<li>图中所有边存储在邻接表中，所有的顶点存储在一个结构体组中，通过其下标对顶点进行操作</li>
 </ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
+<h3 id="结构体声明"><a class="markdownIt-Anchor" href="#结构体声明"></a> 结构体声明</h3>
+<ol>
+<li>边结构体的声明</li>
+</ol>
+<pre class="highlight"><code class="C"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ArcNode</span>{</span>
+    <span class="hljs-keyword">int</span> adjvexNum; <span class="hljs-comment">//该弧所指向的顶点在图的定点结构体组中的下角标</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ArcNode</span> *<span class="hljs-title">nextarc</span>;</span>
+    <span class="hljs-keyword">int</span> weight;
+}ArcNode;
+</code></pre>
 <ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
+<li>adjvexNum 为这条边的尾顶点的数组下标。</li>
+<li>nextarc 为邻接表的下一条与顶点邻接的边。</li>
+<li>weight 为边的权值。</li>
 </ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
+<ol start="2">
+<li>顶点结构体的声明</li>
+</ol>
+<pre class="highlight"><code class="C"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">VexNode</span>{</span>
+    ArcNode *firstarc;
+    <span class="hljs-keyword">int</span> known;
+    <span class="hljs-keyword">int</span> dist;
+    <span class="hljs-keyword">int</span> path;
+    <span class="hljs-keyword">int</span> data;
+}VexNode,AdjList[MAX_VERTEX_NUM];
+</code></pre>
 <ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
+<li>firstarc 指向其邻接表</li>
+<li>known 表示该节点的最短路径是否已经明确。</li>
+<li>dist 表示源点到该顶点的最短路径的长度（权值之和）</li>
+<li>path 表示Dijkstra算法中某个顶点的在最短路径中的前序顶点，在算法过程中可能会发生改变。</li>
 </ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
+<ol start="3">
+<li>图结构体声明</li>
+</ol>
+<pre class="highlight"><code class="C"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    AdjList vertice;
+    <span class="hljs-keyword">int</span> vexnum,arcnum;  <span class="hljs-comment">// 图当前顶点数和边数</span>
+    GraphKind kind; <span class="hljs-comment">//图的种类类型</span>
+}MGraph;
+</code></pre>
 <ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
+<li>vertice 用来存储一个图中顶点信息的数组</li>
 </ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
-</li>
-<li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
-<ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-97187123149420af?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
-<ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
-</ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
+<h3 id="图的创建"><a class="markdownIt-Anchor" href="#图的创建"></a> 图的创建</h3>
+<pre class="highlight"><code class="C"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b,<span class="hljs-keyword">int</span> weight,MGraph &amp;G)</span></span>{
+    <span class="hljs-keyword">int</span> vex1,vex2;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++){ <span class="hljs-comment">//通过用户输入的数据匹配顶点对应的下标</span>
+        <span class="hljs-keyword">if</span>(a == G.vertice[i].data){
+            vex1 = i;
         }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
+        <span class="hljs-keyword">if</span>(b == G.vertice[i].data){
+            vex2 = i;
         }
     }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
+    ArcNode *arcNode = (ArcNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(ArcNode)); <span class="hljs-comment">//初始化所有边</span>
+    arcNode-&gt;nextarc = <span class="hljs-literal">NULL</span>;
+    arcNode-&gt;adjvexNum = vex2;
+    arcNode-&gt;weight = weight;
+
+    <span class="hljs-keyword">if</span>(G.vertice[vex1].firstarc == <span class="hljs-literal">NULL</span>){    <span class="hljs-comment">//将边加入到邻接表</span>
+        G.vertice[vex1].firstarc = arcNode;
+    }
+    <span class="hljs-keyword">else</span>{
+        ArcNode *t = <span class="hljs-literal">NULL</span>;
+        ArcNode *pre = <span class="hljs-literal">NULL</span>;
+        <span class="hljs-keyword">for</span>(t = G.vertice[vex1].firstarc;t != <span class="hljs-literal">NULL</span>;t = t-&gt;nextarc){
+            pre = t;
         }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
+        pre-&gt;nextarc = arcNode;
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CreateGraph</span><span class="hljs-params">(MGraph &amp;G)</span></span>{
+    <span class="hljs-comment">//scanf("%d %d",&amp;G.vexnum,&amp;G.arcnum);</span>
+    G.vexnum = <span class="hljs-number">7</span>;
+    G.arcnum = <span class="hljs-number">12</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++) {  <span class="hljs-comment">//初始化所有顶点</span>
+        G.vertice[i].firstarc = <span class="hljs-literal">NULL</span>;
+        G.vertice[i].known = <span class="hljs-number">0</span>;
+        G.vertice[i].dist = INT_MAX;
+        G.vertice[i].path = <span class="hljs-number">-1</span>;
+    }
+    G.vertice[<span class="hljs-number">0</span>].data = <span class="hljs-number">1</span>;
+    G.vertice[<span class="hljs-number">1</span>].data = <span class="hljs-number">2</span>;
+    G.vertice[<span class="hljs-number">2</span>].data = <span class="hljs-number">3</span>;
+    G.vertice[<span class="hljs-number">3</span>].data = <span class="hljs-number">4</span>;
+    G.vertice[<span class="hljs-number">4</span>].data = <span class="hljs-number">5</span>;
+    G.vertice[<span class="hljs-number">5</span>].data = <span class="hljs-number">6</span>;
+    G.vertice[<span class="hljs-number">6</span>].data = <span class="hljs-number">7</span>;
+<span class="hljs-comment">//for(int k = 0; k &lt; G.arcnum; k++){</span>
+<span class="hljs-comment">// int vex1,vex2,weight;  //输入一条边的起点和终点以及这条边的权值</span>
+<span class="hljs-comment">//  scanf("%d %d",&amp;vex1,&amp;vex2);</span>
+<span class="hljs-comment">//}</span>
+    <span class="hljs-keyword">int</span> a[<span class="hljs-number">12</span>]={
+            <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>
+    };
+    <span class="hljs-keyword">int</span> b[<span class="hljs-number">12</span>]={
+            <span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">1</span>,<span class="hljs-number">6</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">7</span>,<span class="hljs-number">6</span>
+    };
+    <span class="hljs-keyword">int</span> weight[<span class="hljs-number">12</span>]={
+            <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">10</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">1</span>
+    };
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.arcnum; i++)
+    addEdge(a[i],b[i],weight[i],G);
+}
+</code></pre>
+<ul>
+<li>初始化所有顶点的known值为0</li>
+<li>初始化所有顶点的dist值为INT_MAX，为了满足Dijkstra算法寻找最短路径的操作，所以初值要设定为最大值。</li>
+<li>所有顶点的前序节点path都默认为 -1，方便在所有节点都得到前置节点时通过-1找到初始节点并停止寻找path。</li>
+</ul>
+<h3 id="dijkstra-算法"><a class="markdownIt-Anchor" href="#dijkstra-算法"></a> Dijkstra 算法</h3>
+<pre class="highlight"><code class="C"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dijkstra</span><span class="hljs-params">(MGraph G)</span>
+</span>{
+    G.vertice[<span class="hljs-number">0</span>].known = <span class="hljs-number">1</span>; <span class="hljs-comment">// 初始化源节点</span>
+    G.vertice[<span class="hljs-number">0</span>].dist = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (ArcNode *t = G.vertice[<span class="hljs-number">0</span>].firstarc; t; t = t-&gt;nextarc) {
+        G.vertice[t-&gt;adjvexNum].dist = t-&gt;weight;
+        G.vertice[t-&gt;adjvexNum].path = <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-keyword">int</span> k; <span class="hljs-comment">// 权值最小路径尾顶点下标</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; G.vexnum; i++){
+        <span class="hljs-keyword">int</span> min = INT_MAX;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; G.vexnum; j++)
+        {
+            <span class="hljs-keyword">if</span> (G.vertice[j].known == <span class="hljs-number">0</span> &amp;&amp; G.vertice[j].dist &lt; min)
+            {
+                min = G.vertice[j].dist;
+                k = j;
+            }
+        }
+        G.vertice[k].known = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 标记"顶点k"为已经获取到最短路径</span>
+        <span class="hljs-keyword">for</span> (ArcNode *t = G.vertice[k].firstarc; t; t = t-&gt;nextarc) {
+            <span class="hljs-keyword">if</span> (!G.vertice[t-&gt;adjvexNum].known) {
+                <span class="hljs-keyword">if</span>(G.vertice[k].dist + t-&gt;weight &lt; G.vertice[t-&gt;adjvexNum].dist) {
+                    G.vertice[t-&gt;adjvexNum].dist = G.vertice[k].dist + t-&gt;weight;
+                    G.vertice[t-&gt;adjvexNum].path = k;
                 }
             }
         }
-        i++;
     }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
+    <span class="hljs-keyword">int</span> target = <span class="hljs-number">6</span>;  <span class="hljs-comment">// 用户输入的终点</span>
+    <span class="hljs-keyword">int</span> dataset[<span class="hljs-number">100</span>];  <span class="hljs-comment">// 用于整理path数据正向输出路径</span>
+    <span class="hljs-keyword">int</span> dataNum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++){
+        <span class="hljs-keyword">if</span>(G.vertice[i].data == target){
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = i; k != <span class="hljs-number">-1</span>; k = G.vertice[k].path){ <span class="hljs-comment">// 正序输出最小路径</span>
+                dataset[dataNum] = G.vertice[k].data;
+                dataNum++;
+            }
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> l = dataNum<span class="hljs-number">-1</span>;l &gt; <span class="hljs-number">0</span>; l--){
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d,"</span>,dataset[l]);
+            }
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>,dataset[<span class="hljs-number">0</span>]);
+        }
     }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
-
-
-
 </code></pre>
+<ol>
+<li>源点数据初始化</li>
+</ol>
+<pre class="highlight"><code class="C">G.vertice[<span class="hljs-number">0</span>].known = <span class="hljs-number">1</span>; <span class="hljs-comment">// 初始化源节点</span>
+G.vertice[<span class="hljs-number">0</span>].dist = <span class="hljs-number">0</span>;
+</code></pre>
+<ol start="2">
+<li>为源点邻接的顶点设置dist值和path值</li>
+</ol>
+<pre class="highlight"><code class="C"><span class="hljs-keyword">for</span> (ArcNode *t = G.vertice[<span class="hljs-number">0</span>].firstarc; t; t = t-&gt;nextarc) {
+        G.vertice[t-&gt;adjvexNum].dist = t-&gt;weight;
+        G.vertice[t-&gt;adjvexNum].path = <span class="hljs-number">0</span>;
+    }
+</code></pre>
+<ol start="3">
+<li>开始循环判断所有除源点以外其他顶点的dist值和path值</li>
+</ol>
+<ul>
+<li>循环进行下述两步操作</li>
+</ul>
+<pre class="highlight"><code class="C"><span class="hljs-keyword">int</span> min = INT_MAX;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; G.vexnum; j++)
+        {
+            <span class="hljs-keyword">if</span> (G.vertice[j].known == <span class="hljs-number">0</span> &amp;&amp; G.vertice[j].dist &lt; min)
+            {
+                min = G.vertice[j].dist;
+                k = j;
+            }
+        }
+</code></pre>
+<ul>
+<li>找到与该顶点 j 相邻最近的点 k（对应的边权值最小）</li>
+</ul>
+<pre class="highlight"><code class="C">G.vertice[k].known = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 标记"顶点k"为已经获取到最短路径</span>
+        <span class="hljs-keyword">for</span> (ArcNode *t = G.vertice[k].firstarc; t; t = t-&gt;nextarc) {
+            <span class="hljs-keyword">if</span> (!G.vertice[t-&gt;adjvexNum].known) {
+                <span class="hljs-keyword">if</span>(G.vertice[k].dist + t-&gt;weight &lt; G.vertice[t-&gt;adjvexNum].dist) {
+                    G.vertice[t-&gt;adjvexNum].dist = G.vertice[k].dist + t-&gt;weight;
+                    G.vertice[t-&gt;adjvexNum].path = k;
+                }
+            }
+        }
+</code></pre>
+<ul>
+<li>与所有与点k相邻的点比较其dist值</li>
+<li>k点的dist值与k点到邻点边的权值之和与其相邻的点的dist值比较，若前者小，则更新路径值dist和前序顶点path。</li>
+</ul>
+<h3 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h3>
+<ul>
+<li>若该节点没有被赋值，则dist值为正无穷，判断结果一定失败。</li>
+<li>若该节点有过值通过k点的最短路径长度和与其相邻的权值足以与之前的dist值对应的情况进行比较哪个是更短的路径，对每个顶点入度的情况都遍历检查了一遍，达到效率较优的情况下检查全图得到源点到目标顶点最短路径的目的。</li>
+</ul>
 
             </div>
             <hr/>
@@ -760,7 +740,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</a>
+                    <a href="http://www.jlccbzh.cn/Dijkstra.html">http://www.jlccbzh.cn/Dijkstra.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1232,24 +1212,24 @@ LinkStack opstack;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
+                <a href="/Overview%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Transport layer">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Overview of IoT">
                         
-                        <span class="card-title">Transport layer</span>
+                        <span class="card-title">Overview of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            物联网技术概论
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-13
                         </span>
                         <span class="publish-author">
                             
@@ -1266,8 +1246,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
@@ -1281,24 +1261,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E5%AE%89%E5%8D%93%E5%85%A5%E9%97%A8.html">
+                <a href="/%E6%8B%93%E8%A1%A5%E6%8E%92%E5%BA%8F.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Topological Sort">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <span class="card-title">Topological Sort</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            拓补排序相关的基本知识
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-18
                             </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1295,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/DSA/">
+                        <span class="chip bg-color">DSA</span>
                     </a>
                     
                 </div>

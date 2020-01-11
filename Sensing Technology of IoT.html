@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 信号太难了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="Sensing Technologies of IoT, 信号太难了">
+    <meta name="description" content="物联网传感器技术相关的详细介绍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 信号太难了</title>
+    <title>Sensing Technologies of IoT | 信号太难了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">Sensing Technologies of IoT</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DSA/">
-                                <span class="chip bg-color">DSA</span>
+                            <a href="/tags/IoT/">
+                                <span class="chip bg-color">IoT</span>
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2020-01-02
                 </div>
                 
 
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    12 分
                 </div>
                 
 
@@ -496,245 +496,794 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <h2 id="21-one-dimensional-barcode-一维条形码"><a class="markdownIt-Anchor" href="#21-one-dimensional-barcode-一维条形码"></a> 2.1 One-dimensional Barcode 一维条形码</h2>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-26b3dd17f85789c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="One-dimensional Barcode" /></p>
+<h3 id="barcode-工作原理"><a class="markdownIt-Anchor" href="#barcode-工作原理"></a> BarCode 工作原理</h3>
+<ul>
+<li>optical machine-readable representation of data.<br />
+相关的数据的光学机器可读表示法.</li>
+<li>varying the widths and spacings of parallel lines.<br />
+改变平行线的宽度和间距来表示数据的.</li>
+<li>Each character is represented by a pattern of wide and narrow bars.<br />
+每一个字母是用一条细线代表的。</li>
+<li>As it moves, barcode reader uses a photosensor to convert the barcode into an <strong>electrical signal</strong>.<br />
+在扫描器移动过程中其能把条码变成电子信号。</li>
+<li>Every barcode begins with a special <strong>start character</strong> and ends with a special <strong>stop character</strong>.<br />
+每个条形码都以一个特殊的开始字符开始，以一个特殊的结束字符结束。</li>
+<li>Some barcodes may include a <strong>checksum character</strong> just before the stop character.<br />
+有些条形码可能在停止字符之前包含校验和字符。</li>
+</ul>
+<h3 id="barcode-具体形式"><a class="markdownIt-Anchor" href="#barcode-具体形式"></a> BarCode 具体形式</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>特点 1</th>
+<th>特点2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UPC-A</strong></td>
+<td>for product</td>
+<td></td>
+</tr>
+<tr>
+<td>UPC-E</td>
+<td>small items</td>
+<td>automatically re-inserting</td>
+</tr>
+<tr>
+<td>Codabar</td>
+<td>for libraries, blood banks</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>EAN-13</strong></td>
+<td>marking retail goods</td>
+<td>countrycodes</td>
+</tr>
+<tr>
+<td>Interleaved 2 of 5</td>
+<td>for warehouse and industries</td>
+<td></td>
+</tr>
+<tr>
+<td>Code 39</td>
+<td>for government and industries</td>
+<td></td>
+</tr>
+<tr>
+<td>Code 93</td>
+<td>more compact version of Code 39</td>
+<td></td>
+</tr>
+<tr>
+<td>Code 128</td>
+<td>excellent density</td>
+<td>support all ASCII symbols</td>
+</tr>
+<tr>
+<td><strong>Bookland EAN</strong></td>
+<td>for books, video, audio and software</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
+<p><strong>UPC-A</strong></p>
+<ul>
+<li>identifies the manufacturer and specific product<br />
+识别制造商和具体的产品<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-83194539e2cde96e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UPC-A" /></li>
+</ul>
 </li>
 <li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
-</ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
+<p>UPC-E</p>
 <ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
+<li>for labeling small items</li>
+<li>automatically re-inserting them at the scanner<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-35dfbee0ff548070.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UPC-E" /></li>
 </ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
-<ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
-</ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
-<ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
-</ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
 </li>
 <li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
+<p>Codabar</p>
 <ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
+<li>for libraries, blood banks<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-356523a0f1a8fb1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Codabar" /></li>
+</ul>
+</li>
+<li>
+<p><strong>EAN-13</strong></p>
+<ul>
+<li>for marking retail goods. 零售商品</li>
+<li>2 or 3 characters countrycodes + 9 or 10 data digits + 1 checksum<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-69a45caac6235782.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EAN-13" /></li>
+</ul>
+</li>
+<li>
+<p>Interleaved 2 of 5</p>
+<ul>
+<li>for warehouse(仓库) and industries</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-97187123149420af?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-ac3ffd79994d86d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Interleaved 2 of 5" /><br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-22e57724f80f6b8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Interleaved 2 of 5" /></p>
 <ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
+<li>Code 39
+<ul>
+<li>for government and industries</li>
 </ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
-        }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
-        }
-    }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
-        }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
-                }
-            }
-        }
-        i++;
-    }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-
-
-
-</code></pre>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-11f635282180cdf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Code 39" /></p>
+<ul>
+<li>Code 93
+<ul>
+<li>more compact（紧凑） version of Code 39</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-03b848d969d006b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Code 93" /></p>
+<ul>
+<li>Code 128
+<ul>
+<li>excellent density for all-numeric data and good density for alphanumeric data.<br />
+对全数字和字母的数据有很好的密度</li>
+<li>support all ASCII symbols</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-96b769b03a81626f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Code 128" /></p>
+<ul>
+<li><strong>Bookland EAN (ISBN)</strong>
+<ul>
+<li>for books, video, audio and software<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-17dd19535634a414.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Bookland EAN" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="barcode-reader-工作原理"><a class="markdownIt-Anchor" href="#barcode-reader-工作原理"></a> BarCode Reader 工作原理</h3>
+<ul>
+<li>light source, a lens and a light sensor translating optical impulses into electrical ones.<br />
+光源、透镜和光传感器将光脉冲转换成电脉冲。</li>
+<li>contain decoder circuitry  译码器电路</li>
+</ul>
+<h3 id="barcode-reader-具体形式不重要"><a class="markdownIt-Anchor" href="#barcode-reader-具体形式不重要"></a> BarCode Reader 具体形式（不重要）</h3>
+<table>
+<thead>
+<tr>
+<th>BarCode Reader Type</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pen-type readers</td>
+<td>light source and photodiode</td>
+</tr>
+<tr>
+<td>Laser scanners</td>
+<td>laser beam &amp; mirror</td>
+</tr>
+<tr>
+<td>CCD readers</td>
+<td>light sensors</td>
+</tr>
+<tr>
+<td>Camera-based readers</td>
+<td>camera and image processing</td>
+</tr>
+<tr>
+<td>Omni-directional barcode scanners</td>
+<td>Laser scanner, for grocery</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Pen-type readers: consist of a light source and photodiode 光源和光电二极管</li>
+<li>Laser scanners: laser beam 激光 mirror 棱镜反射扫描</li>
+<li>CCD readers:  light sensors 光传感器</li>
+<li>Camera-based readers: camera and image processing</li>
+<li>Omni-directional barcode scanners(全方位的条形码扫描仪):  Laser scanner, for grocery</li>
+</ul>
+<h3 id="barcode-system"><a class="markdownIt-Anchor" href="#barcode-system"></a> BarCode System</h3>
+<ul>
+<li>encoding module for generating a visually significant barcode<br />
+生成具有视觉意义的条形码</li>
+<li>decoding module for receiving an acquired version of a visually significant barcode<br />
+接收可能在典型的文档处理通道</li>
+<li>recovering the message<br />
+恢复</li>
+</ul>
+<h2 id="22-two-dimentional-code"><a class="markdownIt-Anchor" href="#22-two-dimentional-code"></a> 2.2 Two-dimentional Code</h2>
+<h3 id="工作原理"><a class="markdownIt-Anchor" href="#工作原理"></a> 工作原理</h3>
+<ul>
+<li>encode <strong>a lot of information</strong> in a small space</li>
+<li>contain 100 to about 2000 characters</li>
+</ul>
+<h3 id="具体形式"><a class="markdownIt-Anchor" href="#具体形式"></a> 具体形式</h3>
+<ul>
+<li>
+<p>PDF-417<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-682dc28a455c8d83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PDF-417" /></p>
+</li>
+<li>
+<p>DataMatrix<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-97dde2b6ab6ce08a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DataMatrix" /></p>
+</li>
+<li>
+<p>QR Code<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-d9e5b1dc1a226412.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QRCode" /></p>
+</li>
+</ul>
+<h2 id="23-ic-card"><a class="markdownIt-Anchor" href="#23-ic-card"></a> 2.3 IC card</h2>
+<h3 id="工作原理-2"><a class="markdownIt-Anchor" href="#工作原理-2"></a> 工作原理</h3>
+<ul>
+<li>embedded integrated circuits<br />
+嵌入式集成电路</li>
+<li>provide identification, authentication, data storage and application processing.<br />
+识别、认证、数据存储和应用程序处理。</li>
+</ul>
+<h3 id="具体形式-2"><a class="markdownIt-Anchor" href="#具体形式-2"></a> 具体形式</h3>
+<ul>
+<li>
+<p>smart card<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-fed9a347dee59584.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="smart card" /></p>
+</li>
+<li>
+<p>chip card<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-6c7567cc6b6c8c1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="chip card" /></p>
+</li>
+<li>
+<p>integrated circuit card<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-d98939779c154fd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="integrated circuit card" /></p>
+</li>
+</ul>
+<h3 id="contact-smart-cards-工作原理"><a class="markdownIt-Anchor" href="#contact-smart-cards-工作原理"></a> Contact smart cards 工作原理</h3>
+<ul>
+<li>comprising gold plated contact pads<br />
+包括若干镀金接触垫</li>
+<li>power is supplied by the card reader.<br />
+电源由读卡器提供</li>
+</ul>
+<h3 id="contactless-smart-cards-工作原理-重点"><a class="markdownIt-Anchor" href="#contactless-smart-cards-工作原理-重点"></a> <strong>Contactless smart cards 工作原理 (重点)</strong></h3>
+<ul>
+<li>RF induction technology 无线射频技术</li>
+<li>not have an internal power source 没电</li>
+<li>communicate with a terminal via radio waves<br />
+通过无线电波与终端通信</li>
+<li>Contactless smart cards do not contain an ordinary readonly RFID, but they do contain a <strong>re-writeable smart card.</strong><br />
+非接触式智能卡不包含普通的只读RFID，但它们包含可重写的智能卡</li>
+<li>used for identification,authentication, and data storage<br />
+可用于识别、认证和数据存储</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<ul>
+<li>Financial: ATM cards, fuel cards, mobile phone SIMs.</li>
+<li>Identifications: driver’s license system, students card</li>
+<li>Healthcare: portable medical record</li>
+</ul>
+<h2 id="24-rfid"><a class="markdownIt-Anchor" href="#24-rfid"></a> 2.4 RFID</h2>
+<h3 id="定义和特点"><a class="markdownIt-Anchor" href="#定义和特点"></a> 定义和特点</h3>
+<ul>
+<li>RFID Radio Frequency Identification：Radio-frequency identification is the use of a wireless non-contact system that uses radio-frequency electromagnetic fields to transfer data from a tag attached to an object, for the purposes of automatic identification and tracking.<br />
+射频识别:射频识别是使用无线非接触系统，利用射频电磁场将数据从附着在物体上的标签传输到物体上，以实现自动识别和跟踪。</li>
+<li>An ADC (Automated Data Collection) technology
+<ul>
+<li>uses radio-frequency waves to transfer data to <strong>identify</strong>, <strong>categorize</strong>, <strong>track</strong></li>
+<li><strong>fast</strong> and doesn’t require <strong>physical sight</strong> or <strong>contact</strong></li>
+<li>automatic</li>
+<li>low cost</li>
+<li>unique identification</li>
+</ul>
+</li>
+</ul>
+<h3 id="rfid-组件"><a class="markdownIt-Anchor" href="#rfid-组件"></a> RFID 组件</h3>
+<ul>
+<li>RFID tag</li>
+<li>RF Antenna</li>
+<li>Network</li>
+<li>WorkStation<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-f5cf499aeea3ff21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RFID Components" /></li>
+</ul>
+<h4 id="rfid-tag"><a class="markdownIt-Anchor" href="#rfid-tag"></a> RFID tag</h4>
+<ul>
+<li>The tag contains electronically stored information.<br />
+标签包含电子存储的信息，可以从几米(码)外读取</li>
+<li>the tag does not need to be within line of sight of the reader.<br />
+标签不需要在阅读器的视线范围内</li>
+<li>Tags can be read-only or read-write</li>
+</ul>
+<h5 id="rfid-tag-概念图"><a class="markdownIt-Anchor" href="#rfid-tag-概念图"></a> RFID Tag 概念图</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-c914d16326f2bc7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RFID" /></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Antenna</td>
+<td>天线</td>
+</tr>
+<tr>
+<td>Power Supply</td>
+<td>电力供应</td>
+</tr>
+<tr>
+<td>Tx Modulator</td>
+<td>Tx调制器</td>
+</tr>
+<tr>
+<td>Rx Modulator</td>
+<td>Rx调制器</td>
+</tr>
+<tr>
+<td>Control Logic</td>
+<td>逻辑控制模块</td>
+</tr>
+<tr>
+<td>Memory Cells</td>
+<td>记忆模块</td>
+</tr>
+</tbody>
+</table>
+<h5 id="rfid-tag-分类重点"><a class="markdownIt-Anchor" href="#rfid-tag-分类重点"></a> RFID Tag 分类（重点）</h5>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Battery</th>
+<th>Range</th>
+<th>其他特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Passive</td>
+<td>non-exist</td>
+<td>Short</td>
+<td>reflects radio signal</td>
+</tr>
+<tr>
+<td>Semi-active</td>
+<td>exist</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Active</td>
+<td>exist</td>
+<td>High</td>
+<td>Tag actively transmits radio signal</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read-only tags</td>
+<td>never</td>
+</tr>
+<tr>
+<td>Write once</td>
+<td>once</td>
+</tr>
+<tr>
+<td>Read/Write tags</td>
+<td>over time</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Passive 被动</p>
+<ul>
+<li>Operational power scavenged from reader radiated power<br />
+从读出器辐射功率中清除的操作功率</li>
+<li>Tag reflects radio signal from reader<br />
+标签反射来自阅读器的无线电信号</li>
+<li>Reader powered</li>
+<li>Shorter Read Range</li>
+</ul>
+</li>
+<li>
+<p>Semi-active 半主动</p>
+<ul>
+<li>Operational power provided by battery</li>
+</ul>
+</li>
+<li>
+<p>Active 主动</p>
+<ul>
+<li>Operational power provided by battery - transmitter built into tag<br />
+工作电源由内置在标签内的电池发射器提供</li>
+<li>Tag transmits radio signal<br />
+标签传送无线电信号</li>
+<li>Battery powered memory, radio &amp; circuitry<br />
+电池供电的存储器，无线电和电路</li>
+<li>High Read Range</li>
+</ul>
+</li>
+<li>
+<p>Read-only tags</p>
+</li>
+<li>
+<p>Write once, read many tags</p>
+</li>
+<li>
+<p>Read/Write tags</p>
+</li>
+</ul>
+<h4 id="rfid-reader-重点"><a class="markdownIt-Anchor" href="#rfid-reader-重点"></a> RFID Reader （重点）</h4>
+<ul>
+<li>功能</li>
+</ul>
+<ol>
+<li>Remote power tags  远程电源标签</li>
+<li>Establish a bidirectional data link 建立双向数据链路</li>
+<li>Inventory tags, filter results 库存标签，过滤结果</li>
+<li>Communicate with networked server(s)  与联网的伺服器通讯</li>
+<li>Can read 100-300 tags per second 每秒可以读取100-300个标签</li>
+</ol>
+<h5 id="frequencies-of-operations-for-readers"><a class="markdownIt-Anchor" href="#frequencies-of-operations-for-readers"></a> Frequencies of operations for Readers</h5>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Frequency</th>
+<th>Speed</th>
+<th>Range</th>
+<th>Penteates</th>
+<th>Antennas Scale</th>
+<th>Construction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low-Frequency</td>
+<td>30-300 kHz</td>
+<td>slow</td>
+<td>minimal</td>
+<td>well except iron</td>
+<td>Large</td>
+<td>thick &amp; complex &amp; expensive</td>
+</tr>
+<tr>
+<td>High-Frequency</td>
+<td>3-30 kHz</td>
+<td>mid-slow</td>
+<td>0.7m</td>
+<td>well except iron</td>
+<td>Large</td>
+<td>thin</td>
+</tr>
+<tr>
+<td>Ultra High Frequency</td>
+<td>300 MHz - 1GHz</td>
+<td>fast</td>
+<td>&gt;1.0m</td>
+<td>well in iron except else</td>
+<td>Smaller</td>
+<td>thinner</td>
+</tr>
+<tr>
+<td>Microwave</td>
+<td>2-30 GHz</td>
+<td>very fast</td>
+<td>greater</td>
+<td>well in iron</td>
+<td>Smaller</td>
+<td>thinner</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rfid-交流模型重点"><a class="markdownIt-Anchor" href="#rfid-交流模型重点"></a> RFID 交流模型（重点）</h4>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-f8d9ee996618f899.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="communication" /></p>
+<ul>
+<li>Host 发出命令</li>
+<li>Reader 和 Tag 通过射频信号进行通信</li>
+<li>Reader 产生 Carrier signal</li>
+<li>Reader通过 Antennas 发送 Carrier signal</li>
+<li>Carrier signal hit Tag</li>
+<li>Tag recieves 并修改信号发送回Reader</li>
+<li>Antennas 接收并发送到 Reader</li>
+<li>Reader decode</li>
+<li>Reader 发送结果到 Host</li>
+</ul>
+<h4 id="electronic-product-code-epc码"><a class="markdownIt-Anchor" href="#electronic-product-code-epc码"></a> Electronic Product Code EPC码</h4>
+<ul>
+<li>universal identifier 通用标识符</li>
+<li>RFID tag</li>
+<li>EPCglobal Tag Data Standard<br />
+其结构定义在EPCglobal标签数据标准中</li>
+</ul>
+<h4 id="epc-network-ppt-要求理解"><a class="markdownIt-Anchor" href="#epc-network-ppt-要求理解"></a> EPC Network (PPT 要求理解)</h4>
+<ul>
+<li>
+<p>定义<br />
+The EPCglobal Network is a computer network used to share product data between trading partners. It was created by EPCglobal.<br />
+EPCglobal网络是一个用于在贸易伙伴之间共享产品数据的计算机网络。它是由EPCglobal创建的。</p>
+</li>
+<li>
+<p>The EPCglobal Network consists of the following components:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object Naming Service (ONS)</td>
+<td>对象命名服务(ONS)</td>
+</tr>
+<tr>
+<td>EPC Discovery Services</td>
+<td>EPC发现服务</td>
+</tr>
+<tr>
+<td>EPC Information Services (EPCIS)</td>
+<td>EPC信息服务(EPCIS)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="25-sensor"><a class="markdownIt-Anchor" href="#25-sensor"></a> 2.5 Sensor</h2>
+<h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
+<p>A device that responds to a physical stimulus and transmits a resulting impulse.</p>
+<p>A sensor is a converter that measures a physical quantity and converts it into a signal which can be read by an observer or by an (today mostly electronic) instrument.<br />
+传感器是一个转换器，它测量一个物理量，并将其转换成一个信号，该信号可以被观察者或(今天主要是电子)仪器读取。</p>
+<h3 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active sensors</td>
+<td>generate electric current</td>
+</tr>
+<tr>
+<td>Passive sensors</td>
+<td>require additional other electrical energy</td>
+</tr>
+<tr>
+<td>Contact sensor</td>
+<td>requires physical contact</td>
+</tr>
+<tr>
+<td>Non-contact sensor</td>
+<td>no physical contact</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-da379bf5fdf705f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Classification" /></p>
+<h3 id="input-output"><a class="markdownIt-Anchor" href="#input-output"></a> Input &amp; Output</h3>
+<ul>
+<li>Input: stimulus or measurand (temperature, pressure, light intensity)</li>
+<li>Output: electrical signal (voltage, current, frequency, phase)</li>
+<li>Relation:
+<ul>
+<li>Linear or nonlinear; single/multiple</li>
+<li>inputs, single output;</li>
+</ul>
+</li>
+</ul>
+<h3 id="range-and-span"><a class="markdownIt-Anchor" href="#range-and-span"></a> Range and Span</h3>
+<p>Example: a sensors is designed for: −30 °C to +80 °C<br />
+to output 2.5V to 1.2V<br />
+Range: −30°C and +80 °C<br />
+Span: 80− (−30)=110 °C<br />
+Input full scale = 110 °C<br />
+Output full scale = 2.5V-1.2V=1.3V</p>
+<h3 id="error"><a class="markdownIt-Anchor" href="#error"></a> Error</h3>
+<ul>
+<li>Error Source</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>materials used</td>
+<td>材料</td>
+</tr>
+<tr>
+<td>ageing</td>
+<td>老化</td>
+</tr>
+<tr>
+<td>operational errors</td>
+<td>操作错误</td>
+</tr>
+<tr>
+<td>calibration errors</td>
+<td>校准错误</td>
+</tr>
+<tr>
+<td>noise</td>
+<td>噪音</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Error 分类</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>time dependent</th>
+<th>cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static errors</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>Dynamic error</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>System error</td>
+<td></td>
+<td>imperfect design of the measurement setup</td>
+</tr>
+<tr>
+<td>Random errors</td>
+<td></td>
+<td>uncontrolled variables</td>
+</tr>
+</tbody>
+</table>
+<h3 id="一堆概念重点"><a class="markdownIt-Anchor" href="#一堆概念重点"></a> 一堆概念（重点）</h3>
+<ul>
+<li>Resolution(分辨力): the minimum increment in stimulus to which it can respond.<br />
+最小感知单元的大小</li>
+<li>Accuracy(准确度): how closely the output  will match the true value.<br />
+感知信息的准确程度</li>
+<li>Precision(精确度): how close the measured values are to each other.<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-e84a79527432cfdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Accuracy &amp; Resolution" /><br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-a16864130f718200.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Accuracy &amp; Precision" /></li>
+<li>Reliability(可靠性): reproducibility, indicates the ability of the device to perform its stated function.<br />
+也称为再现性:在不同时间测量时，传感器在相同条件下不能表示相同的值(即刺激或输入)。<br />
+对设备质量的一种统计测量，它表明设备在正常运行条件下，在规定的一段时间或若干个周期内不发生故障的情况下，执行规定功能的能力。</li>
+<li>Sensitivity(灵敏度): represents the slope of the transfer function.<br />
+传感器的灵敏度定义为给定输入变化(通常是输入的单位变化)的输出变化。灵敏度表示传递函数的斜率。</li>
+<li>Hysteresis(滞后程度): the deviation of the sensor’s output at any given point when approached from two different directions<br />
+滞后程度:当传感器从两个不同的方向接近任意给定点时，传感器输出的偏差</li>
+<li>Linearity(线性度)： the deviation of the output from a best-fit straight line for a given range of the sensor<br />
+线性度: 在给定的传感器范围内，输出与最佳拟合直线的偏差<br />
+Response time(响应时间): delay time, indicates the time needed for the output to reach steady state for a step change in input.<br />
+表示输出达到稳态所需的时间。<br />
+Calibration(校准): the experimental determination of thetransfer function of a sensor.<br />
+校准:传感器传递函数的实验测定。<br />
+通常，当传递函数未知时，<br />
+当设备必须在低于制造商规定的公差下运行时。<br />
+例如，在0到100°C的温度范围内，使用容忍度为5%的热敏电阻来测量温度。</li>
+</ul>
+<h2 id="26-positioning-and-gps"><a class="markdownIt-Anchor" href="#26-positioning-and-gps"></a> 2.6 Positioning and GPS</h2>
+<h3 id="定位基本原理重点"><a class="markdownIt-Anchor" href="#定位基本原理重点"></a> 定位基本原理（重点）</h3>
+<p>Signals in the electromagnetic spectrum<br />
+Signal time transit from known points converted to distance<br />
+Distances/ directions to known points are solved for the unknown position</p>
+<p>电磁波谱中的信号<br />
+信号时间从已知点转换为距离<br />
+由多个已知点的距离/方向由未知位置求出</p>
+<ul>
+<li>Cellular positioning- EOTD 细胞定位</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-e47ea46ee6699d6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Cellular positioning" /></p>
+<h3 id="gps"><a class="markdownIt-Anchor" href="#gps"></a> GPS</h3>
+<ul>
+<li>Global Positioning System</li>
+<li>GPS provides:<br />
+① Location or positional fix<br />
+② Velocity<br />
+③ Direction of travel<br />
+④ Accurate time</li>
+<li>GPS Basic Steps:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Name</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Positioning</td>
+<td>知道SV的位置</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Timing</td>
+<td>知道准确时间</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SV Ranging（卫星测距）</td>
+<td>算出物体到SV的举例</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Trilateration（三边测量）</td>
+<td>找到物体在地球上的交叉点</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Correction of errors</td>
+<td>Correcting for  delays</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Range from each satellite calculated<br />
+range = time delay * speed of light</p>
+</li>
+<li>
+<p>Sources of Errors</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>atmosphere</td>
+<td>大气</td>
+</tr>
+<tr>
+<td>Satellite clock errors</td>
+<td>卫星时钟误差</td>
+</tr>
+<tr>
+<td>SV position errors</td>
+<td>SV位置误差</td>
+</tr>
+<tr>
+<td>Quality of GPS receiver</td>
+<td>GPS接收机质量</td>
+</tr>
+<tr>
+<td>Multi-path errors</td>
+<td>多路径误差</td>
+</tr>
+</tbody>
+</table>
 
             </div>
             <hr/>
@@ -760,7 +1309,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</a>
+                    <a href="http://www.jlccbzh.cn/Sensing%20Technology%20of%20IoT.html">http://www.jlccbzh.cn/Sensing%20Technology%20of%20IoT.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -798,8 +1347,8 @@ LinkStack opstack;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DSA/">
-                                    <span class="chip bg-color">DSA</span>
+                                <a href="/tags/IoT/">
+                                    <span class="chip bg-color">IoT</span>
                                 </a>
                             
                         </div>
@@ -1232,24 +1781,24 @@ LinkStack opstack;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
+                <a href="/Networking%20Technologies%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Transport layer">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Networking Technologies of IoT">
                         
-                        <span class="card-title">Transport layer</span>
+                        <span class="card-title">Networking Technologies of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            物联网网络技术相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-03
                         </span>
                         <span class="publish-author">
                             
@@ -1266,8 +1815,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
@@ -1281,24 +1830,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E5%AE%89%E5%8D%93%E5%85%A5%E9%97%A8.html">
+                <a href="/Overview%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Overview of IoT">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <span class="card-title">Overview of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            物联网技术概论
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-13
                             </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1864,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>

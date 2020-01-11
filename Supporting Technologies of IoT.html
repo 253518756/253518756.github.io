@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 信号太难了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="Supporting Technologies of IoT, 信号太难了">
+    <meta name="description" content="物联网相关的支持技术的详细介绍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 信号太难了</title>
+    <title>Supporting Technologies of IoT | 信号太难了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">Supporting Technologies of IoT</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DSA/">
-                                <span class="chip bg-color">DSA</span>
+                            <a href="/tags/IoT/">
+                                <span class="chip bg-color">IoT</span>
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2020-01-06
                 </div>
                 
 
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    12 分
                 </div>
                 
 
@@ -496,245 +496,703 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <h2 id="61-cloud-computing"><a class="markdownIt-Anchor" href="#61-cloud-computing"></a> 6.1 Cloud Computing</h2>
+<ul>
+<li>网络计算方式的进化</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Network Computing</td>
+<td>网络计算</td>
+</tr>
+<tr>
+<td>Cluster Computing</td>
+<td>集群计算</td>
+</tr>
+<tr>
+<td>Grid Computing</td>
+<td>格网计算</td>
+</tr>
+<tr>
+<td>Utility Computing</td>
+<td>效用计算</td>
+</tr>
+<tr>
+<td>Cloud Computing</td>
+<td>云计算</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>云计算要点</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared pool of configurable computing resources</td>
+<td>可配置计算资源的共享池</td>
+</tr>
+<tr>
+<td>On-demand network access</td>
+<td>按需网络访问</td>
+</tr>
+<tr>
+<td>Provisioned by the Service Provider</td>
+<td>由服务提供者提供</td>
+</tr>
+<tr>
+<td>hide the complexity</td>
+<td>隐藏底层的复杂性</td>
+</tr>
+<tr>
+<td>anywhere, anytime and any place</td>
+<td></td>
+</tr>
+<tr>
+<td>Pay for use</td>
+<td>按需支付</td>
+</tr>
+<tr>
+<td>hardware and software service</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>pros and cons of Cloud Computer</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>pros</th>
+<th>中文翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Easy to conceptualize</td>
+<td>容易概念化</td>
+</tr>
+<tr>
+<td>Easy to deploy</td>
+<td>容易部署（服务器）</td>
+</tr>
+<tr>
+<td>Easy to backup</td>
+<td>容易备份</td>
+</tr>
+<tr>
+<td>any application/service can be run from this type of setup</td>
+<td>兼容性强</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>cons</th>
+<th>中文翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expensive to acquire and maintain hardware</td>
+<td>获取和维护硬件费用高</td>
+</tr>
+<tr>
+<td>Not very scalable</td>
+<td>不是很可伸缩</td>
+</tr>
+<tr>
+<td>Difficult to replicate</td>
+<td>难以复制</td>
+</tr>
+<tr>
+<td>Vulnerable to hardware outages</td>
+<td>容易出现硬件中断</td>
+</tr>
+</tbody>
+</table>
+<h3 id="virtual-server"><a class="markdownIt-Anchor" href="#virtual-server"></a> Virtual Server</h3>
+<ul>
+<li>Concepts<br />
+① Virtual servers seek to encapsulate the server software away from the hardware.<br />
+虚拟服务器试图将服务器软件封装在硬件之外.<br />
+② A virtual server can be serviced by one or more hosts, and one host may house more than one virtual server.<br />
+一个虚拟服务器可以由一个或多个主机提供服务，一个主机可以容纳多个虚拟服务器。<br />
+③ If the environment built correctly, virtual servers will not be affected by the loss of a host.<br />
+如果环境构建正确，虚拟服务器不会受到主机丢失的影响。<br />
+④ Can be scaled out easily.<br />
+可以很容易地扩展。</li>
+<li>Advantages<br />
+① Run operating systems where the physical hardware is unavailable.<br />
+运行物理硬件不可用的操作系统<br />
+② Easier to create new machines, backup machines, etc.,<br />
+更容易创建新机器，备份机器等，<br />
+③ Software testing using “clean” installs of operating systems and software,<br />
+使用“干净”安装的操作系统和软件进行软件测试<br />
+④ Emulate more machines than are physically available<br />
+仿真比实际可用的更多的机器<br />
+⑤ Timeshare lightly loaded systems on one host<br />
+一个主机上的分时系统负载很轻<br />
+⑥ Debug problems (suspend and resume the problem machine)<br />
+调试问题(挂起并恢复问题机器)，<br />
+⑦ Easy migration of virtual machines<br />
+轻松迁移虚拟机<br />
+⑧ Run legacy systems!<br />
+遗留系统运行!</li>
+<li>Pros and cons of virtualization</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>pros</th>
+<th>中文翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resource pooling</td>
+<td>资源池</td>
+</tr>
+<tr>
+<td>Highly redundant</td>
+<td>高度冗余</td>
+</tr>
+<tr>
+<td>Highly available</td>
+<td>高可用性</td>
+</tr>
+<tr>
+<td>Rapidly deploy new servers</td>
+<td>快速部署新服务器</td>
+</tr>
+<tr>
+<td>Easy to deploy</td>
+<td>易于部署</td>
+</tr>
+<tr>
+<td>Reconfigurable while services are running</td>
+<td>服务运行时可重新配置</td>
+</tr>
+<tr>
+<td>Optimizes physical resources by doing more with less</td>
+<td>通过用更少的资源做更多的事情来优化物理资源</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>cons</th>
+<th>中文翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>harder to conceptualize</td>
+<td>难以概念化</td>
+</tr>
+<tr>
+<td>more costly</td>
+<td>贵</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layers-of-cloud-service-云计算层结构"><a class="markdownIt-Anchor" href="#layers-of-cloud-service-云计算层结构"></a> Layers of Cloud Service 云计算层结构</h3>
+<table>
+<thead>
+<tr>
+<th>layer</th>
+<th>service</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Application</td>
+<td>SaaS</td>
+<td>为客户制作并维护应用程序</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td>PaaS</td>
+<td>为客户提供平台，API</td>
+</tr>
+<tr>
+<td>Infrastructure</td>
+<td>IaaS</td>
+<td>为客户提供硬件资源</td>
+</tr>
+<tr>
+<td>Server</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
+<p>SaaS<br />
+use provider’s applications running on provider’s cloud infrastructure.<br />
+使用运行在提供商云基础设施上的提供商应用程序。</p>
 </li>
 <li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
-</ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
-<ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
-</ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
-<ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
-</ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
-<ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
-</ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
+<p>PaaS<br />
+can create custom applications using programming tools supported by the provider and deploy them onto the provider’s cloud infrastructure.<br />
+可以使用提供商支持的编程工具创建自定义应用程序，并将它们部署到提供商的云基础设施上。</p>
 </li>
 <li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
-<ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
-</ul>
+<p>IaaS<br />
+provisions computing resources within provider’s infrastructure upon which they can deploy and run arbitrary software, including OS and applications.<br />
+在提供商的基础设施中提供计算资源，他们可以在这些资源上部署和运行任意软件，包括操作系统和应用程序。</p>
+</li>
+<li>
+<p>知名云服务商<br />
+① Google Cloud<br />
+② VMware Cloud<br />
+③ IBM-Google Cloud<br />
+④ Salesforce Cloud</p>
+</li>
+<li>
+<p>注重例子（看PPT）</p>
 </li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-97187123149420af?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
+<h3 id="hadoop"><a class="markdownIt-Anchor" href="#hadoop"></a> Hadoop</h3>
+<p>用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力进行高速运算和存储。</p>
+<table>
+<thead>
+<tr>
+<th>framework</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hadoop Distributed File System (HDFS)</td>
+<td>provide storage</td>
+</tr>
+<tr>
+<td>MapReduce</td>
+<td>provide processing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="62-security-issue"><a class="markdownIt-Anchor" href="#62-security-issue"></a> 6.2 Security Issue</h2>
+<h3 id="computer-security"><a class="markdownIt-Anchor" href="#computer-security"></a> Computer Security</h3>
+<p>integrity（完整性）, availability（可用性） and confidentiality（保密性） of information system resources<br />
+保护信息系统资源的完整性、可用性和保密性<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-5fdf337b607afc1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CIA Traid" /></p>
+<p>Authenticity and Accountability 真实性和问责制</p>
+<table>
+<thead>
+<tr>
+<th>Key Objectives</th>
+<th>具体体现</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidentiality</td>
+<td>Concealment of information or resources</td>
+<td>信息或资源的隐瞒</td>
+</tr>
+<tr>
+<td></td>
+<td>Data Confidentiality</td>
+<td>数据保密性</td>
+</tr>
+<tr>
+<td></td>
+<td>Privacy</td>
+<td>隐私</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>Trustworthiness of data or resources</td>
+<td>数据或资源的可靠性</td>
+</tr>
+<tr>
+<td></td>
+<td>Data Integrity</td>
+<td>数据完整性</td>
+</tr>
+<tr>
+<td></td>
+<td>System Integrity</td>
+<td>系统的完整性</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>Service not denied to authorized users</td>
+<td>未拒绝授权用户的服务</td>
+</tr>
+<tr>
+<td></td>
+<td>Ability to use information or resources</td>
+<td>能够使用信息或资源</td>
+</tr>
+<tr>
+<td>Authenticity</td>
+<td>being genuine, verified or trust</td>
+<td>真实的，能够被核实或信任的</td>
+</tr>
+<tr>
+<td></td>
+<td>verifying the users</td>
+<td>验证用户</td>
+</tr>
+<tr>
+<td>Accountability</td>
+<td>can be traced uniquely to that entity</td>
+<td>唯一地追溯到该实体</td>
+</tr>
+</tbody>
+</table>
+<h4 id="computer-security-challenges"><a class="markdownIt-Anchor" href="#computer-security-challenges"></a> Computer Security Challenges</h4>
+<ol>
+<li>not simple</li>
+<li>must consider potential attacks<br />
+必须考虑潜在的攻击</li>
+<li>procedures used counter-intuitive<br />
+程序使用反直觉的</li>
+<li>involve algorithms and secret info<br />
+涉及算法和秘密信息</li>
+<li>must decide where to deploy mechanisms<br />
+必须决定在何处部署机制</li>
+<li>battle of wits between attacker/administrator<br />
+攻击者/管理员之间的斗智斗勇</li>
+<li>not perceived to be a benefit until fails<br />
+直到失败才被认为是有益的</li>
+<li>requires regular monitoring<br />
+需要定期监测</li>
+<li>too regarded as impediment to efficient and user friendly use of system<br />
+也被认为是高效和用户友好使用系统的障碍</li>
+<li>often an after-thought<br />
+往往恍然大悟</li>
+</ol>
+<h4 id="osi-security-architecture-osi安全体系结构"><a class="markdownIt-Anchor" href="#osi-security-architecture-osi安全体系结构"></a> OSI Security Architecture OSI安全体系结构</h4>
+<p>The OSI security architecture focuses on security <strong>attacks</strong>, <strong>mechanisms</strong> and <strong>services</strong>.<br />
+OSI的安全架构关注于安全攻击、机制和服务。</p>
 <ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
+<li>Cryptography 密码学</li>
 </ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
-        }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
-        }
-    }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
-        }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
-                }
-            }
-        }
-        i++;
-    }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-
-
-
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Cryptography Goals</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>confidentiality</td>
+<td>保密</td>
+</tr>
+<tr>
+<td>data integrity</td>
+<td>数据完整性</td>
+</tr>
+<tr>
+<td>entity authentication</td>
+<td>身份验证</td>
+</tr>
+<tr>
+<td>Non-repudiation</td>
+<td>不可抵赖性</td>
+</tr>
+</tbody>
+</table>
+<h5 id="要背的概念"><a class="markdownIt-Anchor" href="#要背的概念"></a> 要背的概念</h5>
+<ul>
+<li>Security Attack: Any action (active or passive) that compromises the security of information<br />
+安全攻击:危害信息安全的任何行为(主动或被动)</li>
+<li>Security Mechanism: A mechanism that is designed to detect, prevent, or recover from a security attack.<br />
+安全机制:用于检测、防止或从安全攻击中恢复的机制。</li>
+<li>Security Service: A service that enhances the security of data processing systems and information transfers. A security service makes use of one or more security mechanisms.<br />
+安全服务:提高数据处理系统和信息传输安全性的服务。安全服务使用一个或多个安全机制。</li>
+<li>Threat: a potential for violation of security or a possible danger that might exploit a vulnerability<br />
+威胁: 潜在的安全威胁或可能利用漏洞的危险.</li>
+<li>Attack: an intelligent act that is a deliberate attempt to evade security services and violate the security policy of a system.<br />
+攻击: 一种故意逃避安全服务和违反系统安全策略的智能行为。</li>
+<li>填空<br />
+A <strong>Safeguard</strong> is a countermeasure to protect against a threat.<br />
+防护措施是防范威胁的对策。<br />
+A weakness in a safeguard is called a <strong>vulnerability</strong>.<br />
+安全防护中的弱点称为“漏洞”。<br />
+Damage to any IT-based system or activity can result in <strong>severe disruption of services and losses</strong>.<br />
+任何基于it的系统或活动的损坏都可能导致服务的严重中断和损失。</li>
+</ul>
+<h6 id="security-attacks"><a class="markdownIt-Anchor" href="#security-attacks"></a> Security Attacks</h6>
+<ul>
+<li>Interruption: This is an attack on availability<br />
+中断:这是对可用性的攻击</li>
+<li>Interception: This is an attack on confidentiality<br />
+拦截:这是对保密性的攻击</li>
+<li>Modification: This is an attack on integrity<br />
+修改:这是对完整性的攻击</li>
+<li>Fabrication: This is an attack on authenticity<br />
+捏造:这是对真实性的攻击</li>
+</ul>
+<h6 id="security-threats"><a class="markdownIt-Anchor" href="#security-threats"></a> Security Threats</h6>
+<ul>
+<li>Disclosure: unauthorized access to information<br />
+披露-未经授权的信息访问</li>
+<li>Deception: acceptance of false data<br />
+欺骗-接受虚假资料</li>
+<li>Disruption: interruption or prevention of correct operation<br />
+中断-正确操作的中断或预防</li>
+<li>Usurpation: unauthorized control of some part of a system<br />
+篡夺-对系统某些部分的未经授权的控制</li>
+</ul>
+<h6 id="passive-and-active-attacks-被动攻击和主动攻击"><a class="markdownIt-Anchor" href="#passive-and-active-attacks-被动攻击和主动攻击"></a> Passive and Active Attacks  被动攻击和主动攻击</h6>
+<ul>
+<li>Passive: attempts to learn or make use of information from the system, but does not affect system resources.<br />
+被动:尝试从系统中学习或利用信息，但不影响系统资源。</li>
+<li>Active: attempts to alter system resources or affect their operation.<br />
+主动:试图改变系统资源或影响它们的操作。</li>
+</ul>
+<h4 id="security-services"><a class="markdownIt-Anchor" href="#security-services"></a> Security Services</h4>
+<ul>
+<li>enhance security of data processing systems and information transfers of an organization<br />
+提高数据处理系统和组织信息传输的安全性</li>
+<li>intended to counter security attacks<br />
+为了对抗安全攻击</li>
+<li>use one or more security mechanisms<br />
+使用一个或多个安全机制</li>
+<li>often replicate functions normally associated with physical documents<br />
+经常复制通常与物理文档相关的功能</li>
+<li>have signatures, dates; need protection from disclosure, tampering, or destruction; are notarized or witnessed;<br />
+有签名，日期;需要保护以免泄露、篡改或销毁;</li>
+</ul>
+<h5 id="security-services-examples"><a class="markdownIt-Anchor" href="#security-services-examples"></a> Security Services Examples</h5>
+<table>
+<thead>
+<tr>
+<th>Examples</th>
+<th>解释</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uthentication</td>
+<td>(who created or sent the data)</td>
+<td>身份验证 (谁创建或发送数据)</td>
+</tr>
+<tr>
+<td>Access control</td>
+<td>(prevent misuse of resources)</td>
+<td>访问控制 (防止资源滥用)</td>
+</tr>
+<tr>
+<td>Confidentiality</td>
+<td>(privacy)</td>
+<td>机密性 (隐私)</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>(has not been altered)</td>
+<td>完整性 (未更改)</td>
+</tr>
+<tr>
+<td>Non-repudiation</td>
+<td>(the order is final)</td>
+<td>不可抵赖性 (订单为最终)</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>(permanence, non-erasure)</td>
+<td>可用性 (永久性、非擦除)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="security-machanism"><a class="markdownIt-Anchor" href="#security-machanism"></a> Security Machanism</h4>
+<ul>
+<li>feature designed to detect, prevent, or recover from a security attack<br />
+用于检测、防止或从安全攻击中恢复的特性</li>
+<li>no single mechanism that will support all services required<br />
+没有一种机制可以支持所有需要的服务</li>
+<li>however one particular element underlies many of the security mechanisms in use: cryptographic techniques<br />
+然而，在使用的许多安全机制的基础上有一个特殊的元素:密码技术</li>
+</ul>
+<h5 id="security-machanism-examples"><a class="markdownIt-Anchor" href="#security-machanism-examples"></a> Security Machanism Examples</h5>
+<ul>
+<li>Specific mechanisms existing to provide certain security services<br />
+提供某些保安服务的特定机制</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Examples</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encryption used for authentication</td>
+<td>用于身份验证的加密</td>
+</tr>
+<tr>
+<td>digital signatures</td>
+<td>数字签名</td>
+</tr>
+<tr>
+<td>access controls</td>
+<td>访问控制</td>
+</tr>
+<tr>
+<td>data integrity</td>
+<td>数据完整性</td>
+</tr>
+<tr>
+<td>authentication exchange</td>
+<td>身份验证交换</td>
+</tr>
+<tr>
+<td>traffic padding</td>
+<td>流量填充</td>
+</tr>
+<tr>
+<td>routing control</td>
+<td>路由控制</td>
+</tr>
+<tr>
+<td>notarization</td>
+<td>公证</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Pervasive mechanisms which are general mechanisms incorporated into the system and not specific to a service<br />
+无处不在的机制，是纳入系统的一般机制，而不是特定于服务</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Examples</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>security audit trail</td>
+<td>安全审计跟踪</td>
+</tr>
+<tr>
+<td>trusted functionality</td>
+<td>信任的功能??</td>
+</tr>
+<tr>
+<td>security labels</td>
+<td>安全标签</td>
+</tr>
+<tr>
+<td>event detection</td>
+<td>事件检测</td>
+</tr>
+<tr>
+<td>security recovery</td>
+<td>安全恢复</td>
+</tr>
+</tbody>
+</table>
+<h3 id="two-types-of-program-threats"><a class="markdownIt-Anchor" href="#two-types-of-program-threats"></a> Two Types of Program Threats</h3>
+<ul>
+<li>Information access threats:<br />
+信息访问的威胁<br />
+Intercept or modify data on behalf of users who should not have access to that data.<br />
+代表不应该访问该数据的用户拦截或修改数据。<br />
+E.g. corruption of data by injecting malicious code<br />
+例如，注入恶意程式码破坏资料</li>
+<li>Service threats:<br />
+服务的威胁<br />
+Exploit service flaws in computers to inhibit use by legitimate uses.<br />
+利用电脑上的服务漏洞，禁止合法使用。<br />
+Viruses and worms are examples of software attacks<br />
+病毒和蠕虫是软件攻击的例子</li>
+</ul>
+<h4 id="public-key-cryptosystems-公钥密码体制"><a class="markdownIt-Anchor" href="#public-key-cryptosystems-公钥密码体制"></a> Public-Key Cryptosystems 公钥密码体制</h4>
+<table>
+<thead>
+<tr>
+<th>categories</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encryption/decryption</td>
+<td>加密/解密</td>
+</tr>
+<tr>
+<td>Digital signature</td>
+<td>数字签名</td>
+</tr>
+<tr>
+<td>Key exchange</td>
+<td>密钥交换</td>
+</tr>
+</tbody>
+</table>
+<h4 id="advantage-of-symmetric-key-对称密钥的优点"><a class="markdownIt-Anchor" href="#advantage-of-symmetric-key-对称密钥的优点"></a> Advantage of Symmetric key  对称密钥的优点</h4>
+<ul>
+<li>It can be designed for high rates of data throughput, may be using hardware implementations<br />
+-它可以设计为高数据吞吐率，可以使用硬件实现</li>
+<li>Key lengths are relatively short<br />
+-密钥长度相对较短</li>
+<li>Can be used to produce stronger ciphers<br />
+-可用于产生更强的密码</li>
+</ul>
+<h4 id="disadvantage-of-symmetric-key-对称密钥的缺点"><a class="markdownIt-Anchor" href="#disadvantage-of-symmetric-key-对称密钥的缺点"></a> Disadvantage of Symmetric key  对称密钥的缺点</h4>
+<ul>
+<li>Key must remain secret at both ends<br />
+钥匙两端必须保密</li>
+<li>In a large network, there are many key pairs to be managed. Effective key management requires use of an unconditionally trusted third party.<br />
+在大型网络中，有许多密钥对需要管理。有效的密钥管理需要使用一个无条件信任的第三方。</li>
+<li>Digital signature schemes using private key cryptography requires large key.<br />
+使用私钥加密的数字签名方案需要大密钥。</li>
+</ul>
+<h4 id="advantage-of-public-key-cryptography-公钥密码学的优点"><a class="markdownIt-Anchor" href="#advantage-of-public-key-cryptography-公钥密码学的优点"></a> Advantage of Public key cryptography 公钥密码学的优点</h4>
+<ul>
+<li>Only the private key to be kept secret<br />
+只有私钥要保密</li>
+<li>The administration of key requires only a functionally trusted TTP.<br />
+密钥的管理只需要一个功能可靠的TTP。</li>
+<li>A private/public key pair may remain unchanged for a long time.<br />
+私钥/公钥对可能长时间保持不变。</li>
+<li>Gives relatively efficient digital signature schemes<br />
+提供相对有效的数字签名方案</li>
+</ul>
+<h4 id="disadvantages-of-public-key-cryptography-公钥密码学的缺点"><a class="markdownIt-Anchor" href="#disadvantages-of-public-key-cryptography-公钥密码学的缺点"></a> Disadvantages of public key cryptography 公钥密码学的缺点</h4>
+<ul>
+<li>Several orders of magnitudes slower<br />
+慢了几个数量级</li>
+<li>Key sizes are larger.<br />
+钥匙尺寸更大。</li>
+<li>No public-key cryptosystem is proven to<br />
+secure.<br />
+没有公钥密码系统被证明是安全的。</li>
+</ul>
 
             </div>
             <hr/>
@@ -760,7 +1218,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</a>
+                    <a href="http://www.jlccbzh.cn/Supporting%20Technologies%20of%20IoT.html">http://www.jlccbzh.cn/Supporting%20Technologies%20of%20IoT.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -798,8 +1256,8 @@ LinkStack opstack;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DSA/">
-                                    <span class="chip bg-color">DSA</span>
+                                <a href="/tags/IoT/">
+                                    <span class="chip bg-color">IoT</span>
                                 </a>
                             
                         </div>
@@ -1228,29 +1686,30 @@ LinkStack opstack;
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
+                <a href="/Supporting%20Technologies%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Transport layer">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Supporting Technologies of IoT">
                         
-                        <span class="card-title">Transport layer</span>
+                        <span class="card-title">Supporting Technologies of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            物联网相关的支持技术的详细介绍
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1263,11 +1722,12 @@ LinkStack opstack;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
@@ -1281,24 +1741,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E5%AE%89%E5%8D%93%E5%85%A5%E9%97%A8.html">
+                <a href="/Information%20Processing%20for%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Information Processing for IoT">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <span class="card-title">Information Processing for IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            物联网信息处理技术相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-05
                             </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1775,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>

@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 信号太难了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="Networking Technologies of IoT, 信号太难了">
+    <meta name="description" content="物联网网络技术相关的详细介绍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 信号太难了</title>
+    <title>Networking Technologies of IoT | 信号太难了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">Networking Technologies of IoT</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DSA/">
-                                <span class="chip bg-color">DSA</span>
+                            <a href="/tags/IoT/">
+                                <span class="chip bg-color">IoT</span>
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2020-01-03
                 </div>
                 
 
@@ -496,245 +496,528 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <h2 id="31-computer-network-and-internet-计网"><a class="markdownIt-Anchor" href="#31-computer-network-and-internet-计网"></a> 3.1 Computer Network and Internet 计网</h2>
+<h3 id="computer-network"><a class="markdownIt-Anchor" href="#computer-network"></a> Computer Network</h3>
+<ul>
+<li>Defination: group of interconnected computers.</li>
+<li>Computer Network allows computers to communicate with each other and to share resources and information.</li>
+</ul>
+<h3 id="communication-model-通信模型"><a class="markdownIt-Anchor" href="#communication-model-通信模型"></a> Communication Model 通信模型</h3>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-185cd0ce3c615e6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Communication Model" /></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>生成要传输的数据</td>
+</tr>
+<tr>
+<td>Transmitter</td>
+<td>将数据转换成可传输的信号</td>
+</tr>
+<tr>
+<td>Transmission System</td>
+<td>传输信号</td>
+</tr>
+<tr>
+<td>Receiver</td>
+<td>将接收到的信号转换成数据</td>
+</tr>
+<tr>
+<td>Destination</td>
+<td>接收数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="communication-types-通信类型"><a class="markdownIt-Anchor" href="#communication-types-通信类型"></a> Communication Types 通信类型</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unicasting</td>
+<td>单播</td>
+<td>一对一</td>
+</tr>
+<tr>
+<td>Multicasting</td>
+<td>多播</td>
+<td>一对多</td>
+</tr>
+<tr>
+<td>Broadcasting</td>
+<td>广播</td>
+<td>一对范围内所有</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-classification"><a class="markdownIt-Anchor" href="#network-classification"></a> Network Classification</h3>
+<h4 id="classify-with-area"><a class="markdownIt-Anchor" href="#classify-with-area"></a> classify with area</h4>
+<ul>
+<li>WAN &gt; MAN &gt; LAN &gt; PAN</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAN</td>
+<td>个人区域网</td>
+<td>10米以内</td>
+</tr>
+<tr>
+<td>LAN</td>
+<td>局域网</td>
+<td>对范围有限制，对传输时间有要求</td>
+</tr>
+<tr>
+<td>MAN</td>
+<td>城域网</td>
+<td>大范围，50km，大型局域网</td>
+</tr>
+<tr>
+<td>WAN</td>
+<td>广域网</td>
+<td>互联网就是广域网，通常涵盖一个国家或一个洲</td>
+</tr>
+</tbody>
+</table>
+<h3 id="classify-with-connectivity-method-按联通方式算法分类"><a class="markdownIt-Anchor" href="#classify-with-connectivity-method-按联通方式算法分类"></a> classify with connectivity method 按联通方式（算法）分类</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>cost</th>
+<th>install</th>
+<th>troubleshoot</th>
+<th>check</th>
+<th>other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BUS</td>
+<td>low</td>
+<td>easy</td>
+<td>easy</td>
+<td>hard</td>
+<td></td>
+</tr>
+<tr>
+<td>STAR</td>
+<td>high</td>
+<td>easy</td>
+<td>hard</td>
+<td>easy</td>
+<td>HUB成本高</td>
+</tr>
+<tr>
+<td>MESH</td>
+<td>high</td>
+<td>easy</td>
+<td>hard</td>
+<td>easy</td>
+<td></td>
+</tr>
+<tr>
+<td>TREE</td>
+<td>middle</td>
+<td>hard</td>
+<td>easy</td>
+<td>hard</td>
+<td>点对点连接，有软件支持</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>BUS<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-fd796da633ea2343.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BUS" /></li>
+</ol>
+<p>所有网络中的设施都作为主干路的节点，所有设施只能向左或向右传输。</p>
+<ul>
+<li>优点：① 易安装 ② 电缆成本低</li>
+<li>缺点：① 一点故障网络崩溃 ② 难检查故障</li>
+</ul>
+<ol start="2">
+<li>STAR<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-1a8ccf59ae46f530.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="STAR" /></li>
+</ol>
+<p>所有设施均通过一个HUB连接，HUB掌管一切</p>
+<ul>
+<li>优点：① 易安装 ② 故障不会影响整个网络 ③ 易检查故障</li>
+<li>缺点：① 电缆成本高 ② HUB崩溃网络崩溃 ③ HUB成本高</li>
+</ul>
+<ol start="3">
+<li>MESH<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-ae64961f89929553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MESH" /><br />
+用电缆去连接每个其他设备</li>
+</ol>
+<ul>
+<li>优点：容忍节点崩溃，易安装</li>
+<li>缺点：成本高</li>
+</ul>
+<ol start="4">
+<li>TREE<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-a18c4644e4ff443b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TREE" /></li>
+</ol>
+<ul>
+<li>优点： 点对点连接，有软硬件支持</li>
+<li>缺点：有电缆类型限制，不容忍节点崩溃， 难安装</li>
+</ul>
+<h3 id="网络"><a class="markdownIt-Anchor" href="#网络"></a> 网络</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intranet</td>
+<td>内部网</td>
+<td>单一管理实体</td>
+</tr>
+<tr>
+<td>Extranet</td>
+<td>外部网</td>
+<td>对外界访问有限制</td>
+</tr>
+<tr>
+<td>Internet 互联网</td>
+<td>全世界靠协议互通</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="网络用语定义"><a class="markdownIt-Anchor" href="#网络用语定义"></a> 网络用语定义</h3>
+<p>Packet： 网络传输包<br />
+Point- to - Point network: 点对点网络<br />
+Router： 路由器，负责在两个网络之间传输信息。</p>
+<h3 id="网络传输方式"><a class="markdownIt-Anchor" href="#网络传输方式"></a> 网络传输方式</h3>
+<ul>
+<li>circuit switching: dedicated circuit per call 电路传输</li>
+<li>packet switching: data sent through net in discrete “chunks”   以包的形式分块传输</li>
+</ul>
+<h3 id="protocol-协议重点"><a class="markdownIt-Anchor" href="#protocol-协议重点"></a> Protocol 协议（重点）</h3>
+<ul>
+<li>定义<br />
+A protocol is a set of rules that governs the communications between computers on a network.<br />
+协议是控制网络上计算机之间通信的一组规则。</li>
+</ul>
+<h4 id="协议的关键特征"><a class="markdownIt-Anchor" href="#协议的关键特征"></a> 协议的关键特征</h4>
+<ul>
+<li>制定数据交换的格式</li>
+<li>Syntax: 数据格式</li>
+<li>Semantics: 控制信息(匹配判定，错误判定等）</li>
+<li>Timing: 传输速度匹配，排队传输</li>
+<li>Actions: 如果发生了事情的处理办法</li>
+</ul>
+<h4 id="协议栈相关基本属于重点"><a class="markdownIt-Anchor" href="#协议栈相关基本属于重点"></a> 协议栈相关基本属于（重点）</h4>
+<ul>
+<li>Reliability 数据可靠性<br />
+error-free &amp; ordered delivery 无误差，无乱序<br />
+保证措施：acknowledgements and retransmission  确认和重传</li>
+<li>Overload 过载<br />
+Too many packets occur in a subnetwork in the same time<br />
+太多包出现在一个子网络中导致处理效率降低或堵塞</li>
+<li>Congestion 堵塞<br />
+路由器队列太长，导致缓存满了，造成数据堵塞。</li>
+<li><strong>Flow-control 流量控制</strong><br />
+to protect the receiver against the overload<br />
+<strong>防止过载，传输层关键算法</strong></li>
+<li><strong>Congestion prevention 防堵塞</strong><br />
+to prevent the intermediate nodes against the overload<br />
+<strong>防止中间节点过载，网络层关键算法</strong></li>
+<li>End-to-end 端到端<br />
+终端到终端。</li>
+</ul>
+<h4 id="osi-protocal-stack-osi协议栈-重点"><a class="markdownIt-Anchor" href="#osi-protocal-stack-osi协议栈-重点"></a> OSI Protocal Stack   OSI协议栈 （重点）</h4>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-334e28855b22802c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OSI Model" /></p>
+<ol>
+<li><strong>Physical Layer</strong> 物理层</li>
+</ol>
+<ul>
+<li>信号以能量的形式在媒介中传输。</li>
+</ul>
+<ol start="2">
+<li><strong>(Data) Link Layer</strong> 链路层</li>
+</ol>
+<ul>
+<li><strong>correct errors.</strong></li>
+<li>将字节电流（bits）转化为传输帧（Transmission of frames）</li>
+<li>error contorl &amp; flow control</li>
+</ul>
+<ol start="3">
+<li><strong>Network Layer</strong> 网络层</li>
+</ol>
+<ul>
+<li>主要负责节点之间的链接</li>
+<li>End-to-end packet transmission</li>
+<li>Congestion control</li>
+</ul>
+<ol start="4">
+<li>Transport Layer 传输层</li>
+</ol>
+<ul>
+<li>End-to-end packet reliablility</li>
+<li>把整条消息分成包去发送</li>
+<li>Reassemble 将包重新集合</li>
+<li>End-to-end flow control</li>
+<li>Acknowledgments 信息确认</li>
+</ul>
+<ol start="5">
+<li>Session Layer 会话层</li>
+</ol>
+<ul>
+<li>session management service 会话管理服务协议</li>
+<li>Assignment of logical ports 逻辑端口的分配</li>
+<li>Synchronization 异步</li>
+</ul>
+<ol start="6">
+<li>Presentation Layer 表现层</li>
+</ol>
+<ul>
+<li>syntax and semantics of messages</li>
+<li>code conversion</li>
+</ul>
+<ol start="7">
+<li>Application Layer 应用层</li>
+</ol>
 <ul>
 <li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
+<p>用户网络应用协议</p>
 </li>
 <li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
+<p>协议栈性质:<br />
+Each layer in stack:</p>
 </li>
 </ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
+<ol>
+<li>Performs related functions<br />
+执行相关功能</li>
+<li>Relies on lower layer for more primitive functions<br />
+依赖于更低级的功能</li>
+<li>Provides services to next higher layer<br />
+为下一层提供服务</li>
+<li>Communicates with corresponding peer layer of neighboring system using a protocol<br />
+利用协议与邻近系统的相应对等层通信</li>
+</ol>
+<h4 id="传输协议的可靠性"><a class="markdownIt-Anchor" href="#传输协议的可靠性"></a> 传输协议的可靠性</h4>
+<p>传输层协议：</p>
 <ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
+<li>TCP：可靠传输</li>
+<li>UDP：不可靠传输</li>
 </ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
+<h3 id="网络设备-重点"><a class="markdownIt-Anchor" href="#网络设备-重点"></a> 网络设备 （重点）</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>名字</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repeater</strong></td>
+<td>中继器</td>
+<td>将网络逻辑上连接到一起</td>
+</tr>
+<tr>
+<td><strong>Hub</strong></td>
+<td>中心</td>
+<td>多端口的中继器</td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>网桥</td>
+<td>两个网络的数据连接</td>
+</tr>
+<tr>
+<td>Switch</td>
+<td>开关</td>
+<td>多端口的网桥</td>
+</tr>
+<tr>
+<td>Router</td>
+<td>路由器</td>
+<td>连接在传输层兼容的网络</td>
+</tr>
+<tr>
+<td>Gateway (proxy server)</td>
+<td>网关（代理服务器）</td>
+<td>连接两个网络之间的路由器</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-bc8218d793afdab7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Devices of the Network Connection" /></p>
+<h2 id="packet-switching-circuit-switching"><a class="markdownIt-Anchor" href="#packet-switching-circuit-switching"></a> Packet Switching &amp; Circuit Switching</h2>
+<h3 id="packet-swithching-分组交换-不重要"><a class="markdownIt-Anchor" href="#packet-swithching-分组交换-不重要"></a> Packet Swithching 分组交换 （不重要）</h3>
 <ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
+<li>适用于传输数据量大的情况</li>
+<li>适用场景
+<ul>
+<li>资源分享</li>
+<li>没有 start-up delay 的场景</li>
 </ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
-<ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
-</ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
 </li>
-<li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
+<li>包传输需要经历时延，所以不能用于实时传输</li>
+<li>过度拥堵会导致包的延迟和丢失</li>
+<li>协议需要实现数据传输和拥塞控制</li>
+</ul>
+<h4 id="分组交换的性能-不重要"><a class="markdownIt-Anchor" href="#分组交换的性能-不重要"></a> 分组交换的性能 （不重要）</h4>
 <ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
+<li>性能指标<br />
+Overhead 开支：CPU把包放在网络上所需要的时间<br />
+Throughput 吞吐量: 每秒传输的最大字节数<br />
+Latency 延迟：第一个字节到达接收方所需要的时间</li>
+<li>延迟来源<br />
+Wire latency 线路延迟<br />
+Router latency 路由器延迟</li>
+</ul>
+<h4 id="分组交换的延迟来源-不重要"><a class="markdownIt-Anchor" href="#分组交换的延迟来源-不重要"></a> 分组交换的延迟来源 （不重要）</h4>
+<ul>
+<li>Nodal processing 节点处理</li>
+<li>Queuing 队列</li>
+<li>Transmission delay 传输延迟</li>
+<li>Propagation delay 传播延迟</li>
+</ul>
+<h3 id="internet-protocal"><a class="markdownIt-Anchor" href="#internet-protocal"></a> Internet protocal</h3>
+<ul>
+<li>Application Layer: ftp,smtp,http</li>
+<li>Transport Layer: tcp,udp</li>
+<li>Network Layer: ip,routing protocal</li>
+</ul>
+<h2 id="mobile-communication-network"><a class="markdownIt-Anchor" href="#mobile-communication-network"></a> Mobile Communication Network</h2>
+<ul>
+<li>First-generation mobile phones: analog voice
+<ul>
+<li>IMTS (Improved Mobile Telephone System)</li>
+<li>AMPS  (Advanced Mobile Phone System)</li>
+</ul>
+</li>
+<li>Second-generation mobile phones: digital voice
+<ul>
+<li>D-AMPS</li>
+<li>GMS</li>
+<li>CDMA</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-97187123149420af?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
+<h3 id="first-generation-mobile-phones-analog-voice"><a class="markdownIt-Anchor" href="#first-generation-mobile-phones-analog-voice"></a> First-generation mobile phones: analog voice</h3>
 <ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
+<li>A single channel for both sending and receiving</li>
+<li>Two frequencies</li>
 </ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
-        }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
-        }
-    }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
-        }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
-                }
-            }
-        }
-        i++;
-    }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-
-
-
-</code></pre>
+<h3 id="cellular-network-细胞网络"><a class="markdownIt-Anchor" href="#cellular-network-细胞网络"></a> Cellular Network 细胞网络</h3>
+<ul>
+<li>Each served by its own antenna<br />
+每个都有自己的天线</li>
+<li>Served by base station consisting of transmitter, receiver, and control unit<br />
+由发射机、接收机和控制单元组成的基站提供服务</li>
+<li>Band of frequencies allocated Cells set up such that antennas of all neighbors are equidistant (hexagonal pattern)<br />
+频率频带分配单元的设置使得所有邻居的天线都是等距的(六角形图案)</li>
+<li>To add more users, smaller cells (microcells) are used.<br />
+为了添加更多的用户，使用了更小的单元(微单元)</li>
+</ul>
+<h3 id="broad-band-wireless-network"><a class="markdownIt-Anchor" href="#broad-band-wireless-network"></a> Broad Band Wireless Network</h3>
+<ul>
+<li>Goals for wireless LAN  无线局域网的目标</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Goals</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>low power</td>
+<td>低功率</td>
+</tr>
+<tr>
+<td>robust transmission technology</td>
+<td>健壮的传输技术</td>
+</tr>
+<tr>
+<td>easy to use, simple management</td>
+<td>管理简单，易于使用</td>
+</tr>
+<tr>
+<td>protection of investment in wired networks</td>
+<td>有线网络投资保障</td>
+</tr>
+<tr>
+<td>security, privacy</td>
+<td>安全，隐私</td>
+</tr>
+<tr>
+<td>transparency concerning applications and higher layer protocols</td>
+<td>应用协议和更高层协议的透明性</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>wireless LAN 优缺点</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Advantages</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flexibility</td>
+<td>灵活性</td>
+</tr>
+<tr>
+<td>no wiring difficulties</td>
+<td>没有布线困难</td>
+</tr>
+<tr>
+<td>more robust against disasters</td>
+<td>更强大的御灾能力</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DisAdvantages</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lower bitrate compared to wired networks</td>
+<td>与有线网络相比，比特率更低</td>
+</tr>
+<tr>
+<td>More difficult to secure</td>
+<td>更难以获得</td>
+</tr>
+</tbody>
+</table>
 
             </div>
             <hr/>
@@ -760,7 +1043,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</a>
+                    <a href="http://www.jlccbzh.cn/Networking%20Technologies%20of%20IoT.html">http://www.jlccbzh.cn/Networking%20Technologies%20of%20IoT.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -798,8 +1081,8 @@ LinkStack opstack;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DSA/">
-                                    <span class="chip bg-color">DSA</span>
+                                <a href="/tags/IoT/">
+                                    <span class="chip bg-color">IoT</span>
                                 </a>
                             
                         </div>
@@ -1232,24 +1515,24 @@ LinkStack opstack;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
+                <a href="/Wireless%20Sensor%20Networks.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Transport layer">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Wireless Sensor Networks of IoT">
                         
-                        <span class="card-title">Transport layer</span>
+                        <span class="card-title">Wireless Sensor Networks of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            物联网无线传感网络相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-04
                         </span>
                         <span class="publish-author">
                             
@@ -1266,8 +1549,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
@@ -1281,24 +1564,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E5%AE%89%E5%8D%93%E5%85%A5%E9%97%A8.html">
+                <a href="/Sensing%20Technology%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Sensing Technologies of IoT">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <span class="card-title">Sensing Technologies of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            物联网传感器技术相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-02
                             </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1598,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>

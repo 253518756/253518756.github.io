@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 信号太难了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="Wireless Sensor Networks of IoT, 信号太难了">
+    <meta name="description" content="物联网无线传感网络相关的详细介绍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 信号太难了</title>
+    <title>Wireless Sensor Networks of IoT | 信号太难了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">Wireless Sensor Networks of IoT</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DSA/">
-                                <span class="chip bg-color">DSA</span>
+                            <a href="/tags/IoT/">
+                                <span class="chip bg-color">IoT</span>
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2020-01-04
                 </div>
                 
 
@@ -496,245 +496,652 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <h2 id="41-introduction"><a class="markdownIt-Anchor" href="#41-introduction"></a> 4.1 Introduction</h2>
+<h3 id="要背的基本概念"><a class="markdownIt-Anchor" href="#要背的基本概念"></a> 要背的基本概念</h3>
+<ul>
+<li>Sensor node: sensing, data processing, and communicating capacity<br />
+传感器节点: 感知、数据处理和通信能力</li>
+<li>Sensor network: a large number of sensor nodes that are densely deployed either inside the phenomenon or very close to it<br />
+传感器网络: 大量的传感器节点密集部署在现象内部或非常接近现象内部</li>
+<li>A wireless sensor network (WSN) consists of spatially distributed autonomous sensors.<br />
+无线传感器网络(WSN)由空间分布的自主传感器组成</li>
+</ul>
+<h3 id="applications-应用"><a class="markdownIt-Anchor" href="#applications-应用"></a> Applications 应用</h3>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wildlife Monitor</td>
+<td>野生动物监测</td>
+</tr>
+<tr>
+<td>Ecosystem record</td>
+<td>生态系统记录</td>
+</tr>
+<tr>
+<td>Traffic Monitor</td>
+<td>交通监控</td>
+</tr>
+<tr>
+<td>Building Monitor</td>
+<td>构建监测</td>
+</tr>
+<tr>
+<td>Healthy</td>
+<td>健康</td>
+</tr>
+<tr>
+<td>Military</td>
+<td>军事</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>家居</td>
+</tr>
+<tr>
+<td>Commercial</td>
+<td>商业</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new-design-themes-新设计主题"><a class="markdownIt-Anchor" href="#new-design-themes-新设计主题"></a> New Design Themes 新设计主题</h3>
+<ul>
+<li>Long-lived systems that can be unattended<br />
+可以无人值守的长寿命系统<br />
+① Low-duty cycle operation with bounded latency<br />
+低占空比操作，延迟有限<br />
+② Exploit redundancy<br />
+利用冗余<br />
+③ Tiered architectures (mix of form/energy factors)<br />
+分层架构(形式/能量因素的混合)</li>
+<li>Self-configuring systems that can be deployed ad hoc<br />
+可以临时部署的自配置系统<br />
+① Measure and adapt to unpredictable environment<br />
+可以临时部署的自配置系统<br />
+② Exploit spatial diversity and density of sensor/actuator nodes<br />
+开发传感器/执行器节点的空间多样性和密度</li>
+</ul>
+<h3 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h3>
+<ul>
+<li>Leverage data processing inside the network<br />
+利用网络内部的数据处理</li>
+<li>Achieve desired global behavior with adaptive localized algorithms.<br />
+通过自适应局部化算法</li>
+</ul>
+<h3 id="communication-architecture-通信体系结构"><a class="markdownIt-Anchor" href="#communication-architecture-通信体系结构"></a> Communication Architecture  通信体系结构</h3>
+<table>
+<thead>
+<tr>
+<th>Factors</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fault tolerance</td>
+<td>容错</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>可扩展性</td>
+</tr>
+<tr>
+<td>Production costs</td>
+<td>生产成本</td>
+</tr>
+<tr>
+<td>Hardware constraints</td>
+<td>硬件限制</td>
+</tr>
+<tr>
+<td>Network topology</td>
+<td>网络拓补结构</td>
+</tr>
+<tr>
+<td>Transmission media</td>
+<td>传播媒体</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>环境</td>
+</tr>
+<tr>
+<td>Power consumption</td>
+<td>功耗</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
+<p>Fault Tolerance: The ability to sustain sensor network functionalities without any interruption due to sensor node failures.<br />
+容错：支持传感器网络功能而不因传感器节点故障而中断的能力。</p>
 </li>
 <li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
-</ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
-<ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
-</ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
-<ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
-</ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
-<ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
-</ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
+<p>Scalability: The number of sensor nodes<br />
+可扩展性:传感器节点的数量</p>
 </li>
 <li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
-<ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
-</ul>
+<p>Production Costs: The cost of a single node is very important to justify the overall cost of the network<br />
+生产成本:单个节点的成本是非常重要的，以证明整个网络的成本</p>
+</li>
+<li>
+<p>Hardware’s 4 basic unit:</p>
 </li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-97187123149420af?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
+<table>
+<thead>
+<tr>
+<th>basic unit</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sensing unit</td>
+<td>传感单元</td>
+</tr>
+<tr>
+<td>processing unit</td>
+<td>处理单元</td>
+</tr>
+<tr>
+<td>transceiver unit</td>
+<td>收发单元</td>
+</tr>
+<tr>
+<td>power unit</td>
+<td>电源单元</td>
+</tr>
+<tr>
+<td>Additional application-dependent units</td>
+<td>更多的依赖于应用程序的单位</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
+<li>Hardware Constraints</li>
 </ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
-        }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
-        }
-    }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
-        }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
-                }
-            }
-        }
-        i++;
-    }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-
-
-
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Constraints</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size</td>
+<td>大小</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>电量</td>
+</tr>
+<tr>
+<td>Operate in high density</td>
+<td>高集成度</td>
+</tr>
+<tr>
+<td>Low cost</td>
+<td>低成本</td>
+</tr>
+<tr>
+<td>Autonomous</td>
+<td>自动</td>
+</tr>
+<tr>
+<td>Adaptive to environment</td>
+<td>适应环境</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Sensor Network Topology<br />
+Topology maintenance and change in 3 phases:<br />
+拓扑维护和变更分3个阶段</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>phase</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Predeployment and deployment phase</td>
+<td>预部署和部署阶段</td>
+</tr>
+<tr>
+<td>Post-deployment phase</td>
+<td>部署后阶段</td>
+</tr>
+<tr>
+<td>Redeployment of additional nodes phase</td>
+<td>额外节点的重新部署阶段</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Transmission Media 传播介质</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>media</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wireless medium</td>
+<td>无线媒体</td>
+</tr>
+<tr>
+<td>Radio</td>
+<td>广播</td>
+</tr>
+<tr>
+<td>Infrared</td>
+<td>红外线</td>
+</tr>
+<tr>
+<td>Optical</td>
+<td>光学</td>
+</tr>
+</tbody>
+</table>
+<h2 id="42-hardware-and-operating-system"><a class="markdownIt-Anchor" href="#42-hardware-and-operating-system"></a> 4.2 Hardware and Operating System</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>具体名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardware</td>
+<td>Berkeley Motes</td>
+</tr>
+<tr>
+<td></td>
+<td>System of MICA Motes</td>
+</tr>
+<tr>
+<td></td>
+<td>MICA Motes</td>
+</tr>
+<tr>
+<td></td>
+<td>MICAz</td>
+</tr>
+<tr>
+<td></td>
+<td>TelosB</td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>TinyOS</td>
+</tr>
+<tr>
+<td></td>
+<td>Contiki</td>
+</tr>
+<tr>
+<td></td>
+<td>LiteOS</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>LiteOS is a real-time operating system (RTOS) for use in sensor networks.<br />
+LiteOS是一个实时操作系统(RTOS)，用于传感器网络。</li>
+<li>memory-constrained 内存受限的</li>
+</ul>
+<h2 id="43-communication-protocols"><a class="markdownIt-Anchor" href="#43-communication-protocols"></a> 4.3  Communication Protocols</h2>
+<ul>
+<li>Design Issues According to Protocol Stack 根据协议栈设计问题</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical layer</td>
+<td>物理层</td>
+</tr>
+<tr>
+<td>Data link layer</td>
+<td>数据链路层</td>
+</tr>
+<tr>
+<td>Network layer</td>
+<td>网络层</td>
+</tr>
+<tr>
+<td>Transport layer</td>
+<td>传输层</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Three Management Planes 三个管理方面</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>plane</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The power management plane</td>
+<td>电源管理层面</td>
+</tr>
+<tr>
+<td>The mobility management plane</td>
+<td>移动管理层面</td>
+</tr>
+<tr>
+<td>The task management plane</td>
+<td>任务管理层面</td>
+</tr>
+</tbody>
+</table>
+<h2 id="44-important-issues-重要问题"><a class="markdownIt-Anchor" href="#44-important-issues-重要问题"></a> 4.4 Important Issues 重要问题</h2>
+<table>
+<thead>
+<tr>
+<th>Issues</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routing Protocols</td>
+<td>路由协议</td>
+</tr>
+<tr>
+<td>Topology Control</td>
+<td>拓扑控制</td>
+</tr>
+<tr>
+<td>Coverage Problems</td>
+<td>覆盖问题</td>
+</tr>
+<tr>
+<td>Time Synchronization</td>
+<td>时间同步</td>
+</tr>
+<tr>
+<td>Localization</td>
+<td>本地化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="441-routing-protocols-路由协议"><a class="markdownIt-Anchor" href="#441-routing-protocols-路由协议"></a> 4.4.1 Routing Protocols  路由协议</h3>
+<ul>
+<li>Classified based on the underlying network structure:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>categories</th>
+<th>解释</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flat</strong></td>
+<td>Nodes are assigned equal roles</td>
+<td>平面：节点被分配相等的角色</td>
+</tr>
+<tr>
+<td><strong>Hierarchical</strong></td>
+<td>Nodes will play different roles</td>
+<td>分级：节点将扮演不同的角色</td>
+</tr>
+<tr>
+<td>Location-based</td>
+<td>Nodes’ positions are exploited to route data</td>
+<td>基于位置的：节点的位置被用来路由数据</td>
+</tr>
+</tbody>
+</table>
+<h4 id="flat-routing-平面路由协议"><a class="markdownIt-Anchor" href="#flat-routing-平面路由协议"></a> Flat Routing  平面路由协议</h4>
+<table>
+<thead>
+<tr>
+<th>protocol</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor Protocols for Information via Negotiation(SPIN)</td>
+<td>信息协商传感器协议</td>
+</tr>
+<tr>
+<td>Directed diffusion (DD)</td>
+<td>定向扩散</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-f9cde5e24329b99e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SPIN" /></p>
+<ul>
+<li>DD</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>feature</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>establish path</td>
+<td>建立路径</td>
+</tr>
+<tr>
+<td>Localized interactions</td>
+<td>局部的相互作用</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>elements</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interest</td>
+<td>感兴趣</td>
+</tr>
+<tr>
+<td>Gradient</td>
+<td>梯度</td>
+</tr>
+<tr>
+<td>Data message</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>Reinforcement</td>
+<td>强化</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://upload-images.jianshu.io/upload_images/18735378-40aa5f9becbd70df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DD" /></p>
+<h4 id="hierarchical-routing-分级路由协议"><a class="markdownIt-Anchor" href="#hierarchical-routing-分级路由协议"></a> Hierarchical Routing 分级路由协议</h4>
+<ul>
+<li>Advantages</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>advantages</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scalability</td>
+<td>可伸缩性</td>
+</tr>
+<tr>
+<td>efficient communication</td>
+<td>有效沟通</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Mainly two-layer routing</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select cluster heads</td>
+<td>选择集群头</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td>路由</td>
+</tr>
+</tbody>
+</table>
+<h3 id="442-topology-control-拓扑控制"><a class="markdownIt-Anchor" href="#442-topology-control-拓扑控制"></a> 4.4.2 Topology Control  拓扑控制</h3>
+<ul>
+<li>
+<p>定义<br />
+Topology control is a technique used in distributed computing to alter the underlying network (modeled as a graph) in order to reduce the cost of distributed algorithms if ran over the new resulting graphs.<br />
+拓扑控制是一种用于分布式计算的技术，用于改变底层网络(建模为一个图)，以便在运行新的结果图时降低分布式算法的成本。</p>
+</li>
+<li>
+<p>Subproblem of Topology control</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>翻译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topology construction</td>
+<td>拓扑结构</td>
+<td></td>
+</tr>
+<tr>
+<td>topology maintenance</td>
+<td>拓扑维护</td>
+<td>connectivity and coverage are preserved</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Topology construction<br />
+increase the number of message collisions<br />
+将增加消息冲突的数量</li>
+<li>Topology maintenance<br />
+nodes that are closer to the sink spend higher amounts of energy.<br />
+距离接收器越近的节点消耗的能量越高</li>
+</ul>
+<h3 id="443-coverage-problems-覆盖问题"><a class="markdownIt-Anchor" href="#443-coverage-problems-覆盖问题"></a> 4.4.3 Coverage Problems 覆盖问题</h3>
+<ul>
+<li>
+<p>Goal<br />
+each location in the targeted physical space should be within sensing range of at least one sensor.<br />
+目标物理空间中的每个位置应在至少一个传感器的传感范围内。</p>
+</li>
+<li>
+<p>Simple Coverage Problem: entire area covered. 全覆盖</p>
+</li>
+<li>
+<p>K-Coverage Problem:  entire region k-covered. 全被k次覆盖</p>
+</li>
+<li>
+<p>Types<br />
+Area Coverage: cover/monitor an area/region.<br />
+区域覆盖:覆盖/监测一个区域/区域。<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-14a442bc3dc50686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Area Coverage" /></p>
+</li>
+</ul>
+<p>Point Coverage: cover a set of points.<br />
+点覆盖:覆盖一组点。<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-0509d9b1160c8827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Point Coverage" /></p>
+<p>Barrier Coverage:minimize the probability of undetected penetration through the barrier (sensor network).<br />
+屏障覆盖:最小化未检测到的穿透屏障(传感器网络)的概率。<br />
+<img src="https://upload-images.jianshu.io/upload_images/18735378-015f6b11e74f708f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Barrier Coverage" /></p>
+<h3 id="444-time-synchronization-时间同步"><a class="markdownIt-Anchor" href="#444-time-synchronization-时间同步"></a> 4.4.4 Time Synchronization  时间同步</h3>
+<ul>
+<li>Several issues in synchronization 同步上的一些问题</li>
+</ul>
+<ol>
+<li>
+<p>Master-slave v.s. peer-to-peer synchronization</p>
+<ul>
+<li>Master-slave 主从<br />
+attempt to synchronize with the master. 子节点与主节点同步</li>
+<li>Peer-to-peer 点对点<br />
+estimates the local time based on the clocks of other nodes<br />
+通过通信估计出时间</li>
+</ul>
+</li>
+<li>
+<p>Internal synchronization v.s. external synchronization</p>
+<ul>
+<li>
+<p>Internal synchronization<br />
+minimize the maximum difference between the readings of local clocks of the sensors<br />
+最小化传感器的本地时钟读数之间的最大差异</p>
+</li>
+<li>
+<p>External synchronization<br />
+A standard external source of time<br />
+标准的外部时间源</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="445-localization-本地化"><a class="markdownIt-Anchor" href="#445-localization-本地化"></a> 4.4.5 Localization 本地化</h3>
+<ul>
+<li>To determine the physical coordinates of a group of sensor nodes in a wireless sensor network (WSN).<br />
+确定无线传感器网络(WSN)中一组传感器节点的物理坐标。</li>
+<li>Due to application context and massive scale, use of GPS is unrealistic, therefore, sensors need to self-organize a coordinate system.<br />
+由于应用环境和大规模，使用GPS是不现实的，因此，传感器需要自组织一个坐标系统。</li>
+<li>To report data that is geographically meaningful<br />
+报告具有地理意义的数据</li>
+<li>Services such as routing rely on location information;  geographic routing protocols; context-based routing protocols, location-aware services<br />
+路由等服务依赖于位置信息;地理路由协议;基于上下文的路由协议，位置感知服务</li>
+</ul>
+<h4 id="dv-hop-phase-1-dv-hop阶段1"><a class="markdownIt-Anchor" href="#dv-hop-phase-1-dv-hop阶段1"></a> DV-hop Phase 1  DV-hop阶段1:</h4>
+<h4 id="euclidean-phase-1-欧几里得阶段1"><a class="markdownIt-Anchor" href="#euclidean-phase-1-欧几里得阶段1"></a> Euclidean Phase 1: 欧几里得阶段1:</h4>
+<p>研究一下</p>
 
             </div>
             <hr/>
@@ -760,7 +1167,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">http://www.jlccbzh.cn/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</a>
+                    <a href="http://www.jlccbzh.cn/Wireless%20Sensor%20Networks.html">http://www.jlccbzh.cn/Wireless%20Sensor%20Networks.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -798,8 +1205,8 @@ LinkStack opstack;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DSA/">
-                                    <span class="chip bg-color">DSA</span>
+                                <a href="/tags/IoT/">
+                                    <span class="chip bg-color">IoT</span>
                                 </a>
                             
                         </div>
@@ -1232,24 +1639,24 @@ LinkStack opstack;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E4%BC%A0%E8%BE%93%E5%B1%82(%E4%B8%8A).html">
+                <a href="/Information%20Processing%20for%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Transport layer">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Information Processing for IoT">
                         
-                        <span class="card-title">Transport layer</span>
+                        <span class="card-title">Information Processing for IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            物联网信息处理技术相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-05
                         </span>
                         <span class="publish-author">
                             
@@ -1266,8 +1673,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
@@ -1281,24 +1688,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E5%AE%89%E5%8D%93%E5%85%A5%E9%97%A8.html">
+                <a href="/Networking%20Technologies%20of%20IoT.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Networking Technologies of IoT">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <span class="card-title">Networking Technologies of IoT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            物联网网络技术相关的详细介绍
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-03
                             </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1722,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
                     </a>
                     
                 </div>
