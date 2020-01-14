@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>AVL Tree | 学就完了</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://blog-medias.cdn.bcebos.com/medias/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -37,7 +37,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="https://blog-medias.cdn.bcebos.com/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">学就完了</span>
                 </a>
@@ -135,7 +135,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="https://blog-medias.cdn.bcebos.com/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">学就完了</div>
         <div class="logo-desc">
@@ -317,7 +317,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/posts/DSA/AVL/cover.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/cover.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -737,7 +737,7 @@
 }
 </code></pre>
 <h4 id="单次旋转向左右旋转"><a class="markdownIt-Anchor" href="#单次旋转向左右旋转"></a> 单次旋转（向左/右旋转）</h4>
-<p><img src="/medias/posts/DSA/AVL/AVL1.png" alt="Turn Left" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/AVL1.png" alt="Turn Left" /></p>
 <pre class="highlight"><code class="C"><span class="hljs-function">struct AVLNode* <span class="hljs-title">turnLeft</span><span class="hljs-params">(AVLNode* a)</span></span>{
     AVLNode* b=a-&gt;right;
     <span class="hljs-keyword">if</span>(a-&gt;parent!=<span class="hljs-number">0</span>){
@@ -759,7 +759,7 @@
 }
 
 </code></pre>
-<p><img src="/medias/posts/DSA/AVL/AVL2.png" alt="Turn Right" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/AVL2.png" alt="Turn Right" /></p>
 <pre class="highlight"><code class="C"><span class="hljs-function">struct AVLNode* <span class="hljs-title">turnRight</span><span class="hljs-params">(AVLNode* a)</span></span>{
     AVLNode* b=a-&gt;left;
     <span class="hljs-keyword">if</span>(a-&gt;parent!=<span class="hljs-number">0</span>){
@@ -780,7 +780,7 @@
     <span class="hljs-keyword">return</span> b;
 }
 </code></pre>
-<p><img src="/medias/posts/DSA/AVL/AVL3.jpg" alt="Turn Right 举例" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/AVL3.jpg" alt="Turn Right 举例" /></p>
 <p>单次旋转函数要点：</p>
 <ul>
 <li>单次旋转函数触发条件：<br />
@@ -809,7 +809,7 @@ Turn Left：node-&gt;balance = 2 &amp;&amp; node-&gt;right-&gt;balance &gt;= 0</
 <p>④刷新a,b节点的balance值。<br />
 ⑤return b节点，让rebalance函数重新从b节点向上检查新树的平衡性。</p>
 <h4 id="两次旋转"><a class="markdownIt-Anchor" href="#两次旋转"></a> 两次旋转</h4>
-<p><img src="/medias/posts/DSA/AVL/AVL4.png" alt="Double Rotation" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/AVL4.png" alt="Double Rotation" /></p>
 <pre class="highlight"><code class="C"><span class="hljs-function">struct AVLNode* <span class="hljs-title">turnLeftThenRight</span><span class="hljs-params">(AVLNode* a)</span></span>{
     a-&gt;left = turnLeft(a-&gt;left);
     <span class="hljs-keyword">return</span> turnRight(a);
@@ -1023,10 +1023,10 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="https://blog-medias.cdn.bcebos.com/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                        <img src="https://blog-medias.cdn.bcebos.com/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1063,7 +1063,7 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
 
     #vcomments textarea {
         box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+        background: url("https://blog-medias.cdn.bcebos.com/medias/comment_bg.png") 100% 100% no-repeat;
     }
 
     #vcomments p {
@@ -1328,7 +1328,7 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
                 <a href="/Introduction%20to%20the%20Android.html">
                     <div class="card-image">
                         
-                        <img src="/medias/posts/Android/Android_Introduction/cover.jpg" class="responsive-img" alt="Introduction to the Android">
+                        <img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/cover.jpg" class="responsive-img" alt="Introduction to the Android">
                         
                         <span class="card-title">Introduction to the Android</span>
                     </div>
@@ -1376,7 +1376,7 @@ Turn Left Then Right：node-&gt;balance = -2 &amp;&amp; node-&gt;right-&gt;balan
                 <a href="/AVL%20Tree.html">
                     <div class="card-image">
                         
-                        <img src="/medias/posts/DSA/AVL/cover.jpg" class="responsive-img" alt="AVL Tree">
+                        <img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/cover.jpg" class="responsive-img" alt="AVL Tree">
                         
                         <span class="card-title">AVL Tree</span>
                     </div>

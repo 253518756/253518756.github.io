@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Introduction to the Android | 学就完了</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://blog-medias.cdn.bcebos.com/medias/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -37,7 +37,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="https://blog-medias.cdn.bcebos.com/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">学就完了</span>
                 </a>
@@ -135,7 +135,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="https://blog-medias.cdn.bcebos.com/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">学就完了</div>
         <div class="logo-desc">
@@ -317,7 +317,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/posts/Android/Android_Introduction/cover.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/cover.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -565,7 +565,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
 </ol>
 <h3 id="androidmanifestxml"><a class="markdownIt-Anchor" href="#androidmanifestxml"></a> AndroidManifest.xml</h3>
 <p>首先了解一下<strong>AndroidManifest.xml</strong>文件的这个部分，从中可以找到这段代码：</p>
-<p><img src="/medias/posts/Android/Android_Introduction/1.png" alt="image" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/1.png" alt="image" /></p>
 <p>这段代码用于对MainActivity这个活动进行注册，没有在AndroidMainfest内注册的活动是不能使用的。</p>
 <p>往下出现两个<intent-filter>,其中的内容非常重要</p>
 <p>这两行加起来的总效果就是MainActivity是这个项目的总活动，所谓总活动就是点击应用图标后进入的第一个活动。</p>
@@ -573,7 +573,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
 <h3 id="mainactivityjava"><a class="markdownIt-Anchor" href="#mainactivityjava"></a> MainActivity.java</h3>
 <p>接下来看一下这段<strong>MainActivity.java</strong>中的代码，这是安卓四大组件中活动的代码。</p>
 <p>凡是在应用中看得到的东西都是要放在Activity中的。</p>
-<p><img src="/medias/posts/Android/Android_Introduction/2.png" alt="MainActivity.java" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/2.png" alt="MainActivity.java" /></p>
 <p>首先要注意MainActivity是继承AppCompatActivity类的，这是一种向下兼容的Activity</p>
 <p>可以将Activity在各个版本中增加的特性和功能最低兼容到Android 2.1系统</p>
 <p><strong>Activity是Android系统提供的一个活动基类，我们项目中的所有活动必须继承它或者他的子类才能拥有活动特性。</strong></p>
@@ -585,7 +585,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
 <p>因此通用的做法是：<strong>在布局文件中编写界面，然后在活动中引进来</strong></p>
 <p>那么在此处就是这个<strong>setContentView()<strong>方法给当前的活动引入了一个</strong>main_activity</strong>布局。</p>
 <p>布局文件都定义在<strong>res/layout</strong>目录下，activity_main.xml文件中你能看到以下代码：</p>
-<p><img src="/medias/posts/Android/Android_Introduction/3.png" alt="TextView" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/3.png" alt="TextView" /></p>
 <p>**android:text=“Hello World!”;**便是HelloWorld的出处。</p>
 <h3 id="buildgradle"><a class="markdownIt-Anchor" href="#buildgradle"></a> build.gradle</h3>
 <p>接下来我们来了解一下<strong>build.gradle</strong>这个文件。</p>
@@ -648,16 +648,16 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
 <p>4. Log.w() 用于打印一些警告信息，提示程序在这个地方可能会出现一些潜在的风险，最好去修复一下这些出现警告的地方，对应级别warn，比info高一级</p>
 <p>5. Log.e() 用于打印程序中的错误信息，比如程序进入到了catch语句中，当有错误信息打印出来的时候，一般都代表你的程序出现了严重错误，对应级别error，比warn高一级</p>
 <p>如图所示，可以根据等级筛选日志。</p>
-<p><img src="/medias/posts/Android/Android_Introduction/4.png" alt="image" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/4.png" alt="image" /></p>
 <p>我们在MainActivity.java中加入此调试代码</p>
-<p><img src="/medias/posts/Android/Android_Introduction/5.png" alt="image" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/5.png" alt="image" /></p>
 <p>Log.d(tag,msg); 调试方法有两个参数，第一个是标签，第二个是调试信息。</p>
 <p>此处关于标签要强调，logcat中可以很轻松地添加过滤器。</p>
 <p>下图是系统给的默认过滤器</p>
-<p><img src="/medias/posts/Android/Android_Introduction/6.png" alt="image" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/6.png" alt="image" /></p>
 <p>接下来就让我们尝试自己创建一个过滤器，点击上图中的Edit Filter Configuration，出现下图创建界面，</p>
 <p>给filter起名后，通过更改Lag Tag为“data”（自定义），再将调试信息第一个参数改为data即可实现只显示特定调试。</p>
-<p><img src="/medias/posts/Android/Android_Introduction/7.png" alt="image" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/7.png" alt="image" /></p>
 <p>日记级别控制的好处就是能方便快捷地找到你所关心的那些日志。</p>
 
             </div>
@@ -854,10 +854,10 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="https://blog-medias.cdn.bcebos.com/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                        <img src="https://blog-medias.cdn.bcebos.com/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -894,7 +894,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
 
     #vcomments textarea {
         box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+        background: url("https://blog-medias.cdn.bcebos.com/medias/comment_bg.png") 100% 100% no-repeat;
     }
 
     #vcomments p {
@@ -1159,7 +1159,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
                 <a href="/Reverse%20Polish%20Notation.html">
                     <div class="card-image">
                         
-                        <img src="/medias/posts/DSA/Reverse_Polish_Notation/cover.jpg" class="responsive-img" alt="Reverse Polish Notation">
+                        <img src="https://blog-medias.cdn.bcebos.com/posts/DSA/Reverse_Polish_Notation/cover.jpg" class="responsive-img" alt="Reverse Polish Notation">
                         
                         <span class="card-title">Reverse Polish Notation</span>
                     </div>
@@ -1207,7 +1207,7 @@ Android手机都内置GPS，结合强大的地图功能，LBS这一领域潜力�
                 <a href="/AVL%20Tree.html">
                     <div class="card-image">
                         
-                        <img src="/medias/posts/DSA/AVL/cover.jpg" class="responsive-img" alt="AVL Tree">
+                        <img src="https://blog-medias.cdn.bcebos.com/posts/DSA/AVL/cover.jpg" class="responsive-img" alt="AVL Tree">
                         
                         <span class="card-title">AVL Tree</span>
                     </div>
