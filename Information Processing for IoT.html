@@ -317,7 +317,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/posts/IoT/Information_Processing_for_IoT/cover.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -736,7 +736,7 @@ To identifying incomplete, incorrect, inaccurate, irrelevant, etc.<br />
 </tbody>
 </table>
 <h3 id="sensor-cleaning-pipeline"><a class="markdownIt-Anchor" href="#sensor-cleaning-pipeline"></a> Sensor Cleaning Pipeline</h3>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-e031690cc79d134f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Sensor Cleaning Pipeline" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/1.png" alt="Sensor Cleaning Pipeline" /></p>
 <p>Uses temporal and spatial characteristics of sensor data<br />
 利用传感器数据的时空特性</p>
 <h5 id="step-1-point"><a class="markdownIt-Anchor" href="#step-1-point"></a> Step 1: Point</h5>
@@ -751,7 +751,7 @@ To identifying incomplete, incorrect, inaccurate, irrelevant, etc.<br />
 明显的异常值<br />
 ③ Conversion of raw data into tuples<br />
 将原始数据转换为元组<br />
-<img src="https://upload-images.jianshu.io/upload_images/18735378-0d2c4976a350ab10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Step 1: Point" /></li>
+<img src="/medias/posts/IoT/Information_Processing_for_IoT/2.png" alt="Step 1: Point" /></li>
 </ul>
 <h5 id="step-2-smoothing"><a class="markdownIt-Anchor" href="#step-2-smoothing"></a> Step 2: Smoothing</h5>
 <ul>
@@ -763,7 +763,7 @@ To identifying incomplete, incorrect, inaccurate, irrelevant, etc.<br />
 异常值检测</li>
 <li>Method: Window based queries<br />
 方法:基于窗口的查询<br />
-<img src="https://upload-images.jianshu.io/upload_images/18735378-072e9e4540adf974.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Step 2: Smoothing" /></li>
+<img src="/medias/posts/IoT/Information_Processing_for_IoT/3.png" alt="Step 2: Smoothing" /></li>
 </ul>
 <h5 id="step-3-merge"><a class="markdownIt-Anchor" href="#step-3-merge"></a> Step 3: Merge</h5>
 <ul>
@@ -771,7 +771,7 @@ To identifying incomplete, incorrect, inaccurate, irrelevant, etc.<br />
 目的:空间插值</li>
 <li>例如:在一个空间颗粒中，通过计算来自不同尘埃的读数的平均值，并忽略偏离平均值两个偏差之外的单个读数。</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-81b70644a6beb2b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Step 3: Merge" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/4.png" alt="Step 3: Merge" /></p>
 <h5 id="step-4-arbitrate-仲裁"><a class="markdownIt-Anchor" href="#step-4-arbitrate-仲裁"></a> Step 4: Arbitrate 仲裁</h5>
 <ul>
 <li>Purpose: Remove<br />
@@ -781,13 +781,13 @@ To identifying incomplete, incorrect, inaccurate, irrelevant, etc.<br />
 ② de-duplication<br />
 重复数据删除</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-450d1169965e2abe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Step 4: Arbitrate" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/5.png" alt="Step 4: Arbitrate" /></p>
 <h5 id="step-5-virtualize-虚拟化"><a class="markdownIt-Anchor" href="#step-5-virtualize-虚拟化"></a> Step 5: Virtualize 虚拟化</h5>
 <ul>
 <li>Purpose: Multi-source integration<br />
 目的:多源集成</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-f01ef0ad8ba65692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Step 5: Virtualize" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/6.png" alt="Step 5: Virtualize" /></p>
 <h2 id="data-fusion-数据融合"><a class="markdownIt-Anchor" href="#data-fusion-数据融合"></a> Data Fusion 数据融合</h2>
 <ul>
 <li>
@@ -833,14 +833,14 @@ Sensors only give <strong>an estimate of the measured physical property</strong>
 特征级融合: 通过特征向量表示传感器数据，然后融合特征向量</li>
 <li>Decision-level fusion: Processing of each sensor to achieve high-level inferences or decisions, which are subsequently combined.<br />
 决策级融合 :对每个传感器进行处理，以实现高级推理或决策，然后将这些推理或决策组合在一起。<br />
-<img src="https://upload-images.jianshu.io/upload_images/18735378-5589f368d1d52506.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Data Fusion" /></li>
+<img src="/medias/posts/IoT/Information_Processing_for_IoT/7.png" alt="Data Fusion" /></li>
 </ul>
 <h4 id="data-level-fusion"><a class="markdownIt-Anchor" href="#data-level-fusion"></a> Data-level Fusion</h4>
 <ul>
 <li>使用条件:  if the sensors are measuring the same physical phenomena.<br />
 如果传感器测量的是相同的物理现象</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-a8f050ba86e09c0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Data-level Fusion" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/8.png" alt="Data-level Fusion" /></p>
 <h2 id="data-storage-数据存储"><a class="markdownIt-Anchor" href="#data-storage-数据存储"></a> Data Storage  数据存储</h2>
 <h3 id="database-system"><a class="markdownIt-Anchor" href="#database-system"></a> Database System</h3>
 <ul>
@@ -922,16 +922,16 @@ Sensors only give <strong>an estimate of the measured physical property</strong>
 Characteristics: Storage devices attached directly to servers (only point of access)<br />
 直接连接到服务器的存储设备(仅访问点)</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-3ed9d8eee0e1388d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DAS" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/9.png" alt="DAS" /></p>
 <ul>
 <li>Network Attached Storage (NAS)<br />
 Characteristics: more reliable than DAS, limited by LAN bandwidth.</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-ac5b1103172ad1b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NAS" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/10.png" alt="NAS" /></p>
 <ul>
 <li>Storage Area Network (SAN)<br />
 Characteristics: more expensive<br />
-<img src="https://upload-images.jianshu.io/upload_images/18735378-b1628329f58832b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SAN" /></li>
+<img src="/medias/posts/IoT/Information_Processing_for_IoT/11.png" alt="SAN" /></li>
 </ul>
 <h2 id="57-data-mining-数据挖掘"><a class="markdownIt-Anchor" href="#57-data-mining-数据挖掘"></a> 5.7 Data Mining 数据挖掘</h2>
 <h3 id="major-data-mining-tasks-数据挖掘的主要任务"><a class="markdownIt-Anchor" href="#major-data-mining-tasks-数据挖掘的主要任务"></a> Major Data Mining Tasks 数据挖掘的主要任务</h3>
@@ -1046,7 +1046,7 @@ typically represent <strong>gray levels</strong>, <strong>colours</strong>, <str
 用于存储、传输和表示自主机器感知的图像数据处理。</li>
 </ul>
 <h4 id="processing-level"><a class="markdownIt-Anchor" href="#processing-level"></a> Processing level</h4>
-<p><img src="https://upload-images.jianshu.io/upload_images/18735378-9515991d011132a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Processing level" /></p>
+<p><img src="/medias/posts/IoT/Information_Processing_for_IoT/12.png" alt="Processing level" /></p>
 
             </div>
             <hr/>
@@ -1547,8 +1547,7 @@ typically represent <strong>gray levels</strong>, <strong>colours</strong>, <str
                 <a href="/Supporting%20Technologies%20of%20IoT.html">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Supporting Technologies of IoT">
+                        <img src="/medias/posts/IoT/Supporting_Technologies_of_IoT/cover.png" class="responsive-img" alt="Supporting Technologies of IoT">
                         
                         <span class="card-title">Supporting Technologies of IoT</span>
                     </div>
@@ -1596,8 +1595,7 @@ typically represent <strong>gray levels</strong>, <strong>colours</strong>, <str
                 <a href="/Wireless%20Sensor%20Networks.html">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Wireless Sensor Networks of IoT">
+                        <img src="/medias/posts/IoT/Wireless_Sensor_Networks_of_IoT/cover.png" class="responsive-img" alt="Wireless Sensor Networks of IoT">
                         
                         <span class="card-title">Wireless Sensor Networks of IoT</span>
                     </div>

@@ -1,0 +1,1645 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Reverse Polish Notation, 学就完了">
+    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Reverse Polish Notation | 学就完了</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="alternate" href="/atom.xml" title="学就完了" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">学就完了</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">学就完了</div>
+        <div class="logo-desc">
+            
+            仙女是最最最最可爱的女孩纸❤
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/253518756" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/253518756" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/posts/DSA/Reverse_Polish_Notation/cover.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/DSA/">
+                                <span class="chip bg-color">DSA</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Notes/" class="post-category">
+                                Notes
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-10-24
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    7 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
+<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
+<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+<ul>
+<li>
+<p>需要准备的栈相关的函数：<br />
+Push: 压栈<br />
+Pop: 弹栈<br />
+Top: 查看栈顶元素<br />
+isEmpty: 判断栈是否为空</p>
+</li>
+<li>
+<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
+关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
+</li>
+</ul>
+<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
+<ul>
+<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
+<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
+第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
+</ul>
+<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
+<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
+<ul>
+<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
+<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
+<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
+</ul>
+<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
+<ul>
+<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
+<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
+</ul>
+<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
+<ul>
+<li>
+<p>传入两个参数 now 和 check<br />
+now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
+check 是通过Top函数返回的栈顶的元素。<br />
+这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
+</li>
+<li>
+<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
+<ul>
+<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
+<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
+<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
+<li>第四种情况：now.level &lt;= check.level<br />
+意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
+<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
+这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
+<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
+最后不要忘记，将now压栈！结束。</li>
+<li>第五种情况：now.level &gt; check.level<br />
+将now压栈，结束。</li>
+<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
+所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
+循环结束后完成。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/medias/posts/DSA/Reverse_Polish_Notation/1.png" alt="示例" /></p>
+<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
+<ul>
+<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
+<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
+至此完成全部操作。</li>
+</ul>
+<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
+<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
+<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
+{</span>
+    <span class="hljs-keyword">char</span> moperator;
+    <span class="hljs-keyword">int</span> level;
+}Operator;
+Operator op[<span class="hljs-number">10</span>];
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
+{</span>
+    Operator opNodes[<span class="hljs-number">100000</span>];
+    <span class="hljs-keyword">int</span> top;
+}LinkStack;
+LinkStack opstack;
+
+<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
+<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
+    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
+    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
+    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
+    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
+    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
+    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
+    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
+    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
+    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
+    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
+    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
+    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
+</span>{
+    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
+</span>{
+    <span class="hljs-built_in">stack</span>.top--;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
+</span>{
+    <span class="hljs-built_in">stack</span>.top++;
+    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
+}
+
+<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
+    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
+        push(opstack,now);
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
+        now = Top(opstack);
+        pop(opstack);
+        check = Top(opstack);
+        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
+            Postfix[PostfixNum] = now.moperator;
+            PostfixNum++;
+            pop(opstack);
+            now = check;
+            check = Top(opstack);
+        }
+        Postfix[PostfixNum] = now.moperator;
+        PostfixNum++;
+        pop(opstack);
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
+    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
+        Postfix[PostfixNum] = check.moperator;
+        PostfixNum++;
+        pop(opstack);
+        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
+        check = Top(opstack);
+	   }
+        push(opstack,now);
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
+        push(opstack,now);
+}
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
+    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
+    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
+        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
+            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
+            DigitNum++;
+        }
+        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
+            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">double</span> first = Digit[firstNum];
+            <span class="hljs-keyword">double</span> second = Digit[secondNum];
+            Digit[secondNum]=second+first;
+            DigitNum--;
+        }
+        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
+            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">double</span> first = Digit[firstNum];
+            <span class="hljs-keyword">double</span> second = Digit[secondNum];
+            Digit[secondNum]=second-first;
+            DigitNum--;
+        }
+        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
+            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">double</span> first = Digit[firstNum];
+            <span class="hljs-keyword">double</span> second = Digit[secondNum];
+            Digit[secondNum]=second*first;
+            DigitNum--;
+        }
+        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
+            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">double</span> first = Digit[firstNum];
+            <span class="hljs-keyword">double</span> second = Digit[secondNum];
+            Digit[secondNum]=second/first;
+            DigitNum--;
+        }
+    }
+    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    InitOperater();
+    opstack.top = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
+    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
+        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
+            Postfix[PostfixNum] = s[i];
+            PostfixNum++;
+        }
+        <span class="hljs-keyword">else</span>{
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
+                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
+                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
+                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
+                }
+            }
+        }
+        i++;
+    }
+    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
+        Postfix[PostfixNum] = Top(opstack).moperator;
+        PostfixNum++;
+        pop(opstack);
+    }
+    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+
+
+</code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://www.jlccbzh.cn" rel="external nofollow noreferrer">高物终结者</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html">http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://www.jlccbzh.cn" target="_blank">高物终结者</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/DSA/">
+                                    <span class="chip bg-color">DSA</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">欢迎请我喝咖啡~ 十分感谢！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'DbwJfzxOxyjXtNsSTpH0tXjR-gzGzoHsz',
+        appKey: 'uQTCrg8C4qUPVN6dJnbrxRl3',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Transport%20layer.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/posts/Computer_Network/Transport_layer/cover.jpg" class="responsive-img" alt="Transport layer">
+                        
+                        <span class="card-title">Transport layer</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            OSI协议栈中传输层的一些基本知识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Notes/" class="post-category">
+                                    Notes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Computer-Network/">
+                        <span class="chip bg-color">Computer Network</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Introduction%20to%20the%20Android.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/posts/Android/Android_Introduction/cover.jpg" class="responsive-img" alt="Introduction to the Android">
+                        
+                        <span class="card-title">Introduction to the Android</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            安卓开发基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Notes/" class="post-category">
+                                    Notes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Android/">
+                        <span class="chip bg-color">Android</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 学就完了<br />'
+            + '文章作者: 高物终结者<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="http://www.jlccbzh.cn" target="_blank">高物终结者</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">25.6k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/253518756" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:253518756@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=253518756" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 253518756" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5990403473" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5990403473" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/1ee94555de8d5f5825c1f5633d61c079" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/1ee94555de8d5f5825c1f5633d61c079" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
