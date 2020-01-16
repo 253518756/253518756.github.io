@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jlccbzh.cn/"/>
-  <updated>2020-01-16T16:30:52.791Z</updated>
+  <updated>2020-01-16T16:44:29.731Z</updated>
   <id>http://www.jlccbzh.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.jlccbzh.cn/Database_week1.html"/>
     <id>http://www.jlccbzh.cn/Database_week1.html</id>
     <published>2020-01-16T01:25:00.000Z</published>
-    <updated>2020-01-16T16:30:52.791Z</updated>
+    <updated>2020-01-16T16:44:29.731Z</updated>
     
     <summary type="html">
     
@@ -37,7 +37,7 @@
     </summary>
     
     
-      <category term="Note" scheme="http://www.jlccbzh.cn/categories/Note/"/>
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
     
     
       <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
