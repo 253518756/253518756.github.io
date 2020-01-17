@@ -26,8 +26,8 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="学就完了" type="application/atom+xml">
-</head>
+<link rel="alternate" href="/atom.xml" title="学就完了" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    544
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    8 分
                 </div>
                 
 
@@ -508,8 +508,8 @@
 数据库:为满足组织的信息需求而设计的逻辑相关数据的共享集合。</p>
 </li>
 <li>
-<p>System catalogue (metadata) provides description of data to enable program–data independence.<br />
-系统目录(元数据)提供数据的描述，使程序数据独立。</p>
+<p>System catalogue provides description of data to enable program–data independence.<br />
+系统目录提供数据的描述，使程序数据独立。</p>
 </li>
 </ul>
 <h3 id="数据的三个性质"><a class="markdownIt-Anchor" href="#数据的三个性质"></a> 数据的三个性质</h3>
@@ -538,8 +538,8 @@
 DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软件系统。</p>
 </li>
 <li>
-<p>(Database) application program: a computer program that interacts with database by issuing an appropriate request (SQL statement) to the DBMS.<br />
-(数据库)应用程序:通过向DBMS发出适当的请求(SQL语句)来与数据库交互的计算机程序。</p>
+<p>application program: a computer program that interacts with database by issuing an appropriate request through SQL statement to the DBMS.<br />
+数据库应用程序:通过向DBMS发出适当的请求通过SQL语句来与数据库交互的计算机程序。</p>
 </li>
 </ul>
 <h3 id="一些其他的重要概念"><a class="markdownIt-Anchor" href="#一些其他的重要概念"></a> 一些其他的重要概念</h3>
@@ -572,19 +572,19 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
 </table>
 <ul>
 <li>
-<p>Data definition language (DDL) 数据定义语言(DDL)</p>
+<p>Data definition language  [DDL]   数据定义语言</p>
 </li>
 <li>
-<p>Data manipulation language (DML) 数据操作语言(DML)</p>
+<p>Data manipulation language  [DML]   数据操作语言</p>
 </li>
 </ul>
 <h3 id="roles-in-the-database-environment重要"><a class="markdownIt-Anchor" href="#roles-in-the-database-environment重要"></a> Roles in the Database Environment[重要]</h3>
 <ul>
-<li>Data Administrator (DA) 数据管理员(DA)</li>
-<li>Database Administrator (DBA) 数据库管理员(DBA)</li>
-<li>Database Designers (Logical and Physical) 数据库设计员(逻辑和物理)</li>
+<li>Data Administrator   DA   数据管理员</li>
+<li>Database Administrator   DBA  数据库管理员</li>
+<li>Database Designers 数据库设计员</li>
 <li>Application Developers 应用程序开发人员</li>
-<li>End Users (naive and sophisticated) 最终用户(幼稚的和成熟的)</li>
+<li>End Users 最终用户</li>
 </ul>
 <h3 id="the-three-level-ansi-sparc-architecture"><a class="markdownIt-Anchor" href="#the-three-level-ansi-sparc-architecture"></a> The three-level ANSI-SPARC architecture</h3>
 <ul>
@@ -593,8 +593,260 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
 <li>Internal level</li>
 </ul>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F1.png" alt="three-level ANSI-SPARC architecture" /></p>
-<h2 id="relational-model"><a class="markdownIt-Anchor" href="#relational-model"></a> Relational model</h2>
-<h2 id="relational-algebra"><a class="markdownIt-Anchor" href="#relational-algebra"></a> Relational Algebra</h2>
+<hr />
+<h2 id="relational-model-关系模型"><a class="markdownIt-Anchor" href="#relational-model-关系模型"></a> Relational model 关系模型</h2>
+<h3 id="terminology-术语"><a class="markdownIt-Anchor" href="#terminology-术语"></a> Terminology 术语</h3>
+<ul>
+<li>
+<p>Relation model: all data is logically structured within relations.<br />
+关系模型:所有数据在关系中逻辑结构化。</p>
+</li>
+<li>
+<p>Relation: A relation is a table with columns and rows.<br />
+关系:关系是一个包含列和行的表。</p>
+</li>
+<li>
+<p>Attribute: An attribute is a named column of a relation.<br />
+属性:属性是关系的命名列。</p>
+</li>
+<li>
+<p>Domain: the set of allowable values for one or more attributes.<br />
+域:一个或多个属性的允许值集。   (属性的取值范围)</p>
+</li>
+<li>
+<p>Tuple: A tuple is row of a relation.<br />
+元组: 元组是关系的行。   (数据库的表中的某一行)</p>
+</li>
+<li>
+<p>Degree: the number of attributes in a relation.<br />
+度:关系中属性的数量。   (数据库的表中有多少个属性列)</p>
+</li>
+<li>
+<p>Cardinality: the number of tuples in a relation.<br />
+基数:关系中元组的数量。    (数据库的表共有多少行)</p>
+</li>
+<li>
+<p>Relational database: A collection of normalized relations with distinct relation names.<br />
+关系数据库:一组具有不同关系名称的规范化关系。</p>
+</li>
+</ul>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F2.png" alt="术语在数据库表中的对应" /></p>
+<h3 id="creating-relations-tables-in-sql-创表sql语句"><a class="markdownIt-Anchor" href="#creating-relations-tables-in-sql-创表sql语句"></a> Creating relations [tables] in SQL [创表SQL语句]</h3>
+<ul>
+<li>Create Table <TableName>(&lt;attribute 1&gt; &lt;attribute_type 1&gt;, &lt;attribute 2&gt; &lt;attribute_type 2&gt;,…)</li>
+<li>eg: Create Table Branch(branchNo integer, street string, city string, postcode char(6))</li>
+</ul>
+<h3 id="properties-of-relations-关系的属性-不重要"><a class="markdownIt-Anchor" href="#properties-of-relations-关系的属性-不重要"></a> Properties of relations 关系的属性 [不重要]</h3>
+<ul>
+<li>
+<p>Relation name is distinct from all other relation names in relational schema.<br />
+关系名称与关系模式中的所有其他关系名称不同。</p>
+</li>
+<li>
+<p>Each cell of relation contains exactly one single value. [First normal form]<br />
+每个关系单元只包含单个值。[第一范式]</p>
+</li>
+<li>
+<p>Each attribute has a distinct name.<br />
+每个属性都有一个不同的名称。</p>
+</li>
+<li>
+<p>Values of an attribute are all from the same domain.<br />
+一个属性的值都来自同一个域。</p>
+</li>
+<li>
+<p>Each tuple is distinct; there are no duplicate tuples.<br />
+每个元组是不同的;没有重复的元组。</p>
+</li>
+<li>
+<p>Order of attributes has no significance.<br />
+属性的顺序没有意义。</p>
+</li>
+<li>
+<p>Order of tuples has no significance, theoretically.<br />
+从理论上讲，元组的顺序没有意义。</p>
+</li>
+</ul>
+<h3 id="relational-keys-关系键重点"><a class="markdownIt-Anchor" href="#relational-keys-关系键重点"></a> Relational keys 关系键[重点]</h3>
+<h5 id="candidate-key-候选键"><a class="markdownIt-Anchor" href="#candidate-key-候选键"></a> Candidate Key 候选键</h5>
+<ul>
+<li>Defination：A set of attributes that uniquely identifies a tuple within a relation.<br />
+定义: 在关系中唯一标识元组的一组属性。</li>
+<li>Uniqueness: In each tuple, candidate key uniquely identify that tuple.<br />
+惟一性: 在每个元组中，候选键唯一地标识该元组。</li>
+<li>Irreducibility: No proper subset of the candidate key has the uniqueness property.<br />
+不可约性: 候选键的任何固有子集都不具有唯一性。？？？？？？？？？？？？？</li>
+<li>候选键的定义与主键和外键不并列。</li>
+</ul>
+<h5 id="primary-key-主键"><a class="markdownIt-Anchor" href="#primary-key-主键"></a> Primary Key 主键</h5>
+<ul>
+<li>Defination: Candidate key selected to identify tuples uniquely within relation.<br />
+定义:选择候选键来唯一地标识关系中的元组。</li>
+</ul>
+<h5 id="foreign-key-外键"><a class="markdownIt-Anchor" href="#foreign-key-外键"></a> Foreign Key 外键</h5>
+<ul>
+<li>Defination: Attribute, or set of attributes, within one relation that matches candidate key of some (possibly same) relation.<br />
+定义:在一个关系中匹配某个(可能相同的)关系的候选键的属性或属性集。</li>
+</ul>
+<h3 id="representing-relational-schema-关系模式的表示方法"><a class="markdownIt-Anchor" href="#representing-relational-schema-关系模式的表示方法"></a> Representing Relational Schema 关系模式的表示方法</h3>
+<ul>
+<li>Relation name [attribute 1, attribute 2, … attribute n]<br />
+eg: Branch [branchNo, street, city, postcode]<br />
+eg: Staff [staffNo, fName, lName, position, sex, DOB, salary, branchNo]</li>
+</ul>
+<h3 id="integrity-constraints-完整性约束"><a class="markdownIt-Anchor" href="#integrity-constraints-完整性约束"></a> Integrity Constraints 完整性约束</h3>
+<h5 id="null"><a class="markdownIt-Anchor" href="#null"></a> Null</h5>
+<ul>
+<li>
+<p>Represents value for an attribute that is currently unknown or not applicable for tuple.<br />
+表示当前未知或不适用于元组的属性的值。</p>
+</li>
+<li>
+<p>Deals with incomplete or exceptional data.<br />
+处理不完整或异常的数据。</p>
+</li>
+<li>
+<p>Represents the absence of a value [It is not the same as zero or spaces, which are values].<br />
+表示没有值[不代表0或空格的含义，它们是值]。</p>
+</li>
+</ul>
+<h5 id="entity-integrity-实体完整性-必须有主键"><a class="markdownIt-Anchor" href="#entity-integrity-实体完整性-必须有主键"></a> Entity Integrity 实体完整性 [必须有主键]</h5>
+<p>In a base relation, no attribute of a primary key can be null.<br />
+在基本关系中，主键的任何属性都不能为空。</p>
+<h5 id="referential-integrity-参照完整性-外键如果存在就必须是候选键"><a class="markdownIt-Anchor" href="#referential-integrity-参照完整性-外键如果存在就必须是候选键"></a> Referential Integrity 参照完整性 [外键如果存在就必须是候选键]</h5>
+<p>If foreign key exists in a relation, either foreign key value must match a candidate key value of some tuple in its home relation or foreign key value must be null.<br />
+如果一个关系中存在外键，那么要么外键值必须匹配其主关系中某个元组的候选键值，要么外键值必须为空。</p>
+<h5 id="general-constraints"><a class="markdownIt-Anchor" href="#general-constraints"></a> General Constraints</h5>
+<hr />
+<h2 id="relational-algebra-关系代数"><a class="markdownIt-Anchor" href="#relational-algebra-关系代数"></a> Relational Algebra 关系代数</h2>
+<ul>
+<li>
+<p>Relational algebra is formal language associated with the relational model.<br />
+关系代数是与关系模型相关的正式语言。</p>
+</li>
+<li>
+<p>Relational algebra operations work on one or more relations to define another relation without changing the original relations.<br />
+关系代数运算处理一个或多个关系，以定义另一个关系，而不改变原始关系。</p>
+</li>
+<li>
+<p>Allows expressions to be nested, just as in arithmetic. This property is called <strong>closure</strong>.<br />
+允许表达式嵌套，就像在算术中一样。这个属性称为闭包。</p>
+</li>
+</ul>
+<h3 id="operations"><a class="markdownIt-Anchor" href="#operations"></a> Operations</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selection</td>
+<td>选择</td>
+</tr>
+<tr>
+<td>Projection</td>
+<td>映射</td>
+</tr>
+<tr>
+<td>Cartesian product</td>
+<td>笛卡尔积</td>
+</tr>
+<tr>
+<td>Union</td>
+<td>合集</td>
+</tr>
+<tr>
+<td>Set difference</td>
+<td>差集</td>
+</tr>
+<tr>
+<td>Join</td>
+<td>取并</td>
+</tr>
+<tr>
+<td>Intersection</td>
+<td>取交</td>
+</tr>
+<tr>
+<td>Division</td>
+<td>除？？不知如何翻译</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Selection<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F7.png" alt="Selection" /></li>
+</ul>
+<p>处理单个关系R，并定义仅包含满足指定条件的R元组的关系。<br />
+<strong>通过筛选值取n整行</strong><br />
+eg: 列出所有年薪超过1万英镑的员工。<br />
+eg: 列出所有年薪超过1万英镑的女性员工<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F3.png" alt="Selection" /></p>
+<ul>
+<li>
+<p>Projection<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F8.png" alt="Projection" /><br />
+处理单个关系R并定义包含R的垂直子集的关系，提取指定属性的值并消除重复。<br />
+<strong>通过筛选属性取n整列</strong><br />
+eg: 列出所有员工的薪资，只显示 <staffNo>, <fName>, <lName> and <salary details>.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F4.png" alt="Projection" /></p>
+</li>
+<li>
+<p>Cartesian product<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F10.png" alt="Cartesian product" /><br />
+定义一个关系，该关系是关系R的每个元组与关系S的每个元组的连接。<br />
+<strong>通过建立属性关系选取n列</strong><br />
+eg: 列出所有看过出租物业的客户的姓名及意见<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F5.png" alt="Cartesian product" /></p>
+</li>
+<li>
+<p>Join:<br />
+Derivative of Cartesian product, equivalent to performing a Selection operation, using the join condition as the selection formula, over the Cartesian product of the two operand relations.<br />
+连接:笛卡尔积的导数，相当于执行一个选择操作，使用连接条件作为选择公式，除以两个操作数关系的笛卡尔积。？？？？</p>
+<ul>
+<li>Natural Join: 合并所有相同属性的相同值所在的行<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F12.png" alt="Natural Join" /><br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F6.png" alt="Natural Join" /></li>
+<li>Theta Join: 定义一个关系，该关系包含满足条件F的元组，这些条件来自于R和S的笛卡尔积。<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F14.png" alt="Theta Join" /></li>
+</ul>
+</li>
+<li>
+<p>Union<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F15.png" alt="Union" /><br />
+在关系R或关系S中的元组的整体组成的关系。</p>
+</li>
+<li>
+<p>Set difference<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F16.png" alt="Set difference" /><br />
+在关系R中但不在关系S中的元组组成的关系。<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F17.png" alt="Set difference" /></p>
+</li>
+<li>
+<p>Intersection<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F18.png" alt="Intersection" /><br />
+在关系R中且在关系S中的元组组成的关系。<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F19.png" alt="Intersection" /></p>
+</li>
+<li>
+<p>Division 难点<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F20.png" alt="Division" /></p>
+</li>
+</ul>
+<p>S在属性C上定义一个关系，该关系由来自R的一组元组组成，这些元组匹配S中<strong>每个</strong>元组的组合。</p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F21.png" alt="Division" /></p>
+<h3 id="练习题"><a class="markdownIt-Anchor" href="#练习题"></a> 练习题</h3>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F9.png" alt="Practice 1" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F11.png" alt="Practice 2" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F13.png" alt="Practice 3" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F22.png" alt="Practice 4" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F23.png" alt="Practice 5" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F24.png" alt="Practice 6" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F25.png" alt="Practice 7" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F26.png" alt="Practice 8" /></p>
 <h2 id="entity-relationshiper-modelling"><a class="markdownIt-Anchor" href="#entity-relationshiper-modelling"></a> Entity-relationship(ER) modelling</h2>
 
             </div>
@@ -1093,7 +1345,7 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/Diary_1_16_2020.html">
+                <a href="/Diary_1_17_2020.html">
                     <div class="card-image">
                         
                         <img src="https://blog-medias.cdn.bcebos.com/posts%2FDiary%2Fcover.jpg" class="responsive-img" alt="Diary">
@@ -1104,12 +1356,12 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2020.1.16份日记~
+                            2020.1.17份日记~
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-17
                         </span>
                         <span class="publish-author">
                             
@@ -1133,7 +1385,7 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/Diary_1_15_2020.html">
+                <a href="/Diary_1_16_2020.html">
                     <div class="card-image">
                         
                         <img src="https://blog-medias.cdn.bcebos.com/posts%2FDiary%2Fcover.jpg" class="responsive-img" alt="Diary">
@@ -1144,12 +1396,12 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2020.1.15份日记~
+                            2020.1.16份日记~
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-16
                             </span>
                         <span class="publish-author">
                             
@@ -1335,6 +1587,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
 
     <footer class="page-footer bg-color">
     <div class="container row center-align" style="margin-bottom: 0px !important;">
@@ -1347,7 +1606,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">27.1k</span>&nbsp;字
+                class="white-color">28.6k</span>&nbsp;字
             
             
             
