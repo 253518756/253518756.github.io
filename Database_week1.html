@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    2.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    12 分
                 </div>
                 
 
@@ -688,6 +688,9 @@ DBMS: 允许用户定义、创建、维护和控制对数据库的访问的软�
 <li>Defination: Attribute, or set of attributes, within one relation that matches candidate key of some (possibly same) relation.<br />
 定义:在一个关系中匹配某个(可能相同的)关系的候选键的属性或属性集。</li>
 </ul>
+<h5 id="composite-key-组合键"><a class="markdownIt-Anchor" href="#composite-key-组合键"></a> Composite Key 组合键</h5>
+<p>– Defination: A candidate key that consists of two or more attributes.<br />
+定义:由两个或多个属性组成的候选键。</p>
 <h3 id="representing-relational-schema-关系模式的表示方法"><a class="markdownIt-Anchor" href="#representing-relational-schema-关系模式的表示方法"></a> Representing Relational Schema 关系模式的表示方法</h3>
 <ul>
 <li>Relation name [attribute 1, attribute 2, … attribute n]<br />
@@ -847,7 +850,151 @@ Derivative of Cartesian product, equivalent to performing a Selection operation,
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F24.png" alt="Practice 6" /></p>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F25.png" alt="Practice 7" /></p>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F26.png" alt="Practice 8" /></p>
-<h2 id="entity-relationshiper-modelling"><a class="markdownIt-Anchor" href="#entity-relationshiper-modelling"></a> Entity-relationship(ER) modelling</h2>
+<hr />
+<h2 id="entity-relationshiper-modelling-实体关系模型-重点-多做练习题"><a class="markdownIt-Anchor" href="#entity-relationshiper-modelling-实体关系模型-重点-多做练习题"></a> Entity-relationship(ER) modelling  实体关系模型 [重点] [多做练习题！！]</h2>
+<h3 id="objectives"><a class="markdownIt-Anchor" href="#objectives"></a> Objectives</h3>
+<ul>
+<li>Understand basic concepts of Relational model</li>
+<li>Understand basic concepts associated with Entity-Relationship(ER) model.</li>
+<li>Be able to use Entity–Relationship (ER) modelling in database design.</li>
+<li>Be able to build an ER model from a <strong>requirements specification</strong>.<br />
+能够根据需求规范构建ER模型。</li>
+</ul>
+<h3 id="terminology-术语-2"><a class="markdownIt-Anchor" href="#terminology-术语-2"></a> Terminology 术语</h3>
+<ul>
+<li>Data model: a <strong>graphical description</strong> of the components of database.</li>
+<li>E-R modelling: a high-level conceptual modelling technique for DB applications</li>
+</ul>
+<h3 id="building-blocks-of-e-r-modelling"><a class="markdownIt-Anchor" href="#building-blocks-of-e-r-modelling"></a> building blocks of E-R modelling</h3>
+<h4 id="entity"><a class="markdownIt-Anchor" href="#entity"></a> Entity</h4>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F27.png" alt="Entity" /></p>
+<h4 id="attributes"><a class="markdownIt-Anchor" href="#attributes"></a> Attributes</h4>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F28.png" alt="Attributes" /></p>
+<h4 id="relationship"><a class="markdownIt-Anchor" href="#relationship"></a> Relationship</h4>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F29.png" alt="Relationship" /></p>
+<h5 id="one-to-many-relationship-1m"><a class="markdownIt-Anchor" href="#one-to-many-relationship-1m"></a> One-to-many relationship  [1:m]</h5>
+<ul>
+<li>a country can have many cities, but a city belongs to <strong>only one</strong> country.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F31.png" alt="One-to-many Relationship" /></li>
+</ul>
+<h5 id="many-to-many-relationship-nm-难点"><a class="markdownIt-Anchor" href="#many-to-many-relationship-nm-难点"></a> Many-to-Many relationship  [n:m] [难点]</h5>
+<ul>
+<li>
+<p>A sale can contain many items, and an item can appear in many sales.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F33.png" alt="Many-to-many Relationship" /></p>
+</li>
+<li>
+<p>Information missing from the relationship includes: quantity of an item being sold, total price etc.</p>
+</li>
+<li>
+<p>To store these information, we create a third entity [associative entity] to link the entities through two <strong>1:m relationships</strong>.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F34.png" alt="associative entity" /></p>
+</li>
+</ul>
+<h5 id="one-to-one-relationship-11"><a class="markdownIt-Anchor" href="#one-to-one-relationship-11"></a> One-to-one relationship [1:1]</h5>
+<ul>
+<li>A department has one boss, and a person is boss of only one department.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F36.png" alt="One-to-one relationship" /></li>
+</ul>
+<h5 id="recursive-relationships"><a class="markdownIt-Anchor" href="#recursive-relationships"></a> Recursive Relationships</h5>
+<ul>
+<li>Same entity type participates more than once in different roles.</li>
+<li>People also have a boss. An employee can be boss to many other employees, and an employee has normally just one boss.<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F37.png" alt="Recursive Relationships" /></li>
+</ul>
+<h4 id="practice"><a class="markdownIt-Anchor" href="#practice"></a> Practice</h4>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F30.png" alt="Practice 1" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F32.png" alt="Practice 2" /></p>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F35.png" alt="Practice 3" /></p>
+<hr />
+<h3 id="structural-constraints-结构约束"><a class="markdownIt-Anchor" href="#structural-constraints-结构约束"></a> Structural Constraints 结构约束</h3>
+<h4 id="degree-for-relationships"><a class="markdownIt-Anchor" href="#degree-for-relationships"></a> Degree for relationships</h4>
+<ul>
+<li>Defination: Number of participating entities in a relationship.</li>
+<li>Binary Relationships</li>
+</ul>
+<ol>
+<li>one-to-one (1 : 1)</li>
+<li>one-to-many (1 : *)</li>
+<li>many-to-many (* : *)</li>
+</ol>
+<ul>
+<li>Ternary Relationships [多练习]<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F42.png" alt="Ternary Relationships" /></li>
+<li>Quaternary Relationships</li>
+</ul>
+<h4 id="multiplicity-constraints-多重性约束"><a class="markdownIt-Anchor" href="#multiplicity-constraints-多重性约束"></a> Multiplicity Constraints 多重性约束</h4>
+<ul>
+<li>
+<p>Defination: - number (or range) of possible occurrences of an entity type that may relate to a single occurrence of an associated entity type through a particular relationship.<br />
+定义:-实体类型可能出现的次数(或范围)，这些实体类型可能通过特定关系与关联实体类型的单个出现相关。</p>
+</li>
+<li>
+<p>[1:1] relationship<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F39.png" alt="Multiplicity relationship [1:1]" /></p>
+</li>
+<li>
+<p>[1:*] relationship</p>
+</li>
+</ul>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F40.png" alt="Multiplicity relationship [1:*]" /></p>
+<ul>
+<li>[<em>:</em>] relationship<br />
+<img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F41.png" alt="Multiplicity relationship [:]" /></li>
+</ul>
+<h5 id="two-types-of-multiplicity-constraints难点"><a class="markdownIt-Anchor" href="#two-types-of-multiplicity-constraints难点"></a> Two types of Multiplicity Constraints[难点]</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cardinality Constraints</td>
+<td>基数约束</td>
+</tr>
+<tr>
+<td>participation Constraints</td>
+<td>参与约束</td>
+</tr>
+</tbody>
+</table>
+<h6 id="cardinality-constraints-基数约束"><a class="markdownIt-Anchor" href="#cardinality-constraints-基数约束"></a> Cardinality Constraints 基数约束</h6>
+<p>– Describes maximum number of possible relationship occurrences for an entity participating in a given relationship type.<br />
+描述参与给定关系类型的实体可能出现的最大关系数。</p>
+<ul>
+<li>multi-value, it means the cause of the Multiplicity Contraints id the <strong>‘multivalue’</strong> or not.</li>
+</ul>
+<h6 id="participation-constraints-参与约束"><a class="markdownIt-Anchor" href="#participation-constraints-参与约束"></a> Participation Constraints 参与约束</h6>
+<p>– Determines whether all or only some entity occurrences participate in a relationship.<br />
+确定是否所有或只有某些实体出现参与一个关系。</p>
+<ul>
+<li>mandatory or optional, it means the cause of the Multiplicity constraints is the <strong>‘optional’</strong> or not.</li>
+</ul>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F38.png" alt="Cardinality and Participation constraints" /></p>
+<h3 id="hints-for-data-modelling-重要"><a class="markdownIt-Anchor" href="#hints-for-data-modelling-重要"></a> Hints for Data modelling [重要]</h3>
+<ul>
+<li>模型将扩展和收缩，要设计得具有高拓展性</li>
+<li>必要时发明标识符</li>
+<li>Key应该只有一个用途——标识</li>
+<li>数据模型并不意味着排序</li>
+<li>如果需要实例排序，则创建属性</li>
+<li>属性的含义必须一致</li>
+<li>单个实例实体是可以的</li>
+<li>小心选择名字</li>
+<li>同义词——不同的单词有相同的意思，让客户选定一个常用的单词或使用视图</li>
+<li>同音异义——同一个单词有不同的意思，澄清以避免混淆</li>
+<li>连接实体名称，写清楚标签关系，以避免歧义，如果没有明显的现实世界的名称</li>
+<li>保持数据模型的良好形式和准确性</li>
+<li>有时不得不做出假设，<strong>必须清楚地在试卷上清楚地陈述假设</strong>，尤其是重要的课程作业和考试!</li>
+</ul>
+<h3 id="practice-2"><a class="markdownIt-Anchor" href="#practice-2"></a> Practice</h3>
+<ul>
+<li>在 Week 1 第三个ppt中20开始有很重点的示例要复习练习！</li>
+</ul>
+<p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week1%2F43.png" alt="Practice 1" /></p>
 
             </div>
             <hr/>
@@ -1606,7 +1753,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">28.6k</span>&nbsp;字
+                class="white-color">29.3k</span>&nbsp;字
             
             
             
