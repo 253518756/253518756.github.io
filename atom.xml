@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jlccbzh.cn/"/>
-  <updated>2020-01-17T16:30:59.615Z</updated>
+  <updated>2020-01-18T09:30:30.265Z</updated>
   <id>http://www.jlccbzh.cn/</id>
   
   <author>
@@ -15,6 +15,77 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Database Week 2</title>
+    <link href="http://www.jlccbzh.cn/Database_week2.html"/>
+    <id>http://www.jlccbzh.cn/Database_week2.html</id>
+    <published>2020-01-18T01:25:00.000Z</published>
+    <updated>2020-01-18T09:30:30.265Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;enhanced-entity-relationship-modelling-增强实体关系建模&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Diary</title>
+    <link href="http://www.jlccbzh.cn/Diary_1_18_2020.html"/>
+    <id>http://www.jlccbzh.cn/Diary_1_18_2020.html</id>
+    <published>2020-01-18T01:25:00.000Z</published>
+    <updated>2020-01-18T09:30:09.583Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;手账&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#手账&quot;&gt;&lt;/a&gt;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Diary" scheme="http://www.jlccbzh.cn/categories/Diary/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Java Week 1</title>
+    <link href="http://www.jlccbzh.cn/Java_week1.html"/>
+    <id>http://www.jlccbzh.cn/Java_week1.html</id>
+    <published>2020-01-18T01:25:00.000Z</published>
+    <updated>2020-01-18T09:30:08.231Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="Java" scheme="http://www.jlccbzh.cn/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Diary</title>
@@ -38,34 +109,6 @@
     
       <category term="Diary" scheme="http://www.jlccbzh.cn/categories/Diary/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Database Week 1</title>
-    <link href="http://www.jlccbzh.cn/Database_week1.html"/>
-    <id>http://www.jlccbzh.cn/Database_week1.html</id>
-    <published>2020-01-16T01:25:00.000Z</published>
-    <updated>2020-01-18T04:46:43.969Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;introduction&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#introduction&quot;&gt;&lt;/a&gt; Introduction&lt;/h2&gt;
-&lt;h3 id=&quot;三个数据库基本概念&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
     
   </entry>
   
@@ -95,6 +138,34 @@
     
       <category term="Diary" scheme="http://www.jlccbzh.cn/categories/Diary/"/>
     
+    
+  </entry>
+  
+  <entry>
+    <title>Database Week 1</title>
+    <link href="http://www.jlccbzh.cn/Database_week1.html"/>
+    <id>http://www.jlccbzh.cn/Database_week1.html</id>
+    <published>2020-01-16T01:25:00.000Z</published>
+    <updated>2020-01-18T05:00:54.478Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;introduction&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#introduction&quot;&gt;&lt;/a&gt; Introduction&lt;/h2&gt;
+&lt;h3 id=&quot;三个数据库基本概念&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
     
   </entry>
   
@@ -484,34 +555,6 @@ Activity，Service，Broadcast
     
     
       <category term="Android" scheme="http://www.jlccbzh.cn/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AVL Tree</title>
-    <link href="http://www.jlccbzh.cn/AVL%20Tree.html"/>
-    <id>http://www.jlccbzh.cn/AVL%20Tree.html</id>
-    <published>2019-09-28T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.600Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。&lt;br /&gt;
-&lt;a href=&quot;https://b23.tv/av51157423/p1&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="DSA" scheme="http://www.jlccbzh.cn/tags/DSA/"/>
     
   </entry>
   
