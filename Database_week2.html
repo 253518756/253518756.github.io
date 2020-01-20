@@ -26,8 +26,8 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<link rel="alternate" href="/atom.xml" title="学就完了" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="学就完了" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    9 分
                 </div>
                 
 
@@ -591,22 +591,22 @@ Process of minimizing differences between entities by identifying their common c
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week2%2F1.png" alt="Example 1" /></p>
 <ul>
 <li>
-<p><Branch>和<Staff>作为Superclass，一个<Branch>可以有多个<Staff>，所以有Has[1…1 : 1…*]</p>
+<p>Branch和Staff作为Superclass，一个Branch可以有多个Staff，所以有Has[1…1 : 1…*]</p>
 </li>
 <li>
-<p><Branch>和特化后的<Manager>有Manages[1…1 : 1…1]</p>
+<p>Branch和特化后的Manager有Manages[1…1 : 1…1]</p>
 </li>
 <li>
-<p><Manager>,<SalesPersonnel>和<Secretary>与<Staff>之间是关于Job role的特化/泛化关系。一个<Staff>可以有多重身份，也可以身份不属于下列三个身份，故限制为 {Optional,And}</p>
+<p>Manager,SalesPersonnel和Secretary与Staff之间是关于Job role的特化/泛化关系。一个Staff可以有多重身份，也可以身份不属于下列三个身份，故限制为 {Optional,And}</p>
 </li>
 <li>
-<p><FullTimePermanent>和<PartTimeTemporary>与<Staff>之间是关于Contract of employment 的特化/泛化关系，一个<Staff>只能处于两种状态中的一种，且必须存在一种状态，故限制为 {Mandatory，Or}</p>
+<p>FullTimePermanent和PartTimeTemporary与Staff之间是关于Contract of employment 的特化/泛化关系，一个Staff只能处于两种状态中的一种，且必须存在一种状态，故限制为 {Mandatory，Or}</p>
 </li>
 </ul>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week2%2F2.png" alt="Example 2" /></p>
 <ul>
-<li><Manager>&amp;<SalesPersonnel>都有可能成为<SalesManager>,故将其作为二者的泛化子类，限制关系为{ Optional }</li>
-<li><AssistantSecretary>同理</li>
+<li>Manager &amp; SalesPersonnel都有可能成为SalesManager,故将其作为二者的泛化子类，限制关系为{ Optional }</li>
+<li>AssistantSecretary同理</li>
 </ul>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week2%2F3.png" alt="Practice" /></p>
 <hr />
@@ -674,6 +674,154 @@ Process of minimizing differences between entities by identifying their common c
 </li>
 </ul>
 <p><img src="https://blog-medias.cdn.bcebos.com/posts%2FDatabase%2FDatabase_week2%2F8.png" alt="Constraints" /></p>
+<h2 id="sql"><a class="markdownIt-Anchor" href="#sql"></a> SQL</h2>
+<h3 id="objectives-2"><a class="markdownIt-Anchor" href="#objectives-2"></a> Objectives</h3>
+<ul>
+<li>Be able to retrieve data from database using SELECT<br />
+能够检索数据从数据库, <strong>SELECT</strong></li>
+<li>Use compound WHERE conditions.<br />
+使用复合条件, <strong>WHERE</strong>。</li>
+<li>Sort query results using ORDER BY.<br />
+对查询结果进行排序, <strong>ORDER BY</strong></li>
+<li>Use aggregate functions.<br />
+使用聚合函数。</li>
+<li>Group data using GROUP BY and HAVING.<br />
+组合数据，<strong>GROUP BY &amp; HAVING</strong></li>
+<li>Use subqueries.<br />
+子查询</li>
+<li>Join tables together.<br />
+将表连接在一起</li>
+<li>Perform set operations ,UNION, INTERSECT, EXCEPT.<br />
+执行集合操作, <strong>UNION, INTERSECT, EXCEPT</strong></li>
+<li>Be able to update database using INSERT, UPDATE, and DELETE.<br />
+更新数据库, <strong>INSERT, UPDATE, DELETE</strong></li>
+</ul>
+<h3 id="introduction-to-sql"><a class="markdownIt-Anchor" href="#introduction-to-sql"></a> Introduction to SQL</h3>
+<ul>
+<li>SQL is a transform-oriented language with 2 major components.</li>
+</ul>
+<h4 id="ddl-dml"><a class="markdownIt-Anchor" href="#ddl-dml"></a> DDL &amp; DML</h4>
+<ul>
+<li>Data definition language [DDL]:Create table, ALTER table, Drop table</li>
+<li>Data manipulation language [DML]:Insert, Delete, Update, Select.</li>
+</ul>
+<h3 id="条件语句集-condition"><a class="markdownIt-Anchor" href="#条件语句集-condition"></a> 条件语句集 Condition</h3>
+<ul>
+<li>Compound Comparison Search Condition  复合比较搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name = “A” OR column_name = “B”;
+WHERE column_name1 = “A” AND column_name2 = “A”;
+</code></pre>
+<ul>
+<li>Comparison Search Condition  比较搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name &gt; 10000;
+WHERE column_name = 10000;
+</code></pre>
+<ul>
+<li>Range Search Condition  范围搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name BETWEEN 20000 AND 30000;
+</code></pre>
+<ul>
+<li>Pattern Matching  正则匹配</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name LIKE '%Glasgow%';
+WHERE column_name LIKE '_英_';
+</code></pre>
+<p><a href="https://blog.csdn.net/u014137165/article/details/69950883" target="_blank" rel="noopener">数据库查询模糊匹配</a></p>
+<ul>
+<li>NULL Search Condition  NULL搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name IS NULL;
+</code></pre>
+<h3 id="ddl命令集"><a class="markdownIt-Anchor" href="#ddl命令集"></a> DDL命令集</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创建数据库</td>
+<td><code>CREATE DATABASE database_name;</code></td>
+</tr>
+<tr>
+<td>展示所有数据库</td>
+<td><code>SHOW DATABASES;</code></td>
+</tr>
+<tr>
+<td>修改某数据库</td>
+<td><code>USE database_name;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>建立新的表 CREATE</li>
+</ul>
+<pre class="highlight"><code class="">CREATE TABLE table_name (
+    column_name data_type column_constraint,       # 列级约束性条件
+    No char(2) PRIMARY KEY，                       # eg1: 主键约束
+    BranchNo char(4) NOT NULL,                     # eg2：允许或不允许出现NULL
+    street varchar(45) DEFAULT NULL,               # eg3：默认为NULL
+    value integer(100) UNIQUE,                     # eg4：唯一性约束，值不能重复
+    table_constraint,                              # 表级约束条件
+    PRIMARY KEY (column_name),                     # eg1：主键约束
+    CHECK (column_name Condition),                 # eg2：条件约束
+    UNIQUE (column_name)                           # eg3：唯一性约束
+    )ENGINE = InnoDB DEFAULT CHARSET = utf8;       # table_constraint
+</code></pre>
+<ul>
+<li>删除一整张表 DELETE</li>
+</ul>
+<pre class="highlight"><code class="">DROP TABLE table_name;
+</code></pre>
+<ul>
+<li>修改表的属性</li>
+</ul>
+<pre class="highlight"><code class="">ALTER TABLE table_name RENAME table_name; # 修改表名
+ALTER TABLE table_name ADD column_name data_type column_constraint;  # 添加属性
+ALTER TABLE table_name DROP column_name;  # 删除属性
+</code></pre>
+<h3 id="dml命令集"><a class="markdownIt-Anchor" href="#dml命令集"></a> DML命令集</h3>
+<ul>
+<li>向表中添加行数据 INSERT</li>
+</ul>
+<pre class="highlight"><code class="">INSERT INTO table_name                       # 这里省略了表的各个属性
+VALUES
+('B004','26 Deer Rd','London','SW2 4WH'),
+('B001','27 Deer Rd','London','SW0 7EH');    #在表中添加多条数据
+</code></pre>
+<ul>
+<li>删除表中行数据 DELETE[这还没整理]</li>
+</ul>
+<pre class="highlight"><code class="">DELETE FROM〈表名〉[WHERE〈条件〉]；
+
+修改某几行的属性值
+UPDATE〈表名〉
+SET〈列名〉=〈表达式〉[，〈列名〉=〈表达式〉][，…n]
+[where]
+</code></pre>
+<ul>
+<li>展示表中信息 SELECT</li>
+</ul>
+<pre class="highlight"><code class="">SELECT * FROM table_name;                               # 展示表中所有信息
+SELECT column_name1,column_name2 FROM table_name;       # 筛选表中的几个属性展示
+SELECT DISTINCT column_name FROM table_name;            # DISTINCT 展示被筛选属性的不同值，筛掉相同值
+</code></pre>
+<ul>
+<li>Calculated Fields 计算字段<br />
+将计算后的新结果以新名字标注的形式输出</li>
+</ul>
+<pre class="highlight"><code class="">SELECT column_name/2 AS new_column_name FROM table_name;
+</code></pre>
+<h4 id="排序-ordering"><a class="markdownIt-Anchor" href="#排序-ordering"></a> 排序 Ordering</h4>
+<p>将排序的结果输出</p>
+<pre class="highlight"><code class="">SELECT * FROM column_name ORDER BY column_name ASC|DESC;               # ASC|DESC 升降序
+SELECT * FROM column_name ORDER BY column_name1 DESC,column_name2 ASC; # 按先后顺序排序
+</code></pre>
 
             </div>
             <hr/>
@@ -1167,24 +1315,72 @@ Process of minimizing differences between entities by identifying their common c
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/Database_week2.html">
+                <a href="/Java_week1.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/21.jpg" class="responsive-img" alt="Database Week 2">
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/5.jpg" class="responsive-img" alt="Java Week 1">
                         
-                        <span class="card-title">Database Week 2</span>
+                        <span class="card-title">Java Week 1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据库课程 Week 2 笔记
+                            Java课程 Week 1 笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Notes/" class="post-category">
+                                    Notes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Digital_Circuit_week1.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/20.jpg" class="responsive-img" alt="Digital Circuit Week 1">
+                        
+                        <span class="card-title">Digital Circuit Week 1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数字电路课程 Week 1 笔记
                         
                     </div>
                     <div class="publish-info">
@@ -1203,54 +1399,13 @@ Process of minimizing differences between entities by identifying their common c
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Database/">
-                        <span class="chip bg-color">Database</span>
+                    <a href="/tags/Digital-Circuit/">
+                        <span class="chip bg-color">Digital Circuit</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/Diary_1_18_2020.html">
-                    <div class="card-image">
-                        
-                        <img src="https://blog-medias.cdn.bcebos.com/posts%2FDiary%2Fcover.jpg" class="responsive-img" alt="Diary">
-                        
-                        <span class="card-title">Diary</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            2020.1.18份日记~
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-18
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Diary/" class="post-category">
-                                    Diary
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
@@ -1436,7 +1591,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">30.8k</span>&nbsp;字
+                class="white-color">31.1k</span>&nbsp;字
             
             
             
