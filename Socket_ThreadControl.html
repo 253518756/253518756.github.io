@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Overview of IoT, 学就完了">
-    <meta name="description" content="物联网技术概论">
+    <meta name="keywords" content="Socket编程线程管理, 学就完了">
+    <meta name="description" content="C/S模式下，C# Socket实现异步接入多个客户端连接">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Overview of IoT | 学就完了</title>
+    <title>Socket编程线程管理 | 学就完了</title>
     <link rel="icon" type="image/png" href="https://blog-medias.cdn.bcebos.com/medias/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/cover.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Overview of IoT</h1>
+                    <h1 class="description center-align post-title">Socket编程线程管理</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/IoT/">
-                                <span class="chip bg-color">IoT</span>
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C#</span>
                             </a>
                         
                     </div>
@@ -451,8 +451,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Notes/" class="post-category">
-                                Notes
+                            <a href="/categories/Unity/" class="post-category">
+                                Unity
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-12-13
+                    2020-02-11
                 </div>
                 
 
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    5 分
                 </div>
                 
 
@@ -496,208 +496,138 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="11-background-of-iot"><a class="markdownIt-Anchor" href="#11-background-of-iot"></a> 1.1 Background of IoT</h2>
-<ul>
-<li>Computing model involtion: 2010 IoT Pervasive（遍布的） &amp; senser Computing<br />
-计算模型involtion: 2010物联网无处不在&amp;传感器计算</li>
-<li>The term Internet of Things was first used by Kevin Ashton in 1999<br />
-物联网一词最早由凯文·阿什顿在1999年使用</li>
-<li>The very first definition of IoT derives from a “Things oriented” perspective;<br />
-物联网的第一个定义源于“面向事物”的视角;</li>
+                <ul>
+<li>啊。。。好久没有写博客了，可算是过了打代码的瘾。嗯不写博客知识加工的还是不够好，以后不能断更。是时候把十多天的收获总结一下了</li>
+<li>从大一到大二也不知道为什么总是跳不出Unity的深坑哈哈，可能是喜欢做游戏？或者C#写起来比Java顺手，又或者对美工渲染依依不舍hhh</li>
 </ul>
-<h2 id="12-concepts-and-characteristics-of-iot"><a class="markdownIt-Anchor" href="#12-concepts-and-characteristics-of-iot"></a> 1.2 Concepts and characteristics of IoT</h2>
-<h3 id="some-concept-connect-with-iot"><a class="markdownIt-Anchor" href="#some-concept-connect-with-iot"></a> Some Concept connect with IoT</h3>
-<h4 id="wsn-wireless-sensor-network无线传感网络"><a class="markdownIt-Anchor" href="#wsn-wireless-sensor-network无线传感网络"></a> WSN: wireless sensor network，无线传感网络</h4>
-<p>WSN网络是由部署在监测区域内大量的廉价微型传感器节点组成，通过无线通信方式形成的一个自组织网络。<br />
-传感器网络将能扩展人们与现实世界进行远程交互的能力。无线传感器网络能够实时监测和采集网络分布区域内的各种监测对象的信息，以实现复杂的制定范围内目标监测和跟踪，具有快速展开、抗毁性强等特点。<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/1.png" alt="WSN网络构成" /></p>
-<h4 id="m2m-machine-to-machine-机器对机器"><a class="markdownIt-Anchor" href="#m2m-machine-to-machine-机器对机器"></a> M2M: Machine-To-Machine, 机器对机器</h4>
-<p>M2M重点在于机器对机器的无线通信，存在以下三种方式：机器对机器，机器对移动电话（如用户远程监视），移动电话对机器（如用户远程控制）。<br />
-M2M的潜在市场不仅限于通信业。由于M2M是无线通信和信息技术的整合，它可用于双向通信，如远距离收集信息、设置参数和发送指令，因此M2M技术可有不同的应用方案，如安全监测、自动售货机、货物跟踪等</p>
-<h4 id="cps-cyber-physical-systems信息物理系统"><a class="markdownIt-Anchor" href="#cps-cyber-physical-systems信息物理系统"></a> CPS: Cyber-Physical Systems，信息物理系统。</h4>
+<h3 id="编译环境"><a class="markdownIt-Anchor" href="#编译环境"></a> 编译环境</h3>
 <ul>
-<li>信息物理系统(cyber physical systems,简称CPS)作为计算进程和物理进程的统一体，是集成计算、通信与控制于一体的下一代智能系统。信息物理系统通过人机交互接口实现和物理进程的交互，使用网络化空间以远程的、可靠的、实时的、安全的、协作的方式操控一个物理实体。</li>
-<li>信息物理系统包含了将来无处不在的环境感知、嵌入式计算、网络通信和网络控制等系统工程，使物理系统具有计算、通信、精确控制、远程协作和自治功能。它注重计算资源与物理资源的紧密结合与协调，主要用于一些智能系统上如设备互联，物联传感，智能家居，机器人，智能导航等。</li>
+<li>语言：C# (.Net Core)</li>
+<li>引擎：Unity</li>
+<li>编辑器： JetBrain Rider<br />
+真的如宣传网站上所说，天然适应Unity引擎，就没出现过适配错误，简直完美。比网课老师用的VS舒服很多。</li>
 </ul>
-<h3 id="defination-of-iot"><a class="markdownIt-Anchor" href="#defination-of-iot"></a> Defination of IoT</h3>
+<h3 id="服务器端-server类"><a class="markdownIt-Anchor" href="#服务器端-server类"></a> 服务器端 - Server类</h3>
+<pre class="highlight"><code class="C#"><span class="hljs-keyword">private</span> Socket _serverSocket;
+<span class="hljs-keyword">private</span> List&lt;Client&gt; _clientList = <span class="hljs-keyword">new</span> List&lt;Client&gt;();
+<span class="hljs-keyword">private</span> IPEndPoint _ipEndPoint;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Server</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> ipStr, <span class="hljs-keyword">int</span> port</span>)</span>
+{
+    SetIpAndPort(ipStr,port);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetIpAndPort</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> ipStr, <span class="hljs-keyword">int</span> port</span>)</span>
+{
+    _ipEndPoint = <span class="hljs-keyword">new</span> IPEndPoint(IPAddress.Parse(ipStr), port);
+}
+</code></pre>
 <ul>
-<li>an integrated part of Future Internet and could be defined as a dynamic global network infrastructure with self configuring capabilities based on standard and interoperable communication protocols where physical and virtual ‘things’ have identities, physical attributes, and virtual personalities and use intelligent interfaces, and are seamlessly integrated into the information network.<br />
-未来互联网的一个集成部分,可能被定义为一个动态的全球网络基础设施具有自我配置功能基于标准和互操作通信协议在物理和虚拟的东西有身份,物理属性,和虚拟的个性和使用智能接口,并无缝地集成到信息网络。</li>
+<li>声明Socket类服务器对象，用于将其与客户端绑定</li>
+<li>利用_clientList将所有接入的客户端存储起来，方便管理。</li>
+<li>这里IPEndPoint类指的是网络连接终端，不管是服务器还是客户端都要做这样一个声明，其由ip地址和端口号组成。</li>
 </ul>
-<h3 id="characteristics-of-iot"><a class="markdownIt-Anchor" href="#characteristics-of-iot"></a> Characteristics of IoT</h3>
+<hr />
+<pre class="highlight"><code class="C#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Start</span>(<span class="hljs-params"></span>)</span>
+{
+      _serverSocket = <span class="hljs-keyword">new</span> Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
+      _serverSocket.Bind(_ipEndPoint);              <span class="hljs-comment">//绑定IP和端口号</span>
+      _serverSocket.Listen(<span class="hljs-number">0</span>);                      <span class="hljs-comment">//开始监听端口号，队列里最多有10个同时处理</span>
+      _serverSocket.BeginAccept(AcceptCallBack, _serverSocket);
+}
+</code></pre>
 <ul>
-<li>Functionalize ordinary objects 使普通对象功能化</li>
-<li>Interconnect autonomic terminals 相互关联的自助终端</li>
+<li>实例化Socket类，这里使用Tcp协议，所以SocketType选择稳定的Stream模式，通道模式有利于建立长期连接。</li>
+<li>我们将声明的服务器终端地址和服务器绑定。</li>
+<li>Socket类的Listen函数是一个队列，这里传入的参数不是对连接数量上限做限制，而是对连接过程中的或其他状态的挂起数量上限做限制，也就是排队的数量。这里我将其调为零，选择放弃listen机制控制连接状态，通过BeginAccept函数的回调机制在控制线程的同时，控制连接顺序<br />
+[socket中的listen()参数]<a href="https://blog.csdn.net/HFZeng/article/details/93843442" target="_blank" rel="noopener">https://blog.csdn.net/HFZeng/article/details/93843442</a></li>
+<li>然后我们要将服务器调成处于可接受客户端连接的状态。这里有两个函数可以选择，分别是Accept()函数和BeginAccept()函数，这里声明一个规律，很多函数涉及到Invoke类型的功能时会涉及到占用主线程的问题，这时一般都会选择Begin开头的同功能函数开启异步处理，防止占用主线程，这也是两个函数的主要区别。</li>
 </ul>
-<h4 id="three-important-characteristics"><a class="markdownIt-Anchor" href="#three-important-characteristics"></a> Three important characteristics</h4>
+<hr />
+<pre class="highlight"><code class="C#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">AcceptCallBack</span>(<span class="hljs-params">IAsyncResult ar</span>)</span>
+{
+      Socket clientSocket = _serverSocket.EndAccept(ar);
+      Client cli = <span class="hljs-keyword">new</span> Client(clientSocket,<span class="hljs-keyword">this</span>);
+      cli.Start();
+      _clientList.Add(cli);
+      _serverSocket.BeginAccept(AcceptCallBack, _serverSocket);
+}
+</code></pre>
 <ul>
-<li>instrumented (仪表化的)</li>
-<li>interconnected</li>
-<li>intelligent</li>
+<li>BeginAccept函数需要传入回调函数，这里利用回调函数结尾再次开启一个新线程的模式达到了解决线程冲突的目的，也保证了对每个接入的客户端做管控的目的，使整个流程足够稳定，且代码简洁。</li>
+<li>IAsyncResult类是BeginAccept函数开启异步委托后的返回值，ar即是传入的客户端参数，我们需要进一步在回调函数中将其与服务器SOcket绑定。<br />
+<a href="https://www.cnblogs.com/JiaoTou/articles/9938899.html" target="_blank" rel="noopener">IAsyncResult异步委托</a></li>
+<li>Client类是我声明的客户端类，表示实例一个新的客户端对象。</li>
 </ul>
-<h2 id="13-architecture-of-iot-物联网架构"><a class="markdownIt-Anchor" href="#13-architecture-of-iot-物联网架构"></a> 1.3 Architecture of IoT 物联网架构</h2>
-<h3 id="tcpip-layered-architectural-model"><a class="markdownIt-Anchor" href="#tcpip-layered-architectural-model"></a> TCP/IP Layered Architectural Model</h3>
-<p><img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/2.png" alt="TCP/IP Layered Architectural Model" /><br />
-此处可以了解OSI七层进行系统学习</p>
+<hr />
+<pre class="highlight"><code class="C#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveClient</span>(<span class="hljs-params">Client client</span>)</span>
+{
+     <span class="hljs-keyword">lock</span> (_clientList)
+     {
+          _clientList.Remove(client);
+     }
+}
+</code></pre>
 <ul>
-<li>Application 应用层<br />
-a user process cooperating with another process<br />
-on the same or a different host.
-<ul>
-<li>TELNET: a protocol for remote terminal connections. 远程终端连接协议</li>
-<li>FTP: File Transfer Protocol 文件传输协议</li>
-<li>SMTP:  Simple Mail Transfer Protocol 邮件传输协议</li>
+<li>lock函数的作用是确保当一个线程位于代码的临界区时，另一个线程不进入临界区。如果其他线程试图进入锁定的代码，则它将一直等待（即被阻止），直到该对象被释放。有效地保证了不会误删掉某个客户端线程。</li>
 </ul>
-</li>
-<li>Transport 传输层
+<h3 id="客户端-clientmanager类"><a class="markdownIt-Anchor" href="#客户端-clientmanager类"></a> 客户端 - ClientManager类</h3>
+<pre class="highlight"><code class="C#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnInit</span>(<span class="hljs-params"></span>)</span>
+{
+    <span class="hljs-keyword">base</span>.OnInit();
+    clientSocket = <span class="hljs-keyword">new</span> Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+    <span class="hljs-keyword">try</span>
+    {
+        clientSocket.Connect(IP, PORT);
+        Start();
+    }
+    <span class="hljs-keyword">catch</span> (Exception e)
+    {
+        Debug.LogWarning(<span class="hljs-string">"无法连接到服务器端，请检查您的网络！！"</span> + e);
+    }
+}
+</code></pre>
 <ul>
-<li>TCP 有保障连接</li>
-<li>UDP 无保障连接</li>
+<li>和服务器端方法相同，新实例化一个TCP对象。</li>
+<li>这里的IP和PORT是目标服务器的IP地址和端口。</li>
+<li>一定要做好<strong>异常检测</strong>和<strong>防空检测</strong>，一定一定！！</li>
 </ul>
-</li>
-<li>Internetwork 网络层
+<h3 id="服务器端与客户端的消息接收"><a class="markdownIt-Anchor" href="#服务器端与客户端的消息接收"></a> 服务器端与客户端的消息接收</h3>
+<pre class="highlight"><code class="C#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Start</span>(<span class="hljs-params"></span>)</span>
+{
+_clientSocket.BeginReceive(msg.Data, msg.StartIndex, msg.RemainSize, SocketFlags.None, ReceiveCallBack, <span class="hljs-literal">null</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReceiveCallBack</span>(<span class="hljs-params">IAsyncResult ar</span>)</span>
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">int</span> count = _clientSocket.EndReceive(ar); <span class="hljs-comment">// 他接受了多少字节的数据</span>
+        <span class="hljs-keyword">if</span> (count == <span class="hljs-number">0</span>) <span class="hljs-comment">// 正常关闭</span>
+        {
+            Close();
+            <span class="hljs-keyword">return</span>;
+        }
+        msg.ReadMessage(count,OnProcessMessage);
+        Start();
+    }
+    <span class="hljs-keyword">catch</span> (Exception e)  <span class="hljs-comment">// 非正常关闭</span>
+    {
+        Console.WriteLine(e);
+        Close();
+    }
+}
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Close</span>(<span class="hljs-params"></span>)</span>
+{
+    ConnHelper.CloseConnection(_mysqlConn);
+    <span class="hljs-keyword">if</span> (_clientSocket != <span class="hljs-literal">null</span>){  _clientSocket.Close();}
+    _server.RemoveClient(<span class="hljs-keyword">this</span>);
+}
+</code></pre>
 <ul>
-<li>IP Internet Protocol 互联网协议</li>
-</ul>
-</li>
-<li>Network Interface（link layer） 网络接口，（数据）链路层<br />
-the interface to the actual network hardware 硬件接口协议层</li>
-</ul>
-<h3 id="four-layer-architecture-model-of-iot"><a class="markdownIt-Anchor" href="#four-layer-architecture-model-of-iot"></a> Four-layer architecture model of IoT</h3>
-<p><img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/3.png" alt="Four-layer architecture model of IoT" /></p>
-<ul>
-<li>Object sensing layer 对象感知层<br />
-感知物理对象并获取数据</li>
-<li>Data exchange layer 数据交换层<br />
-数据透明传输</li>
-<li>Information integration layer 信息集成层<br />
-负责重组、清理和不确定信息的融合，将不确定信息整合到网络中或有用的部分。</li>
-<li>Application service layer 应用服务层<br />
-为不同用户提供服务。</li>
-</ul>
-<h3 id="three-layer-architecture-model-of-iot"><a class="markdownIt-Anchor" href="#three-layer-architecture-model-of-iot"></a> Three-layer architecture model of IoT</h3>
-<p><img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/4.png" alt="Three-layer architecture model of IoT" /></p>
-<ul>
-<li>Application Layer 应用层</li>
-<li>Network Layer 网络层</li>
-<li>Sensor Layer 感知层</li>
-</ul>
-<h3 id="objectives-of-iot-物联网的目的"><a class="markdownIt-Anchor" href="#objectives-of-iot-物联网的目的"></a> Objectives of IoT 物联网的目的</h3>
-<ul>
-<li>More Extensive Interconnection 更广泛的互联<br />
-物联网扩展了信息设备之间的互连，电脑和手机，要互联互通，智能或非智能物理对象。</li>
-<li>More Intensive Information Perception 更密集的信息感知<br />
-物联网扩展了传统单传感器感知局部的范例<br />
-环境自主向新范式转变，多传感器协作实现全球环境意识。</li>
-<li>More Comprehensive Intelligent Service 更全面的智能服务<br />
-基于普通物理对象与网络的广泛互联<br />
-物联网可以提供对物理世界的深入感知，综合智能服务</li>
-</ul>
-<h2 id="key-technologies-of-iot-物联网关键技术"><a class="markdownIt-Anchor" href="#key-technologies-of-iot-物联网关键技术"></a> Key technologies of IoT 物联网关键技术</h2>
-<h3 id="on-object-sensing-layer-对象感知层相关技术"><a class="markdownIt-Anchor" href="#on-object-sensing-layer-对象感知层相关技术"></a> on Object sensing layer 对象感知层相关技术</h3>
-<ul>
-<li>
-<p>Barcode 条形码<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/5.png" alt="Barcode 条形码" /></p>
-</li>
-<li>
-<p>Two-dimensional code or QR Code 二维码</p>
-</li>
-</ul>
-<p><img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/6.png" alt="Two-dimensional code or QR Code" /></p>
-<ul>
-<li>IC card  IC卡<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/7.png" alt="IC card" /></li>
-</ul>
-<p>any pocket-sized card with embedded integrated circuits<br />
-智能卡可以提供身份识别，认证、数据存储和应用程序处理</p>
-<ul>
-<li>
-<p>Radio Frequency Identification (RFID) 射频识别</p>
-</li>
-<li>
-<p>Sensor 传感器<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/8.png" alt="Sensor" /></p>
-</li>
-<li>
-<p>Sensor node（mote）传感器节点</p>
-</li>
-</ul>
-<p>一个节点能够执行的无线传感器网络一些处理，收集感官信息和其他连接节点进行通信<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/9.png" alt="Sensor node" /></p>
-<ul>
-<li>GPS</li>
-<li>Smart Device</li>
-</ul>
-<h3 id="on-data-exchanger-layer-数据交换层相关技术"><a class="markdownIt-Anchor" href="#on-data-exchanger-layer-数据交换层相关技术"></a> on Data exchanger layer 数据交换层相关技术</h3>
-<ul>
-<li>Internet 互联网</li>
-<li>WiFi</li>
-<li>WiMAX (Worldwide Interoperability for Microwave Access) 全球微波互操作性<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/10.png" alt="WiMAX" /></li>
-</ul>
-<p>IEEE802.16标准，又称WiMAX，或广带无线接入(Broadband Wireless Access，BWA)标准。它是一项无线城域网(WMAN)技术，是针对微波和毫米波频段提出的一种新的空中接口标准。它用于将802.11a无线接入热点连接到互联网，也可连结公司与家庭等环境至有线骨干线路。它可作为线缆和DSL的无线扩展技术，从而实现无线宽带接入。</p>
-<ul>
-<li>GSM (Global System for Mobile Communications) 全球移动通信系统</li>
-</ul>
-<p>由欧洲电信标准组织ETSI制订的一个数字移动通信标准。GSM标准的无处不在使得在移动电话运营商之间签署&quot;漫游协定&quot;后用户的国际漫游变得很平常。 GSM 较之它以前的标准最大的不同是它的信令和语音信道都是数字式的，因此GSM被看作是第二代 (2G)移动电话系统 。</p>
-<ul>
-<li>
-<p>3G 第三代移动通信标准<br />
-3G是第三代移动通信技术，是指支持高速数据传输的蜂窝移动通讯技术。3G服务能够同时传送声音及数据信息。3G是将无线通信与国际互联网等多媒体通信结合的一代移动通信系统。</p>
-</li>
-<li>
-<p>4G 第四代移动通信标准<br />
-将WLAN技术和3G通信技术进行了很好的结合，使图像的传输速度更快，让传输图像的质量和图像看起来更加清晰。在智能通信设备中应用4G通信技术让用户的上网速度更加迅速，速度可以高达100M。<br />
-商业部署移动WiMAX标准，并首次公映长期演进(LTE)标准。</p>
-</li>
-<li>
-<p>Bluetooth 蓝牙<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/11.png" alt="bluetooth" /></p>
-</li>
-</ul>
-<p>单模式面向高度集成、紧凑的设备，使用一个轻量级连接层(Link Layer)提供超低功耗的待机模式操作、简单设备恢复和可靠的点对多点数据传输，还能让联网传感器在蓝牙传输中安排好低功耗蓝牙流量的次序，同时还有高级节能和安全加密连接。</p>
-<ul>
-<li>ZigBee<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/12.png" alt="Zigbee" /></li>
-</ul>
-<p>一套使用小型、低功耗数字的通信协议的高级规范。</p>
-<ul>
-<li>6LoWPAN<br />
-<img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Overview_of_IoT/13.png" alt="6LoWPAN" /></li>
-</ul>
-<p>6LoWPAN是低功率无线个人区域网络IPv6的首字母缩写。6lowpan组定义了封装和报头压缩机制，允许IPv6数据包通过基于IEEE 802.15.4的网络发送和接收。</p>
-<h3 id="on-information-integration-layer-信息集成层相关技术"><a class="markdownIt-Anchor" href="#on-information-integration-layer-信息集成层相关技术"></a> on Information integration layer 信息集成层相关技术</h3>
-<ul>
-<li>Database 数据库<br />
-数据库是有组织的数据集合。数据通常以支持需要此信息的流程的方式组织起来，以对现实的相关方面建模。</li>
-<li>Intelligent Information Processing 智能信息处理<br />
-智能信息处理是研究信息处理的基础理论。在这种情况下，人工智能（Artificial intelligence）技术可以成为有用的工具。智能系统可以应用于互联网搜索和数据挖掘（data-mining）、互联网衍生材料的解释（interpreting<br />
-Internet-derived material）、人机界面（ human Web interface）、远程状态监控（remote condition monitoringremote condition monitoring）等诸多领域。</li>
-<li>Cloud computing 云计算<br />
-云计算是指通过网络(通常是Internet)将计算资源(硬件和软件)作为服务交付。</li>
-<li>Network management 网络管理<br />
-Network management refers to the activities, methods, procedures, and tools that pertain to the operation, administration, maintenance, and provisioning of networked systems.<br />
-网络管理是指与网络系统的操作、管理、维护和供应相关的活动、方法、过程和工具。</li>
-<li>Information security 信息安全<br />
-Information security means protecting information and information systems from unauthorized access, use,disclosure, disruption, modification, perusal, inspection, recording or destruction.<br />
-信息安全是指保护信息和信息系统不受未经授权的访问、使用、泄露、破坏、修改、浏览、检查、记录或销毁。</li>
-</ul>
-<h2 id="15-development-of-iot-in-academia-and-industry-物联网在学术界和工业界的发展"><a class="markdownIt-Anchor" href="#15-development-of-iot-in-academia-and-industry-物联网在学术界和工业界的发展"></a> 1.5 Development of IoT in academia and industry 物联网在学术界和工业界的发展</h2>
-<ul>
-<li>Planetary Skin 行星皮肤<br />
-相关领域:水资源管理、食品安全、能源、保护<br />
-生物多样性，燃料，气候变化等。</li>
-<li>GreenOrbs<br />
-GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，包括温度、湿度、光照、二氧化碳滴度等。</li>
-<li>CitySee<br />
-无锡市城市二氧化碳传感器监测</li>
-<li>Logistics Management 物流管理</li>
-<li>Smart grid 智能电网</li>
-<li>Intelligent video surveillance  智能视频监控技术</li>
-<li>Intelligent traffic 智能交通</li>
-<li>Intelligent medical 智能制药</li>
-<li>Smart home 智能家居</li>
+<li>BeginReceive方法是一个异步方法，会开启一个新线程接收消息，为了防止消息接收冲突，我们采用与服务器接收客户端连接相同的思想，在接受一个消息的同时开启一个新的线程监听是否有新的消息。</li>
+<li>这里涉及到一个服务器关闭的方法，我们设立一个count去捕捉接收到的消息的字符数，正常消息无论如何是不会发送字符数为零的消息的，如果服务器捕捉到这种消息则可以当作客户端关闭进程的信号，主动关闭掉与其的连接。</li>
+<li>这里的msg是我实例化的一个消息类对象，专门用于消息的拆解，分发以及处理粘包分包情况的发生，会在另一篇博客中提及。</li>
+<li>在关闭客户端时不要忘记先断开其与数据库的连接，不然你懂得。</li>
 </ul>
 
             </div>
@@ -724,7 +654,7 @@ GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/Overview%20of%20IoT.html">http://www.jlccbzh.cn/Overview%20of%20IoT.html</a>
+                    <a href="http://www.jlccbzh.cn/Socket_ThreadControl.html">http://www.jlccbzh.cn/Socket_ThreadControl.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -762,8 +692,8 @@ GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/IoT/">
-                                    <span class="chip bg-color">IoT</span>
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C#</span>
                                 </a>
                             
                         </div>
@@ -1192,45 +1122,48 @@ GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/Sensing%20Technology%20of%20IoT.html">
+                <a href="/Socket_ThreadControl.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-medias.cdn.bcebos.com/posts/IoT/Sensing_Technologies_of_IoT/cover.png" class="responsive-img" alt="Sensing Technologies of IoT">
                         
-                        <span class="card-title">Sensing Technologies of IoT</span>
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/17.jpg" class="responsive-img" alt="Socket编程线程管理">
+                        
+                        <span class="card-title">Socket编程线程管理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            物联网传感器技术相关的详细介绍
+                            C/S模式下，C# Socket实现异步接入多个客户端连接
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Notes/" class="post-category">
-                                    Notes
+                            <a href="/categories/Unity/" class="post-category">
+                                    Unity
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/IoT/">
-                        <span class="chip bg-color">IoT</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C#</span>
                     </a>
                     
                 </div>
@@ -1244,23 +1177,24 @@ GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/Dijkstra.html">
+                <a href="/Machine_Learning_1.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-medias.cdn.bcebos.com/posts/DSA/Dijkstra/cover.png" class="responsive-img" alt="Dijkstra Algorithm">
                         
-                        <span class="card-title">Dijkstra Algorithm</span>
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/21.jpg" class="responsive-img" alt="Machine Learning Introduction">
+                        
+                        <span class="card-title">Machine Learning Introduction</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            寻找最短路径相关算法 —— Dijkstra Algorithm
+                            机器学习冲冲冲~~
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
                             </span>
                         <span class="publish-author">
                             
@@ -1277,8 +1211,8 @@ GreenOrbs实现了对森林的全年生态监测，采集各种感官数据，�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DSA/">
-                        <span class="chip bg-color">DSA</span>
+                    <a href="/tags/ML/">
+                        <span class="chip bg-color">ML</span>
                     </a>
                     
                 </div>

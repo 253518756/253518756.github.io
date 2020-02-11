@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jlccbzh.cn/"/>
-  <updated>2020-01-20T11:46:32.235Z</updated>
+  <updated>2020-02-11T05:13:27.933Z</updated>
   <id>http://www.jlccbzh.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Socket编程线程管理</title>
+    <link href="http://www.jlccbzh.cn/Socket_ThreadControl.html"/>
+    <id>http://www.jlccbzh.cn/Socket_ThreadControl.html</id>
+    <published>2020-02-11T01:25:00.000Z</published>
+    <updated>2020-02-11T05:13:27.933Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;啊。。。好久没有写博客了，可算是过了打代码的瘾。嗯不写博客知识加工的还是不够好，以后不能断更。是时候把十多天的收获总结一下了&lt;/li&gt;
+&lt;li&gt;从大一到大二也不知道为什么总是跳不出Unity的深坑哈哈，可能是喜欢做游戏？或者C#写起来比Java顺手，又或者对美工
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Unity" scheme="http://www.jlccbzh.cn/categories/Unity/"/>
+    
+    
+      <category term="C#" scheme="http://www.jlccbzh.cn/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>Machine Learning Introduction</title>
@@ -77,7 +106,7 @@
     <link href="http://www.jlccbzh.cn/Database_week2.html"/>
     <id>http://www.jlccbzh.cn/Database_week2.html</id>
     <published>2020-01-18T01:25:00.000Z</published>
-    <updated>2020-01-20T11:52:51.787Z</updated>
+    <updated>2020-01-21T01:19:50.295Z</updated>
     
     <summary type="html">
     
