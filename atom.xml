@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jlccbzh.cn/"/>
-  <updated>2020-02-11T05:13:27.933Z</updated>
+  <updated>2020-02-14T06:53:14.517Z</updated>
   <id>http://www.jlccbzh.cn/</id>
   
   <author>
@@ -15,6 +15,88 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ER Model &amp; Relation Model</title>
+    <link href="http://www.jlccbzh.cn/week2_Mapping%20model%20to%20relations.html"/>
+    <id>http://www.jlccbzh.cn/week2_Mapping%20model%20to%20relations.html</id>
+    <published>2020-02-13T01:25:00.000Z</published>
+    <updated>2020-02-14T06:53:14.517Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;mapping-er-model-concepts-to-relations-relations在foreign-key上的具体操作&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL语法</title>
+    <link href="http://www.jlccbzh.cn/week2_SQL.html"/>
+    <id>http://www.jlccbzh.cn/week2_SQL.html</id>
+    <published>2020-02-12T01:25:00.000Z</published>
+    <updated>2020-02-14T06:51:45.341Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;sql&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#sql&quot;&gt;&lt;/a&gt; SQL&lt;/h2&gt;
+&lt;h3 id=&quot;objectives&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EER Model</title>
+    <link href="http://www.jlccbzh.cn/week2_EER%20Modelling.html"/>
+    <id>http://www.jlccbzh.cn/week2_EER%20Modelling.html</id>
+    <published>2020-02-11T01:25:00.000Z</published>
+    <updated>2020-02-14T06:51:44.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;enhanced-entity-relationship-modelling-增强实体关系建模&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
+    
+  </entry>
   
   <entry>
     <title>Socket编程线程管理</title>
@@ -42,6 +124,89 @@
     
     
       <category term="C#" scheme="http://www.jlccbzh.cn/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ER Model</title>
+    <link href="http://www.jlccbzh.cn/week1_ER%20Modelling.html"/>
+    <id>http://www.jlccbzh.cn/week1_ER%20Modelling.html</id>
+    <published>2020-02-10T01:25:00.000Z</published>
+    <updated>2020-02-14T06:55:24.442Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;entity-relationshiper-modelling-实体关系模型-重点-多做练习题&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Relation Model</title>
+    <link href="http://www.jlccbzh.cn/week1_Relational%20Model.html"/>
+    <id>http://www.jlccbzh.cn/week1_Relational%20Model.html</id>
+    <published>2020-02-09T01:25:00.000Z</published>
+    <updated>2020-02-14T06:48:42.619Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;relational-model-关系模型&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#relational-model-关系模型&quot;&gt;&lt;/a&gt; Relational model 关系模型&lt;/h2&gt;
+&lt;h3
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Database Introduction</title>
+    <link href="http://www.jlccbzh.cn/week1_Introduction.html"/>
+    <id>http://www.jlccbzh.cn/week1_Introduction.html</id>
+    <published>2020-02-08T01:25:00.000Z</published>
+    <updated>2020-02-14T06:49:00.131Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;introduction&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#introduction&quot;&gt;&lt;/a&gt; Introduction&lt;/h2&gt;
+&lt;h3 id=&quot;三个数据库基本概念&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
     
   </entry>
   
@@ -102,33 +267,6 @@
   </entry>
   
   <entry>
-    <title>Database Week 2</title>
-    <link href="http://www.jlccbzh.cn/Database_week2.html"/>
-    <id>http://www.jlccbzh.cn/Database_week2.html</id>
-    <published>2020-01-18T01:25:00.000Z</published>
-    <updated>2020-01-21T01:19:50.295Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;enhanced-entity-relationship-modelling-增强实体关系建模&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Digital Circuit Week 1</title>
     <link href="http://www.jlccbzh.cn/Digital_Circuit_week1.html"/>
     <id>http://www.jlccbzh.cn/Digital_Circuit_week1.html</id>
@@ -152,34 +290,6 @@
     
     
       <category term="Digital Circuit" scheme="http://www.jlccbzh.cn/tags/Digital-Circuit/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Database Week 1</title>
-    <link href="http://www.jlccbzh.cn/Database_week1.html"/>
-    <id>http://www.jlccbzh.cn/Database_week1.html</id>
-    <published>2020-01-16T01:25:00.000Z</published>
-    <updated>2020-01-18T05:00:54.478Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;introduction&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#introduction&quot;&gt;&lt;/a&gt; Introduction&lt;/h2&gt;
-&lt;h3 id=&quot;三个数据库基本概念&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Database" scheme="http://www.jlccbzh.cn/tags/Database/"/>
     
   </entry>
   
@@ -457,121 +567,6 @@
     
     
       <category term="HTML&amp;CSS" scheme="http://www.jlccbzh.cn/tags/HTML-CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Transport layer</title>
-    <link href="http://www.jlccbzh.cn/Transport%20layer.html"/>
-    <id>http://www.jlccbzh.cn/Transport%20layer.html</id>
-    <published>2019-11-02T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.601Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;传输层概述&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#传输层概述&quot;&gt;&lt;/a&gt;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Computer Network" scheme="http://www.jlccbzh.cn/tags/Computer-Network/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reverse Polish Notation</title>
-    <link href="http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html"/>
-    <id>http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html</id>
-    <published>2019-10-24T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.603Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。&lt;/p&gt;
-&lt;h3 id=&quot;思路要点&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#思路要点&quot;&gt;&lt;/a&gt; 思路要点&lt;/h3&gt;
-&lt;h4 id=&quot;1-整个过程建立在栈的基础上实现&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="DSA" scheme="http://www.jlccbzh.cn/tags/DSA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Introduction to the Android</title>
-    <link href="http://www.jlccbzh.cn/Introduction%20to%20the%20Android.html"/>
-    <id>http://www.jlccbzh.cn/Introduction%20to%20the%20Android.html</id>
-    <published>2019-10-22T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.599Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;安卓应用开发特色&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#安卓应用开发特色&quot;&gt;&lt;/a&gt; 安卓应用开发特色&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;四大组件&lt;br /&gt;
-Activity，Service，Broadcast
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Android" scheme="http://www.jlccbzh.cn/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AVL Tree</title>
-    <link href="http://www.jlccbzh.cn/AVL%20Tree.html"/>
-    <id>http://www.jlccbzh.cn/AVL%20Tree.html</id>
-    <published>2019-09-28T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.600Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;注：本篇的介绍风格会偏笔记向，如果第一次接触AVL树实现，看完本文关于旋转实现的思想还未完全理解，可以看看下面我比较推荐的教程，也作为作者本文的参考博客。&lt;br /&gt;
-&lt;a href=&quot;https://b23.tv/av51157423/p1&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="DSA" scheme="http://www.jlccbzh.cn/tags/DSA/"/>
     
   </entry>
   

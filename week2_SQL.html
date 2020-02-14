@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Reverse Polish Notation, 学就完了">
-    <meta name="description" content="笔记向讲述中缀表达式向后缀表达式转换以及利用后缀表达式计算的基本原理与实现">
+    <meta name="keywords" content="SQL语法, 学就完了">
+    <meta name="description" content="数据库SQL语言详细语法">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Reverse Polish Notation | 学就完了</title>
+    <title>SQL语法 | 学就完了</title>
     <link rel="icon" type="image/png" href="https://blog-medias.cdn.bcebos.com/medias/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/posts/DSA/Reverse_Polish_Notation/cover.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-medias.cdn.bcebos.com/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Reverse Polish Notation</h1>
+                    <h1 class="description center-align post-title">SQL语法</h1>
                 </div>
             </div>
         </div>
@@ -439,8 +439,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DSA/">
-                                <span class="chip bg-color">DSA</span>
+                            <a href="/tags/DB/">
+                                <span class="chip bg-color">DB</span>
                             </a>
                         
                     </div>
@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-24
+                    2020-02-12
                 </div>
                 
 
@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    10 分
                 </div>
                 
 
@@ -496,245 +496,486 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>基本概念就不多介绍了，直接开始介绍思路以及容易踩的坑。</p>
-<h3 id="思路要点"><a class="markdownIt-Anchor" href="#思路要点"></a> 思路要点</h3>
-<h4 id="1-整个过程建立在栈的基础上实现"><a class="markdownIt-Anchor" href="#1-整个过程建立在栈的基础上实现"></a> 1. 整个过程建立在栈的基础上实现。</h4>
+                <h2 id="sql"><a class="markdownIt-Anchor" href="#sql"></a> SQL</h2>
+<h3 id="objectives"><a class="markdownIt-Anchor" href="#objectives"></a> Objectives</h3>
 <ul>
-<li>
-<p>需要准备的栈相关的函数：<br />
-Push: 压栈<br />
-Pop: 弹栈<br />
-Top: 查看栈顶元素<br />
-isEmpty: 判断栈是否为空</p>
-</li>
-<li>
-<p>建议用数组结构实现栈的结构体声名，书上说这样更符合未来实际开发。<br />
-关于实现方式的细节可以查看： <a href="https://www.cnblogs.com/tomato0906/articles/4620772.html" target="_blank" rel="noopener">三种栈的实现方式</a></p>
-</li>
+<li>Be able to retrieve data from database using SELECT<br />
+能够检索数据从数据库, <strong>SELECT</strong></li>
+<li>Use compound WHERE conditions.<br />
+使用复合条件, <strong>WHERE</strong>。</li>
+<li>Sort query results using ORDER BY.<br />
+对查询结果进行排序, <strong>ORDER BY</strong></li>
+<li>Use aggregate functions.<br />
+使用聚合函数。</li>
+<li>Group data using GROUP BY and HAVING.<br />
+组合数据，<strong>GROUP BY &amp; HAVING</strong></li>
+<li>Use subqueries.<br />
+子查询</li>
+<li>Join tables together.<br />
+将表连接在一起</li>
+<li>Perform set operations ,UNION, INTERSECT, EXCEPT.<br />
+执行集合操作, <strong>UNION, INTERSECT, EXCEPT</strong></li>
+<li>Be able to update database using INSERT, UPDATE, and DELETE.<br />
+更新数据库, <strong>INSERT, UPDATE, DELETE</strong></li>
 </ul>
-<h4 id="2-我们需要准备一个栈和两个字符型的数组"><a class="markdownIt-Anchor" href="#2-我们需要准备一个栈和两个字符型的数组"></a> 2. 我们需要准备一个栈和两个<strong>字符型</strong>的数组</h4>
+<h3 id="introduction-to-sql"><a class="markdownIt-Anchor" href="#introduction-to-sql"></a> Introduction to SQL</h3>
 <ul>
-<li>准备的栈的目的是改变原中缀表达式中符号的出场顺序，以一种适合计算机运算的出场顺序（后缀表达式）让计算机得到结果。<strong>这个栈内只能进出运算符号，跟数字没关系。</strong></li>
-<li>第一个字符组用来记录用户输入的中缀表达式  “input”<br />
-第二个字符组用来记录用户输出的后缀表达式  “Postfix”</li>
+<li>SQL is a transform-oriented language with 2 major components.</li>
 </ul>
-<h4 id="3-清晰划分各种符号的等级"><a class="markdownIt-Anchor" href="#3-清晰划分各种符号的等级"></a> 3. 清晰划分各种符号的等级</h4>
-<p>等级用于决定一个新的符号即将入栈时是否将符号栈中的原有的符号弹出</p>
+<h4 id="ddl-dml"><a class="markdownIt-Anchor" href="#ddl-dml"></a> DDL &amp; DML</h4>
 <ul>
-<li>level 2     <kbd>*</kbd> 和 <kbd>/</kbd></li>
-<li>level 1     <kbd>+</kbd> 和 <kbd>-</kbd></li>
-<li>level 0     <kbd>(</kbd> 和 <kbd>)</kbd></li>
+<li>Data definition language [DDL]:Create table, ALTER table, Drop table</li>
+<li>Data manipulation language [DML]:Insert, Delete, Update, Select.</li>
 </ul>
-<h4 id="4-中缀表达式的读取"><a class="markdownIt-Anchor" href="#4-中缀表达式的读取"></a> 4. 中缀表达式的读取</h4>
+<h3 id="条件语句集-condition"><a class="markdownIt-Anchor" href="#条件语句集-condition"></a> 条件语句集 Condition</h3>
 <ul>
-<li>读到数字直接写入后缀表达式 Postfix 的字符组</li>
-<li>读到字符(运算符)将字符交给处理字符比较的函数 “OperatorCmp”</li>
+<li>Compound Comparison Search Condition  复合比较搜索条件</li>
 </ul>
-<h4 id="5-operatorcmp-字符比较"><a class="markdownIt-Anchor" href="#5-operatorcmp-字符比较"></a> 5. OperatorCmp 字符比较</h4>
-<ul>
-<li>
-<p>传入两个参数 now 和 check<br />
-now 是在读取中缀表达式时识别到的字符，也是即将入栈的字符。<br />
-check 是通过Top函数返回的栈顶的元素。<br />
-这个函数目的在于通过now的级别和运算符种类，决定下一步栈中元素的动态。</p>
-</li>
-<li>
-<p><strong>栈中元素的改变</strong>(按照优先级顺序叙述,用else if)</p>
-<ul>
-<li>第一种情况：栈中没有元素，第一个运算符直接入栈（这种情况要在函数外进行特殊情况处理，因为函数需要传入栈顶元素值，栈空时强制传入值可能造成数组越界）</li>
-<li>第二种情况：now是<kbd>(</kbd>，直接将now压栈</li>
-<li>第三种情况：now是<kbd>)</kbd>，在阐述完后两种情况后再回来讲述。</li>
-<li>第四种情况：now.level &lt;= check.level<br />
-意味着这是<kbd>*</kbd>或<kbd>/</kbd>，这里我们要和栈顶元素进行比较。<br />
-<strong>如果 now.level &lt;= check.level 我们要将栈顶元素弹栈，将弹栈元素加入 Postfix 字符组中。</strong><br />
-这还没完！我们的比较还没有结束，根据后缀表达式的定义，我们很有可能掉进只将前面一个元素弹出的<strong>坑</strong>，我们的比较只有两个等级而且最后我们还会执行统一清栈的操作，如果这个位置不连续对栈顶元素进行比较，会将本该在这部分弹栈的元素在最后清栈的操作中弹出,由于我们只有两个等级，所以对最终计算结果没有影响，但如果等级变多(例如出现了^)或者某个OJ要求你输出后缀表达式，那就GG了。（测试:2 + 3 * 4 - 5  结果: 2 3 4 * + 5 -）<br />
-<strong>所以，我们要循环多次比较栈顶元素，直到 now.level &gt; check.level 循环跳出。</strong><br />
-最后不要忘记，将now压栈！结束。</li>
-<li>第五种情况：now.level &gt; check.level<br />
-将now压栈，结束。</li>
-<li>回过头来我们介绍第三种情况。识别到<kbd>)</kbd>时，我们应该做的操作是循环弹栈，直到识别到栈顶元素是<kbd>(</kbd>，那么问题来了，我们需不需像第四种和第五种情况一样考虑栈顶元素的等级决定是否弹栈呢？答案是不用，后括号前的元素已经帮你解决了这个难题，不然我们又要开启递归了。每个压栈元素触发的比较已经可以保证<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中</strong>就可以正常生成后缀表达式。<br />
-所以我们要做的操作就是识别到<kbd>(</kbd>之前，循环弹栈。<br />
-循环结束后完成。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://blog-medias.cdn.bcebos.com/posts/DSA/Reverse_Polish_Notation/1.png" alt="示例" /></p>
-<h4 id="6-清空字符栈"><a class="markdownIt-Anchor" href="#6-清空字符栈"></a> 6. 清空字符栈</h4>
-<ul>
-<li>将中缀表达式读取完后，后缀表达式 Postfix 还没有生成完毕，因为栈中会有剩余运算符元素，此处的处理方法等同于上面的第三种情况，可以想象将用户输入的中缀表达式两侧加上括号，自然解决办法相同。<br />
-<strong>逆序弹栈此时栈中剩余元素，将弹栈元素加入 Postfix 字符组中。</strong><br />
-至此完成全部操作。</li>
-</ul>
-<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
-<p>这里是一个要求根据中缀表达式生成后缀表达式并计算出结果的结果代码。以供参考。有一些细节写的繁琐的是因为适应我们校奇怪的oj系统…</p>
-<pre class="highlight"><code class="c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Operator</span>
-{</span>
-    <span class="hljs-keyword">char</span> moperator;
-    <span class="hljs-keyword">int</span> level;
-}Operator;
-Operator op[<span class="hljs-number">10</span>];
-
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkStack</span>
-{</span>
-    Operator opNodes[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> top;
-}LinkStack;
-LinkStack opstack;
-
-<span class="hljs-keyword">char</span> Postfix[<span class="hljs-number">100000</span>];
-<span class="hljs-keyword">int</span> PostfixNum = <span class="hljs-number">0</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitOperater</span><span class="hljs-params">()</span></span>{
-    op[<span class="hljs-number">0</span>].moperator = <span class="hljs-string">'+'</span>;
-    op[<span class="hljs-number">0</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">1</span>].moperator = <span class="hljs-string">'-'</span>;
-    op[<span class="hljs-number">1</span>].level = <span class="hljs-number">1</span>;
-    op[<span class="hljs-number">2</span>].moperator = <span class="hljs-string">'*'</span>;
-    op[<span class="hljs-number">2</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">3</span>].moperator = <span class="hljs-string">'/'</span>;
-    op[<span class="hljs-number">3</span>].level = <span class="hljs-number">2</span>;
-    op[<span class="hljs-number">4</span>].moperator = <span class="hljs-string">'('</span>;
-    op[<span class="hljs-number">4</span>].level = <span class="hljs-number">0</span>;
-    op[<span class="hljs-number">5</span>].moperator = <span class="hljs-string">')'</span>;
-    op[<span class="hljs-number">5</span>].level = <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">stack</span>.top == <span class="hljs-number">-1</span>);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top--;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>, Operator pushed)</span>
-</span>{
-    <span class="hljs-built_in">stack</span>.top++;
-    <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top] = pushed;
-}
-
-<span class="hljs-function">Operator <span class="hljs-title">Top</span><span class="hljs-params">(LinkStack &amp;<span class="hljs-built_in">stack</span>)</span>
-</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">stack</span>.opNodes[<span class="hljs-built_in">stack</span>.top];
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operatorCmp</span><span class="hljs-params">(LinkStack &amp;opstack,Operator now,Operator check)</span></span>{
-    <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">'('</span>){
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now.moperator == <span class="hljs-string">')'</span>){
-        now = Top(opstack);
-        pop(opstack);
-        check = Top(opstack);
-        <span class="hljs-keyword">while</span>(check.moperator != <span class="hljs-string">'('</span>){
-            Postfix[PostfixNum] = now.moperator;
-            PostfixNum++;
-            pop(opstack);
-            now = check;
-            check = Top(opstack);
-        }
-        Postfix[PostfixNum] = now.moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &gt;= now.level){
-    	   <span class="hljs-keyword">while</span>(check.level &gt;= now.level){
-        Postfix[PostfixNum] = check.moperator;
-        PostfixNum++;
-        pop(opstack);
-        <span class="hljs-keyword">if</span>(isEmpty(opstack))<span class="hljs-keyword">break</span>;
-        check = Top(opstack);
-	   }
-        push(opstack,now);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.level &lt; now.level)
-        push(opstack,now);
-}
-<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">FindSolution</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* Postfix)</span></span>{
-    <span class="hljs-keyword">double</span> Digit[<span class="hljs-number">100000</span>];
-    <span class="hljs-keyword">int</span> DigitNum = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-keyword">if</span>(Postfix[i]&gt;=<span class="hljs-string">'0'</span>&amp;&amp;Postfix[i]&lt;=<span class="hljs-string">'9'</span>){
-            Digit[DigitNum] = Postfix[i]-<span class="hljs-string">'0'</span>;
-            DigitNum++;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'+'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second+first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'-'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second-first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'*'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second*first;
-            DigitNum--;
-        }
-        <span class="hljs-keyword">if</span>(Postfix[i]==<span class="hljs-string">'/'</span>){
-            <span class="hljs-keyword">int</span> firstNum = DigitNum - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> secondNum = DigitNum - <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">double</span> first = Digit[firstNum];
-            <span class="hljs-keyword">double</span> second = Digit[secondNum];
-            Digit[secondNum]=second/first;
-            DigitNum--;
-        }
-    }
-    <span class="hljs-keyword">return</span> Digit[<span class="hljs-number">0</span>];
-}
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
-    InitOperater();
-    opstack.top = <span class="hljs-number">-1</span>;
-    <span class="hljs-keyword">char</span> s[<span class="hljs-number">100000</span>];
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,s);
-    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(s[i]!=<span class="hljs-string">'\0'</span>){
-        <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span>&amp;&amp;s[i] &lt;= <span class="hljs-string">'9'</span>) {
-            Postfix[PostfixNum] = s[i];
-            PostfixNum++;
-        }
-        <span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;= <span class="hljs-number">5</span>; j++){
-                <span class="hljs-keyword">if</span> (s[i] == op[j].moperator){
-                	<span class="hljs-keyword">if</span>(!isEmpty(opstack))operatorCmp(opstack,op[j],Top(opstack));
-                	<span class="hljs-keyword">else</span> push(opstack,op[j]);
-                }
-            }
-        }
-        i++;
-    }
-    <span class="hljs-keyword">while</span>(!isEmpty(opstack)){
-        Postfix[PostfixNum] = Top(opstack).moperator;
-        PostfixNum++;
-        pop(opstack);
-    }
-    <span class="hljs-keyword">double</span> solution = FindSolution(Postfix);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>,solution);
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;PostfixNum;i++){
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c "</span>,Postfix[i]);
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-
-
-
+<pre class="highlight"><code class="">WHERE column_name = “A” OR column_name = “B”;
+WHERE column_name1 = “A” AND column_name2 = “A”;
 </code></pre>
+<ul>
+<li>Comparison Search Condition  比较搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name &gt; 10000;
+WHERE column_name = 10000;
+</code></pre>
+<ul>
+<li>Range Search Condition  范围搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name BETWEEN 20000 AND 30000;
+</code></pre>
+<ul>
+<li>Pattern Matching  正则匹配</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name LIKE '%Glasgow%';
+WHERE column_name LIKE '_英_';
+</code></pre>
+<p><a href="https://blog.csdn.net/u014137165/article/details/69950883" target="_blank" rel="noopener">数据库查询模糊匹配</a></p>
+<ul>
+<li>NULL Search Condition  NULL搜索条件</li>
+</ul>
+<pre class="highlight"><code class="">WHERE column_name IS NULL;
+</code></pre>
+<h3 id="ddl命令集"><a class="markdownIt-Anchor" href="#ddl命令集"></a> DDL命令集</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创建数据库</td>
+<td><code>CREATE DATABASE database_name;</code></td>
+</tr>
+<tr>
+<td>展示所有数据库</td>
+<td><code>SHOW DATABASES;</code></td>
+</tr>
+<tr>
+<td>修改某数据库</td>
+<td><code>USE database_name;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>建立新的表 CREATE</li>
+</ul>
+<pre class="highlight"><code class="">CREATE TABLE table_name (
+    column_name data_type column_constraint,       # 列级约束性条件
+    No char(2) PRIMARY KEY，                       # eg1: 主键约束
+    BranchNo char(4) NOT NULL,                     # eg2：允许或不允许出现NULL
+    street varchar(45) DEFAULT NULL,               # eg3：默认为NULL
+    value integer(100) UNIQUE,                     # eg4：唯一性约束，值不能重复
+    table_constraint,                              # 表级约束条件
+    PRIMARY KEY (column_name),                     # eg1：主键约束
+    CHECK (column_name Condition),                 # eg2：条件约束
+    UNIQUE (column_name)                           # eg3：唯一性约束
+    )ENGINE = InnoDB DEFAULT CHARSET = utf8;       # table_constraint
+</code></pre>
+<ul>
+<li>删除一整张表 DELETE</li>
+</ul>
+<pre class="highlight"><code class="">DROP TABLE table_name;
+</code></pre>
+<ul>
+<li>修改表的属性</li>
+</ul>
+<pre class="highlight"><code class="">ALTER TABLE table_name RENAME table_name; # 修改表名
+ALTER TABLE table_name ADD column_name data_type column_constraint;  # 添加属性
+ALTER TABLE table_name DROP column_name;  # 删除属性
+</code></pre>
+<h3 id="dml命令集"><a class="markdownIt-Anchor" href="#dml命令集"></a> DML命令集</h3>
+<ul>
+<li>向表中添加行数据 INSERT</li>
+</ul>
+<pre class="highlight"><code class="">INSERT INTO table_name                       # 这里省略了表的各个属性
+VALUES
+('B004','26 Deer Rd','London','SW2 4WH'),
+('B001','27 Deer Rd','London','SW0 7EH');    #在表中添加多条数据
+</code></pre>
+<ul>
+<li>删除表中行数据 DELETE[这还]</li>
+</ul>
+<pre class="highlight"><code class="">DELETE FROM〈表名〉[WHERE〈条件〉]；
+
+修改某几行的属性值
+UPDATE〈表名〉
+SET〈列名〉=〈表达式〉[，〈列名〉=〈表达式〉][，…n]
+[where]
+</code></pre>
+<ul>
+<li>展示表中信息 SELECT</li>
+</ul>
+<pre class="highlight"><code class="">SELECT * FROM table_name;                               # 展示表中所有信息
+SELECT column_name1,column_name2 FROM table_name;       # 筛选表中的几个属性展示
+SELECT DISTINCT column_name FROM table_name;            # DISTINCT 展示被筛选属性的不同值，筛掉相同值
+</code></pre>
+<ul>
+<li>Calculated Fields 计算字段<br />
+将计算后的新结果以新名字标注的形式输出，但不会对表有改动</li>
+</ul>
+<pre class="highlight"><code class="">SELECT column_name/2 AS new_column_name FROM table_name;
+</code></pre>
+<h4 id="排序-ordering"><a class="markdownIt-Anchor" href="#排序-ordering"></a> 排序 Ordering</h4>
+<p>将排序的结果输出</p>
+<pre class="highlight"><code class="">SELECT * FROM column_name ORDER BY column_name ASC|DESC;               # ASC|DESC 升降序
+SELECT * FROM column_name ORDER BY column_name1 DESC,column_name2 ASC; # 按先后顺序排序
+</code></pre>
+<h4 id="aggregates-functions-聚合函数"><a class="markdownIt-Anchor" href="#aggregates-functions-聚合函数"></a> Aggregates functions  聚合函数</h4>
+<ol>
+<li>COUNT: returns <strong>number</strong> of values in specified column.</li>
+<li>SUM: returns <strong>sum</strong> of values in specified column.</li>
+<li>AVG: returns <strong>average</strong> of values in specified column.</li>
+<li>MIN: returns <strong>smallest</strong> value in specified column.</li>
+<li>MAX: returns <strong>largest</strong> value in specified column.</li>
+</ol>
+<hr />
+<h5 id="聚合函数使用条件"><a class="markdownIt-Anchor" href="#聚合函数使用条件"></a> 聚合函数使用条件</h5>
+<ol>
+<li>每个操作的对象都是一个属性对应的一列，返回值也是一个值</li>
+<li>关于值的类型是否为数字
+<ul>
+<li><strong>COUNT、MIN、MAX</strong>的使用属性对象可以是数字或非数字类型的</li>
+<li><strong>SUM、AVG</strong>的适用对象必须保证是数字类型的。</li>
+</ul>
+</li>
+<li>关于值为null的影响
+<ul>
+<li>除了<strong>COUNT</strong>函数，其他函数在检索某个列的所有值时会自动排除null值对应的项。</li>
+<li>COUNT函数会得到某个表中的所有项的数量，不管是不是null</li>
+</ul>
+</li>
+<li>关于使用DISTINCT产生的效果
+<ul>
+<li>复习一下，DISTINCT的作用是在处理数据时筛选掉值重复的行。</li>
+<li>对MIN、MAX没有效果</li>
+<li>对SUM、AVG、COUNT会产生效果</li>
+</ul>
+</li>
+<li>使用聚合函数必须在SELECT语句中使用</li>
+<li>SELECT语句不能同时选择一列和一个聚合函数组成一个新表(没有逻辑关系)，不过我们可以利用GROUP BY语句通过某一个属性值将行分类后依次执行聚合函数。</li>
+</ol>
+<hr />
+<h5 id="聚合函数的基本使用"><a class="markdownIt-Anchor" href="#聚合函数的基本使用"></a> 聚合函数的基本使用</h5>
+<ul>
+<li>COUNT（*）：统计所有行数量</li>
+</ul>
+<pre class="highlight"><code class="">SELECT COUNT(*) AS myCount
+FROM column_name
+(WHERE condition)
+</code></pre>
+<p>Result：</p>
+<table>
+<thead>
+<tr>
+<th>myCount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>COUNT（DISTINCT columnname）：统计某一列值不重复的数量</li>
+</ul>
+<pre class="highlight"><code class="">SELECT COUNT(DISTINCT column_name) AS myCount
+FROM column_name
+(WHERE condition)
+</code></pre>
+<p>Result：</p>
+<table>
+<thead>
+<tr>
+<th>myCount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>组合使用聚合函数</li>
+</ul>
+<pre class="highlight"><code class="">SELECT COUNT(DISTINCT column_name) AS myCount
+MIN(column_name) AS myMin
+AVG(column_name) AS myAvg
+FROM column_name
+(WHERE condition)
+</code></pre>
+<p>Result：</p>
+<table>
+<thead>
+<tr>
+<th>myCount</th>
+<th>myMin</th>
+<th>myAvg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>12000.00</td>
+<td>15000.00</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="聚合函数的分类语句-group-by"><a class="markdownIt-Anchor" href="#聚合函数的分类语句-group-by"></a> 聚合函数的分类语句- Group BY</h5>
+<ul>
+<li>
+<p>如果SELECT语句的对象属性中只包含聚合函数，他的聚合对象就是默认的全部行。</p>
+</li>
+<li>
+<p>如果我们想在聚合函数<strong>统计之前先将数据分类</strong>，分别得到每类的聚合结果，我们就需要用到该语句。</p>
+</li>
+<li>
+<p>如果条件语句(WHERE)与GROUP BY语句同时存在，一定要保证<strong>条件语句在前</strong>,因为我们想要得到的数据是通过条件语句筛选后再通过聚合函数计算得到的结果。</p>
+</li>
+<li>
+<p>GROUP BY 的使用</p>
+</li>
+</ul>
+<pre class="highlight"><code class="">SELECT COUNT(column_name) AS myCount
+AVG(column_name) AS myAvg
+FROM column_name
+(WHERE condition)
+GROUP BY group_column_name；
+</code></pre>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th>branchNo</th>
+<th>myCount</th>
+<th>myAvg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B001</td>
+<td>5</td>
+<td>14000.00</td>
+</tr>
+<tr>
+<td>B003</td>
+<td>3</td>
+<td>23000.00</td>
+</tr>
+<tr>
+<td>B005</td>
+<td>2</td>
+<td>18000.00</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.jianshu.com/p/8b135d373df1" target="_blank" rel="noopener">GROUP BY的例子</a></p>
+<hr />
+<h5 id="聚合函数分类的筛选语句-having"><a class="markdownIt-Anchor" href="#聚合函数分类的筛选语句-having"></a> 聚合函数分类的筛选语句- HAVING</h5>
+<ul>
+<li>HAVING和WHERE的功能是很相似的，不过HAVING语句是纯为GROUP BY语句服务的。</li>
+<li>HAVING的条件筛选对象是GROUP BY之后分出来的组</li>
+<li>WHERE的条件筛选对象是表中的每一行</li>
+<li>HAVING语句的语法是和条件语句的语法相同的，也可以叠加使用，按先后顺序进行筛选。</li>
+<li>HAVING 的使用</li>
+</ul>
+<pre class="highlight"><code class="">SELECT COUNT(column_name) AS myCount
+AVG(column_name) AS myAvg
+FROM column_name
+(WHERE condition)
+GROUP BY group_column_name
+HAVING COUNT(column_name) &gt; 2;
+</code></pre>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th>branchNo</th>
+<th>myCount</th>
+<th>myAvg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B001</td>
+<td>5</td>
+<td>14000.00</td>
+</tr>
+<tr>
+<td>B003</td>
+<td>3</td>
+<td>23000.00</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="subqueries-子查询"><a class="markdownIt-Anchor" href="#subqueries-子查询"></a> Subqueries 子查询</h4>
+<p><a href="https://www.cnblogs.com/Soprano/p/10659101.html" target="_blank" rel="noopener">子查询示例</a></p>
+<h5 id="subquery-with-equality-等式子查询"><a class="markdownIt-Anchor" href="#subquery-with-equality-等式子查询"></a> Subquery with Equality 等式子查询</h5>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE spec_column_name =
+(SELECT column_name
+FROM table_name
+WHERE column_name = 'Name')
+</code></pre>
+<ul>
+<li>括号内为子查询内容，它会将查询结果作为值赋给外部语句</li>
+<li>优先执行子查询语句，后执行外部语句</li>
+<li>等式子查询只能解决子查询语句返回单行数据的情况，多行数据需要用到IN语句</li>
+</ul>
+<hr />
+<h5 id="subquery-with-aggregate-聚合式子查询"><a class="markdownIt-Anchor" href="#subquery-with-aggregate-聚合式子查询"></a> Subquery with Aggregate 聚合式子查询</h5>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE spec_column_name =
+(SELECT AVG(column_name)
+FROM table_name)
+</code></pre>
+<ul>
+<li>这里注意聚合函数的语法，一个聚合函数没有返回值，它只能配合SELECT语句得到一张表，所以切忌这样使用。</li>
+</ul>
+<pre class="highlight"><code class="">WHERE salary &gt; AVG(salary)
+</code></pre>
+<ul>
+<li>子查询式SELECT得到的筛选列表必须包含至少一列属性，除非子查询语句使用EXISTS(返回值是bool值)</li>
+</ul>
+<hr />
+<h5 id="nested-subquery-嵌套子查询"><a class="markdownIt-Anchor" href="#nested-subquery-嵌套子查询"></a> Nested subquery 嵌套子查询</h5>
+<ol>
+<li>IN 用法</li>
+</ol>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE spec_column_name IN
+(SELECT column_name
+FROM table_name
+WHERE condition)
+</code></pre>
+<ul>
+<li>这里&quot;IN&quot;用来解决原本&quot;=&quot;为解决的问题，即如果子查询的结果<strong>不为一个单行的表</strong>（只有一条数据）的情况</li>
+</ul>
+<ol start="2">
+<li>ANY/SOME 用法</li>
+</ol>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE spec_column_name &gt; SOME(SELECT column_name
+FROM table_name
+WHERE condition)
+</code></pre>
+<ul>
+<li>ANY/SOME 含义相同</li>
+<li>两者起到的效果是将子查询返回的一张多行的表变成单行数据</li>
+<li>其创造的条件关系是只要满足子查询结果中<strong>任意一行数据</strong>即成立。</li>
+</ul>
+<ol start="3">
+<li>ALL 用法</li>
+</ol>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE spec_column_name &gt; ALL(SELECT column_name
+FROM table_name
+WHERE condition)
+</code></pre>
+<ul>
+<li>与ANY/SOME效果相同</li>
+<li>其创造的条件关系是要求满足子查询结果中<strong>每一行数据</strong>即成立。</li>
+</ul>
+<hr />
+<h4 id="multi-table-queries-多表查询"><a class="markdownIt-Anchor" href="#multi-table-queries-多表查询"></a> Multi-Table Queries 多表查询</h4>
+<ul>
+<li>在多表查询时，SELECT语句与单表查询相同，挑选你想得到的属性，逗号分隔。</li>
+<li>在单表查询时，FROM语句只能声明一张表，但在多表查询时可以将多张表作为筛选范围，逗号分割。</li>
+<li>在多表查询时，在表示某个表中属性时，若不涉及不同表中属性名相同，则属性的表归属可以省略，否则需要在前面声明其对应的表，用点连接</li>
+<li>在多表查询时，FROM语句中的表如果来自不同数据库，则需要声明数据库，数据库与表用空格连接</li>
+</ul>
+<pre class="highlight"><code class="">SELECT c.clientNo, fName, lName
+FROM Client c,Viewing v
+WHERE c.clientNo = v.clientNo
+</code></pre>
+<hr />
+<h5 id="多表查询计算法则"><a class="markdownIt-Anchor" href="#多表查询计算法则"></a> 多表查询计算法则</h5>
+<ul>
+<li>笛卡尔积法则：两个集合X和Y的笛卡尔积（Cartesian product），又称直积，表示为X × Y，第一个对象是X的成员而第二个对象是Y的所有可能有序对的其中一个成员。</li>
+<li>两张表通过计算笛卡尔积融合成一张表，再筛选出符合条件语句的行，生成一个新表。挑选SELECT语句中的属性进行显示。</li>
+<li>DISTINCT 可以筛选掉结果中的重复项</li>
+<li>ORDER BY 可以将筛选后的结果排序</li>
+</ul>
+<hr />
+<h5 id="existsnot-exists-用法"><a class="markdownIt-Anchor" href="#existsnot-exists-用法"></a> EXISTS/NOT EXISTS 用法</h5>
+<pre class="highlight"><code class="">SELECT column_name
+FROM column_name
+WHERE EXISTS(SELECT column_name
+FROM table_name
+WHERE condition)
+</code></pre>
+<ul>
+<li>可以类比聚合函数，EXISTS函数的返回值是TRUE/FALSE,即判断的是子查询语句是否有符合条件的数据，即<strong>子查询语句返回的是不是一个空表</strong>。</li>
+<li>EXISTS可以满足多表查询时检验分别在两张表的两个属性是否存在相等的情况，配合子查询灵活练习使用</li>
+</ul>
+<hr />
+<h5 id="union-用法"><a class="markdownIt-Anchor" href="#union-用法"></a> Union 用法</h5>
+<pre class="highlight"><code class="">(SELECT column_name
+FROM column_name
+WHERE condition)
+UNION
+(SELECT column_name
+FROM column_name
+WHERE condition)
+</code></pre>
+<ul>
+<li>作用是将多张表的数据合成到一张表中打出</li>
+<li>注意细节！Union的作用是将两张表中属性的值（tuple）合成，并不会在新的表中把属性合成改变列的数量。<br />
+<a href="https://www.w3school.com.cn/sql/sql_union.asp" target="_blank" rel="noopener">Union例子</a></li>
+</ul>
+<hr />
+<h5 id="update-用法"><a class="markdownIt-Anchor" href="#update-用法"></a> Update 用法</h5>
+<pre class="highlight"><code class="">UPDATE table_name
+SET column_name1 = 'Manager',
+    column_name2 = 18000
+(WHERE condition);
+</code></pre>
+<ul>
+<li>用于修改表中某一属性的数据</li>
+<li>如果不添加条件限制，更新对象就是表中对应属性的所有数据。</li>
+<li>新的值必须符合该属性的数据类型</li>
+</ul>
+<hr />
+<h5 id="delete-用法"><a class="markdownIt-Anchor" href="#delete-用法"></a> DELETE 用法</h5>
+<pre class="highlight"><code class="">DELETE FROM table_name
+(WHERE condition);
+</code></pre>
+<ul>
+<li>用于删除表中某一属性的数据</li>
+<li>如果不添加条件限制，将会删除表中所有行对应该属性的数据。</li>
+</ul>
 
             </div>
             <hr/>
@@ -760,7 +1001,7 @@ LinkStack opstack;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html">http://www.jlccbzh.cn/Reverse%20Polish%20Notation.html</a>
+                    <a href="http://www.jlccbzh.cn/week2_SQL.html">http://www.jlccbzh.cn/week2_SQL.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -798,8 +1039,8 @@ LinkStack opstack;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DSA/">
-                                    <span class="chip bg-color">DSA</span>
+                                <a href="/tags/DB/">
+                                    <span class="chip bg-color">DB</span>
                                 </a>
                             
                         </div>
@@ -1232,23 +1473,24 @@ LinkStack opstack;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/Transport%20layer.html">
+                <a href="/week2_Mapping%20model%20to%20relations.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-medias.cdn.bcebos.com/posts/Computer_Network/Transport_layer/cover.jpg" class="responsive-img" alt="Transport layer">
                         
-                        <span class="card-title">Transport layer</span>
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/23.jpg" class="responsive-img" alt="ER Model & Relation Model">
+                        
+                        <span class="card-title">ER Model & Relation Model</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSI协议栈中传输层的一些基本知识
+                            ER模型到关系模型的映射
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-13
                         </span>
                         <span class="publish-author">
                             
@@ -1265,8 +1507,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Computer-Network/">
-                        <span class="chip bg-color">Computer Network</span>
+                    <a href="/tags/DB/">
+                        <span class="chip bg-color">DB</span>
                     </a>
                     
                 </div>
@@ -1280,23 +1522,24 @@ LinkStack opstack;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/Introduction%20to%20the%20Android.html">
+                <a href="/week2_EER%20Modelling.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-medias.cdn.bcebos.com/posts/Android/Android_Introduction/cover.jpg" class="responsive-img" alt="Introduction to the Android">
                         
-                        <span class="card-title">Introduction to the Android</span>
+                        <img src="https://blog-medias.cdn.bcebos.com/featureimages/19.jpg" class="responsive-img" alt="EER Model">
+                        
+                        <span class="card-title">EER Model</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓开发基础知识
+                            数据库EER模型介绍
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-11
                             </span>
                         <span class="publish-author">
                             
@@ -1313,8 +1556,8 @@ LinkStack opstack;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/DB/">
+                        <span class="chip bg-color">DB</span>
                     </a>
                     
                 </div>
@@ -1489,6 +1732,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">
