@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jlccbzh.cn/"/>
-  <updated>2020-02-14T06:53:14.517Z</updated>
+  <updated>2020-02-15T07:12:16.031Z</updated>
   <id>http://www.jlccbzh.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>游戏机制简介</title>
+    <link href="http://www.jlccbzh.cn/Game.html"/>
+    <id>http://www.jlccbzh.cn/Game.html</id>
+    <published>2020-02-15T01:25:00.000Z</published>
+    <updated>2020-02-15T07:12:16.031Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;游戏机制简介&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#游戏机制简介&quot;&gt;&lt;/a&gt; 游戏机制简介&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;游戏机制模仿&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Game" scheme="http://www.jlccbzh.cn/categories/Game/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>ER Model &amp; Relation Model</title>
@@ -72,33 +99,6 @@
   </entry>
   
   <entry>
-    <title>EER Model</title>
-    <link href="http://www.jlccbzh.cn/week2_EER%20Modelling.html"/>
-    <id>http://www.jlccbzh.cn/week2_EER%20Modelling.html</id>
-    <published>2020-02-11T01:25:00.000Z</published>
-    <updated>2020-02-14T06:51:44.653Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;enhanced-entity-relationship-modelling-增强实体关系建模&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Socket编程线程管理</title>
     <link href="http://www.jlccbzh.cn/Socket_ThreadControl.html"/>
     <id>http://www.jlccbzh.cn/Socket_ThreadControl.html</id>
@@ -124,6 +124,33 @@
     
     
       <category term="C#" scheme="http://www.jlccbzh.cn/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EER Model</title>
+    <link href="http://www.jlccbzh.cn/week2_EER%20Modelling.html"/>
+    <id>http://www.jlccbzh.cn/week2_EER%20Modelling.html</id>
+    <published>2020-02-11T01:25:00.000Z</published>
+    <updated>2020-02-14T06:51:44.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;enhanced-entity-relationship-modelling-增强实体关系建模&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="DB" scheme="http://www.jlccbzh.cn/tags/DB/"/>
     
   </entry>
   
@@ -238,6 +265,33 @@
   </entry>
   
   <entry>
+    <title>Digital Circuit Week 1</title>
+    <link href="http://www.jlccbzh.cn/Digital_Circuit_week1.html"/>
+    <id>http://www.jlccbzh.cn/Digital_Circuit_week1.html</id>
+    <published>2020-01-18T01:25:00.000Z</published>
+    <updated>2020-01-19T18:27:39.705Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;overview-number-systems-codes&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview-number-systems-codes&quot;&gt;&lt;/a&gt; Overview: Number Systems
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
+    
+    
+      <category term="Digital Circuit" scheme="http://www.jlccbzh.cn/tags/Digital-Circuit/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java Week 1</title>
     <link href="http://www.jlccbzh.cn/Java_week1.html"/>
     <id>http://www.jlccbzh.cn/Java_week1.html</id>
@@ -263,33 +317,6 @@
     
     
       <category term="Java" scheme="http://www.jlccbzh.cn/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Digital Circuit Week 1</title>
-    <link href="http://www.jlccbzh.cn/Digital_Circuit_week1.html"/>
-    <id>http://www.jlccbzh.cn/Digital_Circuit_week1.html</id>
-    <published>2020-01-18T01:25:00.000Z</published>
-    <updated>2020-01-19T18:27:39.705Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;overview-number-systems-codes&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview-number-systems-codes&quot;&gt;&lt;/a&gt; Overview: Number Systems
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Notes" scheme="http://www.jlccbzh.cn/categories/Notes/"/>
-    
-    
-      <category term="Digital Circuit" scheme="http://www.jlccbzh.cn/tags/Digital-Circuit/"/>
     
   </entry>
   
@@ -540,33 +567,6 @@
     
     
       <category term="DSA" scheme="http://www.jlccbzh.cn/tags/DSA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CSS Programs</title>
-    <link href="http://www.jlccbzh.cn/CSS%20Programs.html"/>
-    <id>http://www.jlccbzh.cn/CSS%20Programs.html</id>
-    <published>2019-11-08T01:25:00.000Z</published>
-    <updated>2020-01-14T15:44:29.594Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;网页效果目前支持chromeie等浏览器移动端支持safari不支持安卓大部分浏览器&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#网页效果目前支持chromeie等浏览器移动端支持safari不支持安卓大部分浏览器&quot;&gt;&lt;/a&gt;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Practice" scheme="http://www.jlccbzh.cn/categories/Practice/"/>
-    
-    
-      <category term="HTML&amp;CSS" scheme="http://www.jlccbzh.cn/tags/HTML-CSS/"/>
     
   </entry>
   
